@@ -1,42 +1,85 @@
 # Bookmarked
 
-Bookmarked is a social reading platform that helps users track reading progress, discover books through friends, and stay motivated through lightweight social features.
+Bookmarked is a social books app with the emotional shape of Letterboxd and the cataloging itch of Rate Your Music. The current MVP focuses on three things: a browsable shelf, a recent-review feed, and a lightweight review composer.
 
-## Project Overview
-This repository contains the source code for Bookmarked, a class project focused on social product design and habit formation around reading.
+## Current MVP
 
-## Features
-- User profiles and friend connections
-- Reading progress tracking
-- Activity feed showing what others are reading
-- Book discovery and search
-- Notes and reactions
+- Browse a featured shelf of books with ratings, genres, and short blurbs.
+- Read a live-style review feed with scores and timestamps.
+- Post new reviews through a React client backed by an Express API.
+- Use a Postgres-ready Prisma schema for the next stage of persistence.
 
-## Tech Stack
-- Frontend: React with TypeScript
-- Backend: Node.js
-- Database: As configured in the project
-- Authentication: As configured in the project
+## Stack
 
-## Repository Structure
-The repository is currently in initial setup phase. Additional folders for frontend, backend, and other components will be added as the project develops.
+- Frontend: React, TypeScript, Vite
+- Backend: Express, TypeScript, Zod
+- Database layer: Prisma with Postgres schema
+- Workspace: npm workspaces
 
-## Running Locally
-This project is not deployed. To run locally:
+## Project Structure
 
-```bash
-git clone <REPO_URL>
-cd bookmarked
-npm install
-npm run dev
+```text
+frontend/  React app for the Bookmarked UI
+backend/   Express API, Prisma schema, and seed scaffold
 ```
 
-Additional environment setup may be required depending on local configuration.
+## Run Locally
 
-## Contributing
+1. Install dependencies:
 
-This project is for educational purposes. Contributions can be made via pull requests.
+	```bash
+	npm install
+	```
+
+2. Start both frontend and backend:
+
+	```bash
+	npm run dev
+	```
+
+3. Open the frontend at `http://localhost:5173`.
+
+The API runs on `http://localhost:4000`.
+
+## Database Setup
+
+The backend currently works with in-memory sample data so the MVP runs immediately. Prisma is already wired for a real Postgres database when you want persistence.
+
+1. Copy the backend environment template:
+
+	```bash
+	copy backend\.env.example backend\.env
+	```
+
+2. Update `DATABASE_URL` in `backend/.env`.
+
+3. Generate the Prisma client:
+
+	```bash
+	npm run prisma:generate --workspace backend
+	```
+
+4. Run migrations and seed data when ready:
+
+	```bash
+	npm run prisma:migrate --workspace backend
+	npm run prisma:seed --workspace backend
+	```
+
+## Build
+
+```bash
+npm run build
+```
+
+## Next Product Steps
+
+- User profiles and follow graph
+- Lists, shelves, and favorites
+- Reading status tracking
+- Search across a larger catalog
+- Persistent reviews stored in Postgres
 
 ## License
 
-This project is licensed under the MIT License. See the LICENSE file for details.
+MIT. See [LICENSE](LICENSE).
