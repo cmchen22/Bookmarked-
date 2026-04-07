@@ -21,6 +21,15 @@ const reviewSchema = z.object({
   review: z.string().min(20).max(600)
 })
 
+app.get('/', (_req, res) => {
+  res.json({
+    name: 'Bookmarked API',
+    ok: true,
+    frontend: 'http://localhost:5173',
+    routes: ['/health', '/api/books', '/api/reviews']
+  })
+})
+
 app.get('/health', (_req, res) => {
   res.json({ ok: true })
 })
