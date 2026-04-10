@@ -2,9 +2,10 @@ import { Route, Routes } from 'react-router-dom'
 
 import './App.css'
 import { DashboardPage } from './pages/DashboardPage'
+import { DiscoveryPage } from './pages/DiscoveryPage'
 import { LandingPage } from './pages/LandingPage'
 import { SocialMediaPage } from './pages/SocialMediaPage'
-import SignInPage from './pages/SignInPage' 
+import SignInPage from './pages/SignInPage'
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Route path="/dashboard" element={<DashboardPage />} />
       <Route path="/social" element={<SocialMediaPage />} />
       <Route path="/signin" element={<SignInPage />} />
+      <Route path="/discovery" element={<DiscoveryPage />} />
     </Routes>
   )
 }

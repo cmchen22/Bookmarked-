@@ -6,6 +6,10 @@
   text-decoration: none;
 }
 
+.brandmark-link {
+  color: inherit;
+}
+
 .topbar-actions {
   display: flex;
   align-items: center;
@@ -1070,6 +1074,241 @@
   font-size: 0.86rem;
 }
 
+.discovery-market-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  background:
+    linear-gradient(180deg, rgba(112, 78, 52, 0.18) 0%, rgba(112, 78, 52, 0) 140px),
+    linear-gradient(180deg, #f5f0e8 0%, #efe8de 100%);
+}
+
+.discovery-market-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.1rem 1.45rem;
+  border-radius: 0;
+  border-inline: 0;
+  border-top: 0;
+  background: linear-gradient(180deg, #6e4a34 0%, #4b3223 100%);
+  color: #f6efe5;
+  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.discovery-market-brand-row,
+.discovery-market-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.discovery-market-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.discovery-market-brand .brandmark-icon {
+  color: #f6efe5;
+}
+
+.discovery-market-brand strong {
+  display: block;
+  font-size: 1.1rem;
+}
+
+.discovery-market-brand span:last-child {
+  display: block;
+  margin-top: 0.15rem;
+  color: rgba(246, 239, 229, 0.72);
+  font-size: 0.82rem;
+}
+
+.discovery-market-action-pill,
+.discovery-market-post-button,
+.discovery-market-avatar,
+.discovery-market-chip {
+  font: inherit;
+}
+
+.discovery-market-action-pill,
+.discovery-market-post-button,
+.discovery-market-avatar {
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(120, 151, 95, 0.18);
+  color: #f7f2e8;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 0 0.9rem;
+  font-weight: 700;
+}
+
+.discovery-market-action-pill-active,
+.discovery-market-post-button,
+.discovery-market-avatar {
+  background: linear-gradient(180deg, #466743 0%, #375236 100%);
+  box-shadow: 0 8px 20px rgba(23, 34, 22, 0.18);
+}
+
+.discovery-market-action-pill {
+  cursor: default;
+}
+
+.discovery-market-avatar {
+  width: 40px;
+  padding: 0;
+  border-radius: 50%;
+}
+
+.discovery-market-filter-bar {
+  padding: 0.8rem 1.45rem 0.95rem;
+  background: linear-gradient(180deg, #a6b494 0%, #8a9b7d 100%);
+  border-bottom: 1px solid rgba(60, 75, 52, 0.14);
+}
+
+.discovery-market-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+}
+
+.discovery-market-chip {
+  border: 1px solid rgba(65, 84, 57, 0.1);
+  border-radius: 999px;
+  background: rgba(248, 246, 239, 0.82);
+  color: #56604d;
+  padding: 0.45rem 0.9rem;
+  cursor: pointer;
+  font-size: 0.84rem;
+  box-shadow: 0 2px 8px rgba(62, 74, 58, 0.1);
+}
+
+.discovery-market-chip.is-active {
+  background: linear-gradient(180deg, #55704c 0%, #40593a 100%);
+  color: #f8f4ea;
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.discovery-market-board {
+  flex: 1;
+  padding: 1.35rem 1.45rem 2.1rem;
+}
+
+.discovery-market-summary {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  padding: 0.9rem 1rem;
+  background: linear-gradient(180deg, #fbf7f0 0%, #f3ece0 100%);
+  border-radius: 12px;
+  color: #6d5c4a;
+  font-size: 0.88rem;
+}
+
+.discovery-market-summary span:first-child {
+  font-weight: 700;
+  color: #554634;
+}
+
+.discovery-market-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0.95rem;
+  margin-top: 1rem;
+}
+
+.discovery-market-card {
+  overflow: hidden;
+  border-radius: 10px;
+  background: linear-gradient(180deg, #77543b 0%, #503823 100%);
+  border: 1px solid rgba(83, 57, 35, 0.3);
+  box-shadow: 0 8px 18px rgba(67, 48, 33, 0.2);
+}
+
+.discovery-market-cover-wrap {
+  position: relative;
+  aspect-ratio: 1 / 0.94;
+  background: #d9cbb8;
+}
+
+.discovery-market-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.discovery-market-trending-badge {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  z-index: 1;
+  border-radius: 999px;
+  padding: 0.22rem 0.55rem;
+  background: rgba(51, 77, 43, 0.94);
+  color: #f7f2e7;
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+
+.discovery-market-card-body {
+  padding: 0.8rem 0.75rem 0.7rem;
+  color: #f4eadf;
+}
+
+.discovery-market-card-body h2 {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: 0.96rem;
+  line-height: 1.2;
+}
+
+.discovery-market-card-body p {
+  margin: 0.25rem 0 0;
+  color: rgba(244, 234, 223, 0.78);
+  font-size: 0.78rem;
+}
+
+.discovery-market-stats {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: 0.65rem;
+  color: rgba(252, 245, 235, 0.9);
+  font-size: 0.76rem;
+}
+
+.discovery-market-genre-tag {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 0.7rem;
+  padding: 0.3rem 0.55rem;
+  border-radius: 7px;
+  background: rgba(177, 194, 160, 0.88);
+  color: #4b5544;
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+
+.discovery-market-footer {
+  padding: 1rem 1.45rem 1.2rem;
+  text-align: center;
+  color: #efe2d5;
+  font-size: 0.86rem;
+  background: linear-gradient(180deg, #6c4a33 0%, #4f3524 100%);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
 @media (max-width: 1080px) {
   .landing-hero,
   .community-section,
@@ -1084,6 +1323,10 @@
 
   .dashboard-grid {
     grid-template-columns: 1fr;
+  }
+
+  .discovery-market-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
 
@@ -1148,5 +1391,34 @@
 
   .streak-score {
     text-align: left;
+  }
+
+  .discovery-market-topbar,
+  .discovery-market-summary {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .discovery-market-board,
+  .discovery-market-filter-bar,
+  .discovery-market-topbar,
+  .discovery-market-footer {
+    padding-inline: 1rem;
+  }
+
+  .discovery-market-actions {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .discovery-market-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 520px) {
+  .discovery-market-grid {
+    grid-template-columns: 1fr;
   }
 }
