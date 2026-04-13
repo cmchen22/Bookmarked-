@@ -48,7 +48,13 @@ export function LandingPage() {
         <nav className="landing-nav">
           <a href="#features">Features</a>
           <a href="#community">Community</a>
+          <Link to="/discovery">Discovery</Link>
           <Link to="/dashboard">Dashboard</Link>
+
+          {/* ✅ ADDED SIGN IN */}
+          <Link to="/signin" className="sign-in-btn">
+            Sign In
+          </Link>
         </nav>
       </header>
 
@@ -63,12 +69,17 @@ export function LandingPage() {
             </p>
 
             <div className="landing-cta-row">
+              <Link className="secondary-cta" to="/discovery">
+                Browse discovery
+              </Link>
               <Link className="primary-cta" to="/dashboard">
                 View dashboard
               </Link>
-              <a className="secondary-cta" href="#features">
-                Explore features
-              </a>
+
+              {/* ✅ ALSO ADD SIGN IN BUTTON HERE */}
+              <Link className="secondary-cta" to="/signin">
+                Sign In
+              </Link>
             </div>
 
             <div className="landing-proof-row">
