@@ -66,7 +66,10 @@ const HomePage = () => {
     return (
         <div className="home-page">
             <header className="home-topbar">
-                <div className="brand">📖 Bookmarked</div>
+                <div className="brand">
+                    <img src="/Logo.svg" alt="Bookmarked logo" className="logo" />
+                    <span>Bookmarked</span>
+                </div>
             <div className="topbar-actions">
             <button className="topbar-btn">↗ 7 Trending</button>
             <button className="topbar-btn">⊕ Post</button>

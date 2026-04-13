@@ -20,8 +20,12 @@
 }
 
 .brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   font-size: 1.8rem;
   font-weight: 600;
+  line-height: 1;
 }
 
 .topbar-actions {
@@ -389,4 +393,12 @@
   padding: 8px 0 10px;
   color: #f0e4d8;
   font-size: 0.9rem;
+}
+
+.logo {
+  height: 42px;
+  width: auto;
+  display: block;
+  object-fit: contain;
+  flex-shrink: 0;
 }
