@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 const trendingBooks = [
   {
     rank: 1,
@@ -111,7 +113,9 @@ export function SocialMediaPage() {
     <main className="social-shell">
       <section className="social-topbar card-surface">
         <div className="social-brand">
-          <span>Bookmarked</span>
+          <Link to="/">
+            <img src="/Logo.png" alt="Bookmarked" />
+          </Link>
         </div>
         <div className="social-search">
           <span>🔎</span>

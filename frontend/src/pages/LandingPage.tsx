@@ -41,7 +41,9 @@ export function LandingPage() {
     <div className="landing-shell">
       <header className="landing-topbar">
         <div className="brandmark brandmark-landing">
-          <span className="brandmark-icon">◫</span>
+          <Link to="/">
+            <img src="/Logo.png" alt="Bookmarked" />
+          </Link>
           <span>Bookmarked</span>
         </div>
 

@@ -466,6 +466,12 @@
   color: #4b3224;
 }
 
+.brandmark-landing img {
+  display: block;
+  height: 2.5rem;
+  width: auto;
+}
+
 .landing-nav {
   display: flex;
   align-items: center;
@@ -762,8 +768,12 @@
   display: inline-flex;
   align-items: center;
   gap: 0.75rem;
-  font-size: 1.05rem;
-  font-weight: 800;
+}
+
+.social-brand img {
+  display: block;
+  height: 2.5rem;
+  width: auto;
 }
 
 .social-search {
