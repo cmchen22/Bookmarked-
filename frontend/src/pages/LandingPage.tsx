@@ -50,6 +50,7 @@ export function LandingPage() {
           <a href="#community">Community</a>
           <Link to="/discovery">Discovery</Link>
           <Link to="/dashboard">Dashboard</Link>
+          <Link to="/social">Social</Link>
 
           {/* ✅ ADDED SIGN IN */}
           <Link to="/signin" className="sign-in-btn">
@@ -75,10 +76,8 @@ export function LandingPage() {
               <Link className="primary-cta" to="/dashboard">
                 View dashboard
               </Link>
-
-              {/* ✅ ALSO ADD SIGN IN BUTTON HERE */}
-              <Link className="secondary-cta" to="/signin">
-                Sign In
+              <Link className="secondary-cta" to="/social">
+                Social Feed
               </Link>
             </div>
 
