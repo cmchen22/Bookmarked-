@@ -75,10 +75,20 @@ export default function SignInPage() {
               color: "#4b2e2e",
               fontSize: "28px",
               fontWeight: "bold",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "8px",
             }}
           >
-            📚 Bookmarked
+            <img
+              src="/logo.png"
+              alt="logo"
+              style={{ width: "32px", height: "32px" }}
+            />
+            Bookmarked
           </Link>
+
           <p style={{ marginTop: "8px", color: "#7a6a58" }}>
             Your social space for books
           </p>
