@@ -82,7 +82,7 @@ export default function SignInPage() {
             }}
           >
             <img
-              src="/logo.png"
+              src="/Logo.png"
               alt="logo"
               style={{ width: "32px", height: "32px" }}
             />
