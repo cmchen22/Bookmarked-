@@ -1,15 +1,52 @@
+
+import { useEffect, useMemo, useState, type FormEvent } from 'react';
 import { Link } from 'react-router-dom'
+
+type RatingSource = 'google-books' | 'starter'
 
 type DiscoveryBook = {
 	id: string
 	title: string
 	author: string
 	genre: string
-	rating: string
-	reviews: string
+	rating: number
+	reviews: number
+	ratingSource: RatingSource
 	image: string
+	year?: number
+	publisher?: string
+	editionCount?: number
 	trending?: boolean
 	subtitle?: string
+}
+
+type OpenLibraryDoc = {
+	key?: string
+	cover_edition_key?: string
+	edition_key?: string[]
+	isbn?: string[]
+	title?: string
+	author_name?: string[]
+	subject?: string[]
+	cover_i?: number
+	subtitle?: string
+	first_publish_year?: number
+	publisher?: string[]
+	edition_count?: number
+}
+
+type OpenLibrarySearchResponse = {
+	docs?: OpenLibraryDoc[]
+	numFound?: number
+}
+
+type GoogleBooksResponse = {
+	items?: Array<{
+		volumeInfo?: {
+			averageRating?: number
+			ratingsCount?: number
+		}
+	}>
 }
 
 const genres = [
@@ -27,138 +64,235 @@ const genres = [
 	'Adventure',
 	'Poetry'
 ]
+const pageSize = 12
 
-const discoveryBooks: DiscoveryBook[] = [
-	{
-		id: 'midnight-library',
-		title: 'The Midnight Library',
-		author: 'Matt Haig',
-		genre: 'Fiction',
-		rating: '4.5',
-		reviews: '1247',
-		image:
-			'https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=900&q=80',
-		trending: true
-	},
-	{
-		id: 'gone-girl',
-		title: 'Gone Girl',
-		author: 'Gillian Flynn',
-		genre: 'Mystery',
-		rating: '4.8',
-		reviews: '2103',
-		image:
-			'https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=900&q=80',
-		trending: true
-	},
-	{
-		id: 'moby-dick',
-		title: 'Moby Dick',
-		author: 'Herman Melville',
-		genre: 'Fiction',
-		rating: '4.3',
-		reviews: '905',
-		image:
-			'https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=900&q=80',
-		subtitle: 'Herman Melville'
-	},
-	{
-		id: 'project-hail-mary',
-		title: 'Project Hail Mary',
-		author: 'Andy Weir',
-		genre: 'Science Fiction',
-		rating: '4.9',
-		reviews: '1856',
-		image:
-			'https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&w=900&q=80',
-		trending: true
-	},
-	{
-		id: 'house-of-dragons',
-		title: 'House of Dragons',
-		author: 'Jessica Cluess',
-		genre: 'Fantasy',
-		rating: '4.6',
-		reviews: '1234',
-		image:
-			'https://images.unsplash.com/photo-1516979187457-637abb4f9353?auto=format&fit=crop&w=900&q=80',
-		trending: true
-	},
-	{
-		id: 'all-the-light',
-		title: 'All the Light We Cannot See',
-		author: 'Anthony Doerr',
-		genre: 'Historical',
-		rating: '4.7',
-		reviews: '3421',
-		image:
-			'https://images.unsplash.com/photo-1519682577862-22b62b24e493?auto=format&fit=crop&w=900&q=80'
-	},
-	{
-		id: 'they-both-die',
-		title: 'They Both Die at the End',
-		author: 'Adam Silvera',
-		genre: 'Young Adult',
-		rating: '4.4',
-		reviews: '1567',
-		image:
-			'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=900&q=80'
-	},
-	{
-		id: 'educated',
-		title: 'Educated',
-		author: 'Tara Westover',
-		genre: 'Biography',
-		rating: '4.8',
-		reviews: '2890',
-		image:
-			'https://images.unsplash.com/photo-1524578271613-d550eacf6090?auto=format&fit=crop&w=900&q=80',
-		trending: true
-	},
-	{
-		id: 'atomic-habits',
-		title: 'Atomic Habits',
-		author: 'James Clear',
-		genre: 'Self-Help',
-		rating: '4.9',
-		reviews: '4123',
-		image:
-			'https://images.unsplash.com/photo-1516972810927-80185027ca84?auto=format&fit=crop&w=900&q=80',
-		trending: true
-	},
-	{
-		id: 'mexican-gothic',
-		title: 'Mexican Gothic',
-		author: 'Silvia Moreno-Garcia',
-		genre: 'Horror',
-		rating: '4.2',
-		reviews: '1098',
-		image:
-			'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80'
-	},
-	{
-		id: 'into-the-wild',
-		title: 'Into the Wild',
-		author: 'Jon Krakauer',
-		genre: 'Adventure',
-		rating: '4.5',
-		reviews: '2345',
-		image:
-			'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=900&q=80'
-	},
-	{
-		id: 'milk-and-honey',
-		title: 'Milk and Honey',
-		author: 'Rupi Kaur',
-		genre: 'Poetry',
-		rating: '4.3',
-		reviews: '1976',
-		image:
-			'https://images.unsplash.com/photo-1491841550275-ad7854e35ca6?auto=format&fit=crop&w=900&q=80'
+const starterRatingFromSeed = (seed: string) => {
+	let hash = 0
+	for (let index = 0; index < seed.length; index += 1) {
+		hash = (hash * 31 + seed.charCodeAt(index)) >>> 0
 	}
-]
+
+	const rating = 3.6 + (hash % 10) * 0.09
+	const reviews = 160 + (hash % 2200)
+
+	return {
+		rating: Number(rating.toFixed(1)),
+		reviews
+	}
+}
+
+const getGoogleBooksRating = async (
+	title: string,
+	author: string,
+	isbn: string | undefined,
+	signal: AbortSignal
+) => {
+	const attempts = [
+		isbn ? `isbn:${isbn}` : null,
+		`intitle:${title} inauthor:${author}`,
+		`intitle:${title}`
+	].filter((query): query is string => Boolean(query))
+
+	for (const query of attempts) {
+		const response = await fetch(
+			`https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(query)}&maxResults=1&printType=books`,
+			{ signal }
+		)
+
+		if (!response.ok) {
+			continue
+		}
+
+		const data = (await response.json()) as GoogleBooksResponse
+		const volumeInfo = data.items?.[0]?.volumeInfo
+		if (typeof volumeInfo?.averageRating === 'number' && typeof volumeInfo?.ratingsCount === 'number') {
+			return {
+				rating: Number(volumeInfo.averageRating.toFixed(1)),
+				reviews: volumeInfo.ratingsCount
+			}
+		}
+	}
+
+	return null
+}
+
+
+
+// Fetch books from Open Library API with genre and search
+const useOpenLibraryBooks = (searchTerm = 'bestseller', genre = 'All', page = 1) => {
+	const [books, setBooks] = useState<DiscoveryBook[]>([]);
+	const [error, setError] = useState<string | null>(null);
+	const [numFound, setNumFound] = useState(0);
+	const queryKey = `${searchTerm}|${genre}|${page}`
+	const [loadedQueryKey, setLoadedQueryKey] = useState('')
+	const loading = loadedQueryKey !== queryKey
+
+	useEffect(() => {
+		const controller = new AbortController()
+
+		let query = searchTerm || 'bestseller';
+		if (genre && genre !== 'All') {
+			query += `+subject:${encodeURIComponent(genre)}`;
+		}
+		fetch(`https://openlibrary.org/search.json?q=${encodeURIComponent(query)}&limit=${pageSize}&page=${page}`, {
+			signal: controller.signal
+		})
+			.then((res) => res.json() as Promise<OpenLibrarySearchResponse>)
+			.then(async (data) => {
+				// Sort by edition_count descending (proxy for popularity)
+				const sorted = (data.docs || []).sort((a, b) => (b.edition_count || 0) - (a.edition_count || 0));
+				setNumFound(data.numFound || 0);
+
+				const top = sorted.slice(0, pageSize)
+				const mapped = await Promise.all(
+					top.map(async (doc, index): Promise<DiscoveryBook> => {
+						const id = doc.key || doc.cover_edition_key || doc.edition_key?.[0] || `book-${page}-${index}`
+						const title = doc.title || 'Untitled'
+						const author = doc.author_name ? doc.author_name[0] : 'Unknown'
+						const starter = starterRatingFromSeed(id)
+						const googleRating = await getGoogleBooksRating(title, author, doc.isbn?.[0], controller.signal).catch(
+							() => null
+						)
+
+						return {
+							id,
+							title,
+							author,
+							genre: doc.subject ? doc.subject[0] : genre || 'Unknown',
+							rating: googleRating?.rating ?? starter.rating,
+							reviews: googleRating?.reviews ?? starter.reviews,
+							ratingSource: googleRating ? 'google-books' : 'starter',
+							image: doc.cover_i
+								? `https://covers.openlibrary.org/b/id/${doc.cover_i}-L.jpg`
+								: 'https://via.placeholder.com/150x220?text=No+Cover',
+							trending: index < 4 || (doc.edition_count ?? 0) > 240,
+							subtitle: doc.subtitle,
+							year: doc.first_publish_year,
+							publisher: doc.publisher ? doc.publisher[0] : undefined,
+							editionCount: doc.edition_count,
+						}
+					})
+				)
+
+				if (controller.signal.aborted) {
+					return
+				}
+
+				setBooks(mapped);
+				setError(null);
+				setLoadedQueryKey(queryKey)
+			})
+			.catch((fetchError: unknown) => {
+				if (fetchError instanceof DOMException && fetchError.name === 'AbortError') {
+					return
+				}
+
+				setError('Failed to load books. Please try again later.');
+				setLoadedQueryKey(queryKey)
+			});
+
+		return () => {
+			controller.abort()
+		}
+	}, [searchTerm, genre, page, queryKey]);
+
+	return { books, loading, error, numFound };
+};
 
 export function DiscoveryPage() {
+	const [selectedGenre, setSelectedGenre] = useState('All');
+	const [searchTerm, setSearchTerm] = useState('');
+	const [inputValue, setInputValue] = useState('');
+		const [minRating, setMinRating] = useState(0)
+		const [sortBy, setSortBy] = useState<'popularity' | 'rating' | 'reviews' | 'newest'>('popularity')
+		const [page, setPage] = useState(1);
+		const [trendingOnly, setTrendingOnly] = useState(false);
+		const [allBooks, setAllBooks] = useState<DiscoveryBook[]>([]);
+		const { books, loading, error, numFound } = useOpenLibraryBooks(searchTerm, selectedGenre, page);
+
+		// Infinite scroll: append books as pages load
+		// Remove setAllBooks from useEffect to avoid React anti-pattern
+		// Instead, append books in the scroll handler below
+
+		const visibleBooks = useMemo(() => {
+			const filtered = (page === 1 ? books : allBooks)
+				.filter((book) => book.rating >= minRating)
+				.filter((book) => !trendingOnly || book.trending)
+			const sorted = [...filtered]
+			switch (sortBy) {
+				case 'rating':
+					sorted.sort((left, right) => right.rating - left.rating)
+					break
+				case 'reviews':
+					sorted.sort((left, right) => right.reviews - left.reviews)
+					break
+				case 'newest':
+					// Newest by year
+					sorted.sort((left, right) => (right.year ?? 0) - (left.year ?? 0))
+					break
+				case 'popularity':
+				default:
+					sorted.sort((left, right) => (right.editionCount ?? 0) - (left.editionCount ?? 0))
+			}
+			return sorted
+		}, [books, allBooks, minRating, sortBy, trendingOnly, page])
+
+		const starterCount = visibleBooks.filter((book) => book.ratingSource === 'starter').length
+
+	// Handle search submit
+		const handleSearch = (e: FormEvent) => {
+			e.preventDefault();
+			setSearchTerm(inputValue);
+			setPage(1);
+			setAllBooks([]);
+		};
+
+	// Handle genre click
+		const handleGenreClick = (genre: string) => {
+			setSelectedGenre(genre);
+			setPage(1);
+			setAllBooks([]);
+		};
+
+		// Pagination controls (for fallback, but infinite scroll is default)
+		const handlePrevPage = () => {
+			setPage((p) => Math.max(1, p - 1));
+		};
+		const handleNextPage = () => {
+			setPage((p) => p + 1);
+		};
+
+		// Infinite scroll: load next page when near bottom and append books
+		useEffect(() => {
+			const onScroll = () => {
+				if (loading) return;
+				const scrollY = window.scrollY || window.pageYOffset;
+				const windowH = window.innerHeight;
+				const docH = document.documentElement.scrollHeight;
+				if (docH - (scrollY + windowH) < 320 && visibleBooks.length < numFound) {
+					setPage((p) => p + 1);
+					// Append books to allBooks
+					setAllBooks(prev => {
+						const ids = new Set(prev.map(b => b.id))
+						return [...prev, ...books.filter(b => !ids.has(b.id))]
+					})
+				}
+			};
+			window.addEventListener('scroll', onScroll);
+			return () => window.removeEventListener('scroll', onScroll);
+		}, [loading, visibleBooks.length, numFound, books]);
+
+			const handleResetFilters = () => {
+				setSelectedGenre('All')
+				setInputValue('')
+				setSearchTerm('')
+				setMinRating(0)
+				setSortBy('popularity')
+				setTrendingOnly(false)
+				setPage(1)
+				setAllBooks([])
+			}
+
 	return (
 		<main className="discovery-market-shell">
 			<section className="discovery-market-topbar card-surface">
@@ -173,8 +307,13 @@ export function DiscoveryPage() {
 				</div>
 
 				<div className="discovery-market-actions">
-					<button className="discovery-market-action-pill discovery-market-action-pill-active" type="button">
-						6 Trending
+					<button
+						className={`discovery-market-action-pill${trendingOnly ? ' discovery-market-action-pill-active' : ''}`}
+						type="button"
+						onClick={() => { setTrendingOnly((v) => !v); setPage(1); setAllBooks([]); }}
+						title="Show only trending books"
+					>
+						{trendingOnly ? 'Trending Only' : `${books.filter((book) => book.trending).length} Trending`}
 					</button>
 					<Link className="discovery-market-post-button" to="/social">
 						Post
@@ -185,49 +324,162 @@ export function DiscoveryPage() {
 				</div>
 			</section>
 
-			<section className="discovery-market-filter-bar">
-				<div className="discovery-market-chip-row">
-					{genres.map((genre, index) => (
-						<button
-							className={`discovery-market-chip ${index === 0 ? 'is-active' : ''}`}
-							key={genre}
-							type="button"
-						>
-							{genre}
-						</button>
-					))}
-				</div>
-			</section>
 
-			<section className="discovery-market-board">
-				<div className="discovery-market-summary card-surface">
-					<span>Showing 12 books</span>
-					<span>Sorted by user ratings and reviews</span>
-				</div>
+						<section className="discovery-market-filter-bar">
+							<form className="discovery-market-search-form" onSubmit={handleSearch}>
+								<input
+									className="discovery-market-search-input"
+									type="text"
+									placeholder="Search books or authors..."
+									value={inputValue}
+									onChange={e => setInputValue(e.target.value)}
+								/>
+								<button className="discovery-market-search-submit" type="submit">Search</button>
+								<button className="discovery-market-reset-button" onClick={handleResetFilters} type="button">
+									Clear
+								</button>
+							</form>
+							<div className="discovery-market-controls-row">
+								<label className="discovery-market-control">
+									<span>Sort</span>
+									<select
+										className="discovery-market-select"
+										value={sortBy}
+										onChange={(event) => setSortBy(event.target.value as 'popularity' | 'rating' | 'reviews' | 'newest')}
+									>
+										<option value="popularity">Most popular</option>
+										<option value="rating">Highest rating</option>
+										<option value="reviews">Most rated</option>
+										<option value="newest">Newest first</option>
+									</select>
+								</label>
+								<label className="discovery-market-control">
+									<span>Minimum rating</span>
+									<select
+										className="discovery-market-select"
+										value={minRating}
+										onChange={(event) => setMinRating(Number(event.target.value))}
+									>
+										<option value={0}>Any</option>
+										<option value={3.5}>3.5+</option>
+										<option value={4}>4.0+</option>
+										<option value={4.3}>4.3+</option>
+									</select>
+								</label>
+							</div>
+							<div className="discovery-market-chip-row">
+								{genres.map((genre) => (
+									<button
+										className={`discovery-market-chip${selectedGenre === genre ? ' is-active' : ''}`}
+										key={genre}
+										type="button"
+										onClick={() => handleGenreClick(genre)}
+									>
+										{genre}
+									</button>
+								))}
+							</div>
+						</section>
 
-				<div className="discovery-market-grid">
-					{discoveryBooks.map((book) => (
-						<article className="discovery-market-card" key={book.id}>
-							<div className="discovery-market-cover-wrap">
-								{book.trending ? <span className="discovery-market-trending-badge">Trending</span> : null}
-								<img alt={`${book.title} cover`} className="discovery-market-cover" src={book.image} />
+
+
+						<section className="discovery-market-board">
+							<div className="discovery-market-summary card-surface">
+								<span>
+									{loading
+										? 'Loading books...'
+										: error
+										? 'Error loading books'
+										: `Showing ${visibleBooks.length} of ${numFound} books`}
+								</span>
+								<span>
+									{loading
+										? 'Fetching rating data...'
+										: starterCount > 0
+										? <>
+											{starterCount} books use <span title="Starter estimate: fallback rating when no Google Books data is available. These are deterministic but not real user ratings.">starter estimate</span> scores
+										</>
+										: <>
+											All shown ratings sourced from <span title="Google Books: real user ratings from Google Books API.">Google Books</span>
+										</>}
+								</span>
 							</div>
 
-							<div className="discovery-market-card-body">
-								<h2>{book.title}</h2>
-								<p>{book.subtitle ?? book.author}</p>
+							{error ? (
+								<div className="discovery-market-error-state">{error}</div>
+							) : (
+								<>
+									<div className="discovery-market-grid">
+										{loading ? (
+											<div className="discovery-market-loading-wrap">
+												<span className="discovery-market-loader" />
+											</div>
+										) : visibleBooks.length === 0 ? (
+											<div className="discovery-market-empty-state">No books match these filters yet.</div>
+										) : (
+											visibleBooks.map((book) => (
+												<Link
+													className="discovery-market-card-link"
+													key={book.id}
+													state={{ book }}
+													to={`/discovery/${encodeURIComponent(book.id)}`}
+												>
+												<article className="discovery-market-card">
+													<div className="discovery-market-cover-wrap">
+														{book.trending ? (
+															<span className="discovery-market-trending-badge">Trending</span>
+														) : null}
+														<img
+															alt={`${book.title} cover`}
+															className="discovery-market-cover"
+															src={book.image}
+														/>
+													</div>
 
-								<div className="discovery-market-stats">
-									<span>{`Rating ${book.rating}`}</span>
-									<span>{book.reviews}</span>
-								</div>
-
-								<span className="discovery-market-genre-tag">{book.genre}</span>
-							</div>
-						</article>
-					))}
-				</div>
-			</section>
+													<div className="discovery-market-card-body">
+														<h2>{book.title}</h2>
+														<p>{book.subtitle ?? book.author}</p>
+														<div className="discovery-market-meta-row">
+															{book.author && <span>By {book.author}</span>}
+															{book.year && <span>{`• ${book.year}`}</span>}
+															{book.publisher && <span>{`• ${book.publisher}`}</span>}
+															{book.editionCount && <span>{`• ${book.editionCount} editions`}</span>}
+														</div>
+														<div className="discovery-market-stats">
+															<span>{`Rating ${book.rating.toFixed(1)}`}</span>
+															<span>{`${book.reviews.toLocaleString()} ratings`}</span>
+														</div>
+														<span className={`discovery-market-rating-source discovery-market-rating-source-${book.ratingSource}`}>
+															{book.ratingSource === 'google-books' ? 'Google Books' : 'Starter estimate'}
+														</span>
+														<span className="discovery-market-genre-tag">{book.genre}</span>
+													</div>
+												</article>
+												</Link>
+											))
+										)}
+									</div>
+									{/* Pagination Controls */}
+									<div className="discovery-market-pagination">
+										<button
+											onClick={handlePrevPage}
+											disabled={page === 1 || loading}
+											className="discovery-market-page-button"
+										>
+											Previous
+										</button>
+										<span className="discovery-market-page-label">Page {page}</span>
+										<button
+											onClick={handleNextPage}
+											disabled={loading || (page * pageSize >= numFound)}
+											className="discovery-market-page-button"
+										>
+											Next
+										</button>
+									</div>
+								</>
+							)}
+						</section>
 
 			<footer className="discovery-market-footer">
 				Discover your next favorite book - Driven by community reviews

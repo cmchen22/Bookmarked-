@@ -1195,10 +1195,83 @@
   border-bottom: 1px solid rgba(60, 75, 52, 0.14);
 }
 
+.discovery-market-search-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.discovery-market-search-input,
+.discovery-market-select {
+  border: 1px solid rgba(63, 81, 53, 0.2);
+  border-radius: 999px;
+  min-height: 38px;
+  background: rgba(246, 242, 232, 0.9);
+  color: #49563f;
+  font-size: 0.86rem;
+}
+
+.discovery-market-search-input {
+  padding: 0 0.9rem;
+  min-width: 230px;
+  flex: 1;
+}
+
+.discovery-market-search-input::placeholder {
+  color: rgba(73, 86, 63, 0.72);
+}
+
+.discovery-market-search-submit,
+.discovery-market-reset-button,
+.discovery-market-page-button {
+  border-radius: 999px;
+  min-height: 38px;
+  padding: 0 1rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.discovery-market-search-submit {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: linear-gradient(180deg, #466743 0%, #375236 100%);
+  color: #f6f2ea;
+}
+
+.discovery-market-reset-button {
+  border: 1px solid rgba(63, 81, 53, 0.2);
+  background: rgba(246, 242, 232, 0.9);
+  color: #4f5f44;
+}
+
+.discovery-market-controls-row {
+  display: flex;
+  align-items: end;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.7rem;
+}
+
+.discovery-market-control {
+  display: grid;
+  gap: 0.3rem;
+}
+
+.discovery-market-control span {
+  font-size: 0.72rem;
+  color: rgba(64, 76, 55, 0.86);
+  font-weight: 700;
+}
+
+.discovery-market-select {
+  padding: 0 0.8rem;
+}
+
 .discovery-market-chip-row {
   display: flex;
   flex-wrap: wrap;
   gap: 0.7rem;
+  margin-top: 0.8rem;
 }
 
 .discovery-market-chip {
@@ -1245,6 +1318,11 @@
   grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 0.95rem;
   margin-top: 1rem;
+}
+
+.discovery-market-card-link {
+  text-decoration: none;
+  color: inherit;
 }
 
 .discovery-market-card {
@@ -1299,6 +1377,15 @@
   font-size: 0.78rem;
 }
 
+.discovery-market-meta-row {
+  margin: 0.28rem 0 0.35rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  font-size: 0.74rem;
+  color: #e7d7c2;
+}
+
 .discovery-market-stats {
   display: flex;
   justify-content: space-between;
@@ -1306,6 +1393,26 @@
   margin-top: 0.65rem;
   color: rgba(252, 245, 235, 0.9);
   font-size: 0.76rem;
+}
+
+.discovery-market-rating-source {
+  display: inline-flex;
+  margin-top: 0.55rem;
+  padding: 0.25rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.discovery-market-rating-source-google-books {
+  background: rgba(148, 184, 136, 0.92);
+  color: #2f4a2a;
+}
+
+.discovery-market-rating-source-starter {
+  background: rgba(244, 219, 172, 0.9);
+  color: #664d28;
 }
 
 .discovery-market-genre-tag {
@@ -1320,6 +1427,60 @@
   font-weight: 700;
 }
 
+.discovery-market-error-state,
+.discovery-market-empty-state,
+.discovery-market-loading-wrap {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.discovery-market-error-state {
+  color: #a62f2f;
+  font-weight: 700;
+}
+
+.discovery-market-loader {
+  display: inline-block;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 4px solid rgba(54, 74, 46, 0.22);
+  border-top-color: #466743;
+  animation: discovery-spin 0.9s linear infinite;
+}
+
+.discovery-market-pagination {
+  display: flex;
+  justify-content: center;
+  gap: 0.85rem;
+  margin-top: 1.2rem;
+  align-items: center;
+}
+
+.discovery-market-page-button {
+  border: 1px solid rgba(76, 93, 66, 0.22);
+  background: rgba(248, 244, 235, 0.92);
+  color: #55654a;
+}
+
+.discovery-market-page-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.discovery-market-page-label {
+  color: #5f4e3e;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+@keyframes discovery-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .discovery-market-footer {
   padding: 1rem 1.45rem 1.2rem;
   text-align: center;
@@ -1327,6 +1488,225 @@
   font-size: 0.86rem;
   background: linear-gradient(180deg, #6c4a33 0%, #4f3524 100%);
   border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.book-record-shell {
+  min-height: 100vh;
+  padding: 1.1rem 1.4rem 2rem;
+  background: linear-gradient(180deg, #f7f3ea 0%, #efe9dc 100%);
+  color: #2f2923;
+}
+
+.book-record-header-row {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 0.8rem;
+  color: #695949;
+}
+
+.book-record-back-link {
+  color: #3b5a82;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.book-record-separator {
+  font-family: var(--sans);
+  font-size: 0.92rem;
+  letter-spacing: 0.25em;
+  color: #8b7c6b;
+}
+
+.book-record-main {
+  display: grid;
+  grid-template-columns: 290px minmax(0, 1fr);
+  gap: 1.1rem;
+}
+
+.book-record-cover-column {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.book-record-cover {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid rgba(79, 62, 47, 0.18);
+  box-shadow: 0 8px 24px rgba(61, 44, 30, 0.16);
+}
+
+.book-record-rate-card {
+  background: #f3ece0;
+  border: 1px solid rgba(96, 77, 60, 0.16);
+  border-radius: 10px;
+  padding: 0.8rem;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.book-record-rate-card h3 {
+  margin: 0;
+  font-size: 0.92rem;
+}
+
+.book-record-rate-button,
+.book-record-secondary-button,
+.book-record-add-button {
+  border-radius: 7px;
+  border: 1px solid rgba(86, 68, 54, 0.2);
+  min-height: 34px;
+  padding: 0 0.8rem;
+  background: #f8f4ec;
+  color: #3d332a;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.book-record-rate-button {
+  background: linear-gradient(180deg, #e0c484 0%, #caa35e 100%);
+  border-color: rgba(105, 83, 42, 0.3);
+}
+
+.book-record-content-column {
+  background: #faf6ee;
+  border: 1px solid rgba(96, 77, 60, 0.16);
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+.book-record-content-column h1 {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: 2rem;
+  line-height: 1.05;
+}
+
+.book-record-subline {
+  margin-top: 0.25rem;
+  color: #746654;
+  font-size: 0.9rem;
+}
+
+.book-record-metadata-grid {
+  margin-top: 0.9rem;
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  border-top: 1px solid rgba(100, 80, 64, 0.14);
+  border-left: 1px solid rgba(100, 80, 64, 0.14);
+}
+
+.book-record-metadata-grid dt,
+.book-record-metadata-grid dd {
+  margin: 0;
+  padding: 0.55rem 0.65rem;
+  border-right: 1px solid rgba(100, 80, 64, 0.14);
+  border-bottom: 1px solid rgba(100, 80, 64, 0.14);
+  font-size: 0.9rem;
+}
+
+.book-record-metadata-grid dt {
+  font-weight: 800;
+  color: #4b3f34;
+  background: rgba(236, 227, 212, 0.45);
+}
+
+.book-record-source-pill {
+  display: inline-flex;
+  margin-left: 0.45rem;
+  padding: 0.15rem 0.45rem;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  background: #dbe8d4;
+  color: #34552f;
+  font-weight: 700;
+}
+
+.book-record-synopsis,
+.book-record-issues,
+.book-record-reviews {
+  margin-top: 1rem;
+}
+
+.book-record-synopsis h2,
+.book-record-issues h2,
+.book-record-reviews h2 {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: 1.02rem;
+}
+
+.book-record-synopsis p {
+  margin-top: 0.45rem;
+  line-height: 1.58;
+  color: #3f352c;
+}
+
+.book-record-section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.book-record-section-head span {
+  font-size: 0.82rem;
+  color: #756555;
+}
+
+.book-record-issues ul {
+  margin: 0.55rem 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid rgba(100, 80, 64, 0.14);
+}
+
+.book-record-issues li {
+  display: grid;
+  grid-template-columns: 1.2fr 0.7fr 0.7fr 1fr;
+  gap: 0.65rem;
+  padding: 0.55rem 0.2rem;
+  border-bottom: 1px solid rgba(100, 80, 64, 0.12);
+  font-size: 0.86rem;
+}
+
+.book-record-review {
+  margin-top: 0.75rem;
+  padding: 0.75rem;
+  border: 1px solid rgba(93, 75, 59, 0.14);
+  border-radius: 8px;
+  background: #f7f1e5;
+}
+
+.book-record-review header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  align-items: center;
+  font-size: 0.82rem;
+  color: #5d4f41;
+}
+
+.book-record-review p {
+  margin: 0.5rem 0 0;
+  line-height: 1.5;
+}
+
+.book-record-loading,
+.book-record-error {
+  max-width: 700px;
+  margin: 4rem auto 1rem;
+  text-align: center;
+  padding: 1rem;
+  border-radius: 10px;
+  border: 1px solid rgba(86, 68, 54, 0.2);
+  background: #f8f3ea;
+  font-weight: 700;
+}
+
+.book-record-error {
+  color: #a12e2e;
 }
 
 @media (max-width: 1080px) {
@@ -1347,6 +1727,14 @@
 
   .discovery-market-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .book-record-main {
+    grid-template-columns: 1fr;
+  }
+
+  .book-record-cover-column {
+    max-width: 320px;
   }
 }
 
@@ -1434,6 +1822,38 @@
 
   .discovery-market-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .book-record-shell {
+    padding-inline: 1rem;
+  }
+
+  .book-record-metadata-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .book-record-issues li {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+  }
+
+  .discovery-market-search-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .discovery-market-search-input {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .discovery-market-controls-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .discovery-market-control {
+    width: 100%;
   }
 }
 

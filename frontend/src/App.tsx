@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router-dom'
 
 import './App.css'
+import { BookDetailPage } from './pages/BookDetailPage'
 import { DashboardPage } from './pages/DashboardPage'
 import { DiscoveryPage } from './pages/DiscoveryPage'
 import { LandingPage } from './pages/LandingPage'
@@ -17,6 +18,7 @@ function App() {
       <Route path="/social" element={<SocialMediaPage />} />
       <Route path="/signin" element={<SignInPage />} />
       <Route path="/discovery" element={<DiscoveryPage />} />
+      <Route path="/discovery/:bookId" element={<BookDetailPage />} />
     </Routes>
   )
 }
