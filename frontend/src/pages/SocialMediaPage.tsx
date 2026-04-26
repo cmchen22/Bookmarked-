@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 const trendingBooks = [
@@ -109,6 +110,75 @@ const feedPosts = [
 ]
 
 export function SocialMediaPage() {
+  const [selectedFilter, setSelectedFilter] = useState('All')
+  const [postLikes, setPostLikes] = useState(() => {
+    const initial = {}
+    feedPosts.forEach((post) => {
+      const key = `${post.handle}-${post.title}`
+      initial[key] = post.likes
+    })
+    return initial
+  })
+  const [showPostModal, setShowPostModal] = useState(false)
+  const [newPost, setNewPost] = useState({
+    title: '',
+    bookAuthor: '',
+    rating: 5,
+    genre: 'Fiction',
+    excerpt: '',
+  })
+  const [allPosts, setAllPosts] = useState(feedPosts)
+
+  const filteredPosts =
+    selectedFilter === 'All'
+      ? allPosts
+      : allPosts.filter((post) => post.genre === selectedFilter)
+
+  const handleLike = (postKey) => {
+    setPostLikes((prev) => ({
+      ...prev,
+      [postKey]: prev[postKey] + 1,
+    }))
+  }
+
+  const handlePostClick = () => {
+    setShowPostModal(true)
+  }
+
+  const handleCloseModal = () => {
+    setShowPostModal(false)
+    setNewPost({
+      title: '',
+      bookAuthor: '',
+      rating: 5,
+      genre: 'Fiction',
+      excerpt: '',
+    })
+  }
+
+  const handleSubmitPost = (e) => {
+    e.preventDefault()
+    const post = {
+      author: 'Your Name',
+      handle: '@yourhandle',
+      time: 'now',
+      title: newPost.title,
+      bookAuthor: newPost.bookAuthor,
+      rating: newPost.rating,
+      genre: newPost.genre,
+      excerpt: newPost.excerpt,
+      likes: 0,
+      comments: 0,
+    }
+    const postKey = `${post.handle}-${post.title}`
+    setAllPosts([post, ...allPosts])
+    setPostLikes((prev) => ({
+      ...prev,
+      [postKey]: 0,
+    }))
+    handleCloseModal()
+  }
+
   return (
     <main className="social-shell">
       <section className="social-topbar card-surface">
@@ -123,7 +193,7 @@ export function SocialMediaPage() {
         </div>
         <div className="social-button-row">
           <span className="social-pill">6 Trending</span>
-          <button className="primary-cta" type="button">
+          <button className="primary-cta" type="button" onClick={handlePostClick}>
             Post
           </button>
         </div>
@@ -134,32 +204,56 @@ export function SocialMediaPage() {
           <div className="social-meta card-surface">
             <div>
               <h1>Social feed</h1>
-              <span>6 reviews · Latest posts</span>
+              <span>{filteredPosts.length} reviews · Latest posts</span>
             </div>
             <div className="social-filter-row">
-              <button className="social-pill active" type="button">
+              <button
+                className={`social-pill ${selectedFilter === 'All' ? 'active' : ''}`}
+                type="button"
+                onClick={() => setSelectedFilter('All')}
+              >
                 All
               </button>
-              <button className="social-pill" type="button">
+              <button
+                className={`social-pill ${selectedFilter === 'Fiction' ? 'active' : ''}`}
+                type="button"
+                onClick={() => setSelectedFilter('Fiction')}
+              >
                 Fiction
               </button>
-              <button className="social-pill" type="button">
+              <button
+                className={`social-pill ${selectedFilter === 'Mystery' ? 'active' : ''}`}
+                type="button"
+                onClick={() => setSelectedFilter('Mystery')}
+              >
                 Mystery
               </button>
-              <button className="social-pill" type="button">
+              <button
+                className={`social-pill ${selectedFilter === 'Romance' ? 'active' : ''}`}
+                type="button"
+                onClick={() => setSelectedFilter('Romance')}
+              >
                 Romance
               </button>
-              <button className="social-pill" type="button">
+              <button
+                className={`social-pill ${selectedFilter === 'Science Fiction' ? 'active' : ''}`}
+                type="button"
+                onClick={() => setSelectedFilter('Science Fiction')}
+              >
                 Science Fiction
               </button>
-              <button className="social-pill" type="button">
+              <button
+                className={`social-pill ${selectedFilter === 'Fantasy' ? 'active' : ''}`}
+                type="button"
+                onClick={() => setSelectedFilter('Fantasy')}
+              >
                 Fantasy
               </button>
             </div>
           </div>
 
           <div className="social-feed">
-            {feedPosts.map((post) => (
+            {filteredPosts.map((post) => (
               <article key={`${post.handle}-${post.title}`} className="social-card">
                 <div className="social-card-header">
                   <div className="social-avatar">{post.author.charAt(0)}</div>
@@ -169,9 +263,6 @@ export function SocialMediaPage() {
                       {post.handle} · {post.time}
                     </span>
                   </div>
-                  <button className="ghost-link" type="button">
-                    •••
-                  </button>
                 </div>
 
                 <div className="social-post-book-card">
@@ -187,7 +278,12 @@ export function SocialMediaPage() {
                 <p className="social-card-text">{post.excerpt}</p>
 
                 <div className="social-card-footer">
-                  <button type="button">❤️ {post.likes}</button>
+                  <button 
+                    type="button"
+                    onClick={() => handleLike(`${post.handle}-${post.title}`)}
+                  >
+                    ❤️ {postLikes[`${post.handle}-${post.title}`]}
+                  </button>
                   <button type="button">💬 {post.comments}</button>
                   <button type="button">🔖 Save</button>
                 </div>
@@ -248,6 +344,118 @@ export function SocialMediaPage() {
           </section>
         </aside>
       </div>
+
+      {showPostModal && (
+        <div className="modal-overlay" onClick={handleCloseModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
+              <h2>Create a Post</h2>
+              <button
+                type="button"
+                className="modal-close"
+                onClick={handleCloseModal}
+              >
+                ✕
+              </button>
+            </div>
+            <form onSubmit={handleSubmitPost} className="post-form">
+              <div className="form-group">
+                <label htmlFor="title">Book Title</label>
+                <input
+                  id="title"
+                  type="text"
+                  value={newPost.title}
+                  onChange={(e) =>
+                    setNewPost({ ...newPost, title: e.target.value })
+                  }
+                  placeholder="Enter book title"
+                  required
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="author">Book Author</label>
+                <input
+                  id="author"
+                  type="text"
+                  value={newPost.bookAuthor}
+                  onChange={(e) =>
+                    setNewPost({ ...newPost, bookAuthor: e.target.value })
+                  }
+                  placeholder="Enter author name"
+                  required
+                />
+              </div>
+
+              <div className="form-row">
+                <div className="form-group">
+                  <label htmlFor="rating">Rating</label>
+                  <select
+                    id="rating"
+                    value={newPost.rating}
+                    onChange={(e) =>
+                      setNewPost({
+                        ...newPost,
+                        rating: parseInt(e.target.value),
+                      })
+                    }
+                  >
+                    <option value="1">1 ⭐</option>
+                    <option value="2">2 ⭐</option>
+                    <option value="3">3 ⭐</option>
+                    <option value="4">4 ⭐</option>
+                    <option value="5">5 ⭐</option>
+                  </select>
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="genre">Genre</label>
+                  <select
+                    id="genre"
+                    value={newPost.genre}
+                    onChange={(e) =>
+                      setNewPost({ ...newPost, genre: e.target.value })
+                    }
+                  >
+                    <option value="Fiction">Fiction</option>
+                    <option value="Mystery">Mystery</option>
+                    <option value="Romance">Romance</option>
+                    <option value="Science Fiction">Science Fiction</option>
+                    <option value="Fantasy">Fantasy</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="excerpt">Your Review</label>
+                <textarea
+                  id="excerpt"
+                  value={newPost.excerpt}
+                  onChange={(e) =>
+                    setNewPost({ ...newPost, excerpt: e.target.value })
+                  }
+                  placeholder="Share your thoughts about this book..."
+                  rows="4"
+                  required
+                />
+              </div>
+
+              <div className="form-actions">
+                <button
+                  type="button"
+                  className="secondary-cta"
+                  onClick={handleCloseModal}
+                >
+                  Cancel
+                </button>
+                <button type="submit" className="primary-cta">
+                  Post Review
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </main>
   )
 }
