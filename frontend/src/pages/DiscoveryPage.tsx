@@ -263,23 +263,30 @@ export function DiscoveryPage() {
 		};
 
 		// Infinite scroll: load next page when near bottom and append books
+		// Infinite scroll: load next page when near bottom (debounced, less sensitive)
 		useEffect(() => {
+			let debounce: number | null = null;
 			const onScroll = () => {
 				if (loading) return;
-				const scrollY = window.scrollY || window.pageYOffset;
-				const windowH = window.innerHeight;
-				const docH = document.documentElement.scrollHeight;
-				if (docH - (scrollY + windowH) < 320 && visibleBooks.length < numFound) {
-					setPage((p) => p + 1);
-					// Append books to allBooks
-					setAllBooks(prev => {
-						const ids = new Set(prev.map(b => b.id))
-						return [...prev, ...books.filter(b => !ids.has(b.id))]
-					})
-				}
+				if (debounce) clearTimeout(debounce);
+				debounce = setTimeout(() => {
+					const scrollY = window.scrollY || window.pageYOffset;
+					const windowH = window.innerHeight;
+					const docH = document.documentElement.scrollHeight;
+					if (docH - (scrollY + windowH) < 120 && visibleBooks.length < numFound) {
+						setPage((p) => p + 1);
+						setAllBooks(prev => {
+							const ids = new Set(prev.map(b => b.id))
+							return [...prev, ...books.filter(b => !ids.has(b.id))]
+						})
+					}
+				}, 200);
 			};
 			window.addEventListener('scroll', onScroll);
-			return () => window.removeEventListener('scroll', onScroll);
+			return () => {
+				window.removeEventListener('scroll', onScroll);
+				if (debounce) clearTimeout(debounce);
+			};
 		}, [loading, visibleBooks.length, numFound, books]);
 
 			const handleResetFilters = () => {
@@ -335,8 +342,17 @@ export function DiscoveryPage() {
 									onChange={e => setInputValue(e.target.value)}
 								/>
 								<button className="discovery-market-search-submit" type="submit">Search</button>
-								<button className="discovery-market-reset-button" onClick={handleResetFilters} type="button">
-									Clear
+								<button className="discovery-market-reset-button prominent" onClick={handleResetFilters} type="button" title="Clear all filters and search">
+									🧹 Clear All
+								</button>
+								<button className="discovery-market-random-button" type="button" title="Jump to a random book" onClick={() => {
+										const pool = visibleBooks.length > 0 ? visibleBooks : books;
+										if (pool.length === 0) return;
+										const idx = Math.floor(Math.random() * pool.length);
+										const book = pool[idx];
+										window.location.href = `/discovery/${encodeURIComponent(book.id)}`;
+									}}>
+									🎲 Random Book
 								</button>
 							</form>
 							<div className="discovery-market-controls-row">
@@ -449,10 +465,22 @@ export function DiscoveryPage() {
 															<span>{`Rating ${book.rating.toFixed(1)}`}</span>
 															<span>{`${book.reviews.toLocaleString()} ratings`}</span>
 														</div>
-														<span className={`discovery-market-rating-source discovery-market-rating-source-${book.ratingSource}`}>
+														<span className={`discovery-market-rating-source discovery-market-rating-source-${book.ratingSource}`}
+															title={book.ratingSource === 'google-books'
+																? 'Google Books: real user ratings from Google Books API.'
+																: 'Starter estimate: fallback rating when no Google Books data is available. These are deterministic but not real user ratings.'}
+														>
 															{book.ratingSource === 'google-books' ? 'Google Books' : 'Starter estimate'}
+															<span style={{marginLeft: 4, cursor: 'help'}} title={book.ratingSource === 'google-books'
+																? 'Google Books: real user ratings from Google Books API.'
+																: 'Starter estimate: fallback rating when no Google Books data is available. These are deterministic but not real user ratings.'}>ℹ️</span>
 														</span>
-														<span className="discovery-market-genre-tag">{book.genre}</span>
+														{Array.isArray(book.genre)
+															? book.genre.map((g, i) => (
+																<span key={g + i} className="discovery-market-genre-tag">{g}</span>
+															))
+															: <span className="discovery-market-genre-tag">{book.genre}</span>
+														}
 													</div>
 												</article>
 												</Link>
