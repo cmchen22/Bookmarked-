@@ -149,7 +149,7 @@ export function DashboardPage() {
     <div className="dashboard-shell">
       <header className="topbar">
         <Link className="brandmark brandmark-link" to="/">
-          <span className="brandmark-icon">◫</span>
+          <img src="/Logo.png" alt="Bookmarked logo" className="brandmark-icon" style={{ width: '32px', height: '32px' }} />
           <span>Bookmarked</span>
         </Link>
         <div className="topbar-actions">

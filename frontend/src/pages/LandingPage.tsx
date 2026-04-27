@@ -5,7 +5,7 @@ export function LandingPage() {
     <div className="landing-shell">
       <header className="landing-topbar">
         <div className="brandmark brandmark-landing">
-          <img src="/Logo.png" alt="Bookmarked logo" className="brandmark-icon" />
+          <img src="/Logo.png" alt="Bookmarked logo" className="brandmark-icon" style={{ width: '32px', height: '32px' }} />
           <span>Bookmarked</span>
         </div>
 
@@ -36,6 +36,10 @@ export function LandingPage() {
 
               <Link className="secondary-cta" to="/discovery">
                 Find your next favorite book
+              </Link>
+
+              <Link className="tertiary-cta" to="/social">
+                Connect with readers from all over the world
               </Link>
             </div>
           </div>
