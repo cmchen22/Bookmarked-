@@ -402,3 +402,34 @@
   object-fit: contain;
   flex-shrink: 0;
 }
+
+.book-group-btn,
+.decor-btn {
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-end;
+}
+
+.book-group-btn {
+  flex-direction: row;
+  gap: 10px;
+  height: 100%;
+}
+
+.decor-btn {
+  align-self: flex-end;
+  margin: 0 12px;
+}
+
+.book-group-btn:hover .book,
+.decor-btn:hover .decor-item {
+  transform: translateY(-6px);
+}
+
+.book,
+.decor-item {
+  transition: transform 0.18s ease;
+}

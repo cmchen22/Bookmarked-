@@ -4,6 +4,8 @@ import "./HomePage.css";
 const HomePage = () => {
     const rows = [
         {
+            bookLabel: "Want to Read",
+            bookPath: "/want-to-read",
             books: [
                 { height: 150, color: "#6b4f3a" },
                 { height: 165, color: "#3f6b43" },
@@ -17,9 +19,14 @@ const HomePage = () => {
                 { height: 166, color: "#1f6d63" },
                 { height: 154, color: "#9c7a53" },
             ],
-            decor: ["candle", "plant"],
+            decor: [
+                { type: "candle", label: "Reviews", path: "/reviews" },
+                { type: "plant", label: "Community", path: "/social" },
+            ],
         },
         {
+            bookLabel: "Currently Reading",
+            bookPath: "/currently-reading",
             books: [
                 { height: 152, color: "#5d4b7c" },
                 { height: 146, color: "#5a4632" },
@@ -31,9 +38,14 @@ const HomePage = () => {
                 { height: 172, color: "#5c7693" },
                 { height: 170, color: "#2f6483" },
             ],
-            decor: ["clock", "stack"],
+            decor: [
+                { type: "clock", label: "Reading Progress", path: "/progress" },
+                { type: "stack", label: "Lists", path: "/lists" },
+            ],
         },
         {
+            bookLabel: "Have Read",
+            bookPath: "/have-read",
             books: [
                 { height: 145, color: "#9a4d58" },
                 { height: 170, color: "#8a8c91" },
@@ -46,9 +58,15 @@ const HomePage = () => {
                 { height: 172, color: "#7b6f67" },
                 { height: 180, color: "#5c4b88" },
             ],
-            decor: ["candleSmall", "globe", "bookStackLeft"],
+            decor: [
+                { type: "candleSmall", label: "Favorites", path: "/favorites" },
+                { type: "globe", label: "Discover", path: "/discovery" },
+                { type: "bookStackLeft", label: "Book Lists", path: "/lists" },
+            ],
         },
-        { 
+        {
+            bookLabel: "More Books",
+            bookPath: "/books",
             books: [
                 { height: 152, color: "#9a4b37" },
                 { height: 148, color: "#6d84a0" },
@@ -59,7 +77,10 @@ const HomePage = () => {
                 { height: 160, color: "#7a6930" },
                 { height: 172, color: "#3f7a53" },
             ],
-            decor: ["magnifier", "bear"],
+            decor: [
+                { type: "magnifier", label: "Search", path: "/search" },
+                { type: "bear", label: "Profile", path: "/profile" },
+            ],
         },
     ];
 
@@ -78,16 +99,21 @@ const HomePage = () => {
         </header>
 
         <main className="bookshelf-wrapper">
-            {rows.map((row, index) => (
-                <BookshelfRow key={index} books={row.books} decor={row.decor} />
-            ))}
-        </main>
+        {rows.map((row, index) => (
+          <BookshelfRow
+            key={index}
+            books={row.books}
+            decor={row.decor}
+            bookLabel={row.bookLabel}
+            bookPath={row.bookPath}
+          />
+        ))}
+      </main>
 
-        <footer className="home-footer">
-            Discover your next favorite book • Driven by community reviews
-        </footer>
+      <footer className="home-footer">
+        Discover your next favorite book • Driven by community reviews
+      </footer>
     </div>
-    );   
+  );
 };
-
 export default HomePage;

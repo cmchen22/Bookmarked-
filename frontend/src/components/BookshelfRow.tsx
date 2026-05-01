@@ -1,38 +1,64 @@
 import Book from "./Book";
 import DecorItem from "./DecorItem";
 
-type BookType = {
+type BookData = {
   height: number;
   color: string;
 };
 
-type BookshelfRowProps = {
-  books: BookType[];
-  decor: string[];
+type DecorData = {
+  type: string;
+  label: string;
+  path: string;
 };
 
-const BookshelfRow = ({ books, decor }: BookshelfRowProps) => {
+type BookshelfRowProps = {
+  books: BookData[];
+  decor: DecorData[];
+  bookLabel: string;
+  bookPath: string;
+};
+
+const BookshelfRow = ({ books, decor, bookLabel, bookPath }: BookshelfRowProps) => {
+  const middleIndex = Math.ceil(books.length / 2);
+  const leftBooks = books.slice(0, middleIndex);
+  const rightBooks = books.slice(middleIndex);
+
   return (
     <div className="shelf-row">
       <div className="shelf-inner">
-        {books.slice(0, 4).map((book, index) => (
-          <Book key={`first-${index}`} height={book.height} color={book.color} />
+        <button
+          className="book-group-btn"
+          onClick={() => console.log(bookPath)}
+          aria-label={bookLabel}
+        >
+          {leftBooks.map((book, index) => (
+            <Book key={`left-${index}`} height={book.height} color={book.color} />
+          ))}
+        </button>
+
+        {decor.map((item, index) => (
+          <button
+            key={index}
+            className="decor-btn"
+            onClick={() => console.log(item.path)}
+            aria-label={item.label}
+          >
+            <DecorItem type={item.type} />
+          </button>
         ))}
 
-        {decor[0] && <DecorItem type={decor[0]} />}
-
-        {books.slice(4, 7).map((book, index) => (
-          <Book key={`middle-${index}`} height={book.height} color={book.color} />
-        ))}
-
-        {decor[1] && <DecorItem type={decor[1]} />}
-
-        {books.slice(7).map((book, index) => (
-          <Book key={`last-${index}`} height={book.height} color={book.color} />
-        ))}
+        <button
+          className="book-group-btn"
+          onClick={() => console.log(bookPath)}
+          aria-label={bookLabel}
+        >
+          {rightBooks.map((book, index) => (
+            <Book key={`right-${index}`} height={book.height} color={book.color} />
+          ))}
+        </button>
       </div>
     </div>
   );
 };
-
 export default BookshelfRow;
