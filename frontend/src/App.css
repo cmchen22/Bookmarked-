@@ -524,6 +524,54 @@
   padding: 1.2rem 0.4rem 1.2rem 0;
 }
 
+.landing-showcase {
+  padding: 1.2rem;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(244, 227, 205, 0.86));
+  border: 1px solid rgba(115, 93, 74, 0.18);
+  display: grid;
+  place-items: center;
+}
+
+.landing-carousel {
+  position: relative;
+  width: min(100%, 300px);
+  min-height: 440px;
+  padding: 1rem;
+  border-radius: 24px;
+  background: radial-gradient(circle at top, rgba(255, 255, 255, 0.96), rgba(234, 210, 183, 0.94));
+  overflow: hidden;
+  box-shadow: 0 20px 46px rgba(58, 39, 24, 0.16);
+}
+
+.landing-carousel-track {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  transition: transform 0.8s ease;
+}
+
+.landing-cover {
+  width: 200px;
+  height: 350px;
+  object-fit: cover;
+  border-radius: 22px;
+  box-shadow: 0 24px 45px rgba(20, 16, 14, 0.18);
+  opacity: 1.0;
+  transform: scale(0.88);
+  transition: opacity 0.8s ease, transform 0.8s ease, filter 0.8s ease;
+}
+
+.landing-cover.active {
+  opacity: 1;
+  transform: scale(1);
+  filter: drop-shadow(0 24px 36px rgba(20, 16, 14, 0.22));
+}
+
+.landing-cover:not(.active) {
+  filter: grayscale(0.3) brightness(0.86);
+}
+
 .landing-kicker {
   margin: 0;
   text-transform: uppercase;
