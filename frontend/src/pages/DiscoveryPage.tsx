@@ -427,9 +427,16 @@ export function DiscoveryPage() {
 								<>
 									<div className="discovery-market-grid">
 										{loading ? (
-											<div className="discovery-market-loading-wrap">
-												<span className="discovery-market-loader" />
-											</div>
+											Array.from({ length: 12 }).map((_, i) => (
+												<div key={i} className="skeleton-card">
+													<div className="skeleton-cover" />
+													<div className="skeleton-body">
+														<div className="skeleton-line skeleton-line-title" />
+														<div className="skeleton-line skeleton-line-sub" />
+														<div className="skeleton-line skeleton-line-short" />
+													</div>
+												</div>
+											))
 										) : visibleBooks.length === 0 ? (
 											<div className="discovery-market-empty-state">No books match these filters yet.</div>
 										) : (

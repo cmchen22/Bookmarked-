@@ -43,6 +43,13 @@
   padding: 10px 16px;
   font-size: 0.95rem;
   cursor: pointer;
+  transition: background 0.18s ease, transform 0.18s ease;
+}
+
+.topbar-btn:hover,
+.profile-btn:hover {
+  background: #3d6645;
+  transform: translateY(-1px);
 }
 
 .profile-btn {

@@ -57,11 +57,7 @@ export function LandingPage() {
               </Link>
 
               <Link className="secondary-cta" to="/discovery">
-                Find your next favorite book
-              </Link>
-
-              <Link className="tertiary-cta" to="/social">
-                Connect with readers from all over the world
+                Browse Books
               </Link>
             </div>
           </div>

@@ -84,7 +84,7 @@ const readingItems: ReadingItem[] = [
   {
     id: 'moby-dick',
     title: 'Moby Dick',
-    author: 'Erin Morgenstern',
+    author: 'Herman Melville',
     progress: 59,
     progressLabel: '59% Complete',
     sessionTime: '8h 32m',

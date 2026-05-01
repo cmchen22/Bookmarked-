@@ -1,11 +1,15 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import "./SignInPage.css";
+
+type StatusMsg = { type: "success" | "error"; text: string } | null;
 
 export default function SignInPage() {
   const [isNewUser, setIsNewUser] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(
-    localStorage.getItem("bookmarkedUser") ? true : false
+    !!localStorage.getItem("bookmarkedUser")
   );
+  const [status, setStatus] = useState<StatusMsg>(null);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -18,12 +22,12 @@ export default function SignInPage() {
       const newUser = { name, email, password };
       localStorage.setItem("bookmarkedUser", JSON.stringify(newUser));
       setIsLoggedIn(true);
-      alert("Account created and signed in.");
+      setStatus({ type: "success", text: "Account created — welcome!" });
     } else {
       const savedUser = localStorage.getItem("bookmarkedUser");
 
       if (!savedUser) {
-        alert("No account found. Please sign up first.");
+        setStatus({ type: "error", text: "No account found. Please sign up first." });
         return;
       }
 
@@ -31,9 +35,9 @@ export default function SignInPage() {
 
       if (parsedUser.email === email && parsedUser.password === password) {
         setIsLoggedIn(true);
-        alert("Signed in successfully.");
+        setStatus({ type: "success", text: "Signed in successfully." });
       } else {
-        alert("Invalid email or password.");
+        setStatus({ type: "error", text: "Invalid email or password." });
       }
     }
 
@@ -44,188 +48,84 @@ export default function SignInPage() {
 
   const handleSignOut = () => {
     setIsLoggedIn(false);
-    alert("Signed out successfully.");
+    setStatus({ type: "success", text: "You have been signed out." });
   };
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#f3ebdf",
-        padding: "20px",
-      }}
-    >
-      <div
-        style={{
-          width: "400px",
-          padding: "32px",
-          borderRadius: "18px",
-          backgroundColor: "#fffaf3",
-          boxShadow: "0 6px 18px rgba(0,0,0,0.12)",
-        }}
-      >
-        <div style={{ textAlign: "center", marginBottom: "24px" }}>
-          <Link
-            to="/"
-            style={{
-              textDecoration: "none",
-              color: "#4b2e2e",
-              fontSize: "28px",
-              fontWeight: "bold",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "8px",
-            }}
-          >
-            <img
-              src="/Logo.png"
-              alt="logo"
-              style={{ width: "32px", height: "32px" }}
-            />
+    <div className="signin-shell">
+      <div className="signin-card">
+        <div className="signin-brand">
+          <Link to="/" className="signin-brand-link">
+            <img src="/Logo.png" alt="Bookmarked logo" />
             Bookmarked
           </Link>
-
-          <p style={{ marginTop: "8px", color: "#7a6a58" }}>
-            Your social space for books
-          </p>
+          <p className="signin-tagline">Your social space for books</p>
         </div>
 
+        {status && (
+          <p className={`signin-status ${status.type}`}>{status.text}</p>
+        )}
+
         {isLoggedIn ? (
-          <div style={{ textAlign: "center" }}>
-            <h2 style={{ color: "#4b2e2e", marginBottom: "16px" }}>
-              You are signed in
-            </h2>
-            <button
-              onClick={handleSignOut}
-              style={{
-                width: "100%",
-                padding: "12px",
-                border: "none",
-                borderRadius: "8px",
-                backgroundColor: "#6b4f3a",
-                color: "white",
-                fontSize: "16px",
-                cursor: "pointer",
-              }}
-            >
+          <div className="signin-logged-in">
+            <h2>You are signed in</h2>
+            <button className="signin-signout-btn" onClick={handleSignOut}>
               Sign Out
             </button>
           </div>
         ) : (
           <>
-            <div
-              style={{
-                display: "flex",
-                marginBottom: "20px",
-                borderRadius: "10px",
-                overflow: "hidden",
-                border: "1px solid #d8cbb8",
-              }}
-            >
+            <div className="signin-tab-row">
               <button
-                onClick={() => setIsNewUser(false)}
-                style={{
-                  flex: 1,
-                  padding: "12px",
-                  border: "none",
-                  backgroundColor: !isNewUser ? "#6b4f3a" : "#f5efe6",
-                  color: !isNewUser ? "white" : "#4b2e2e",
-                  cursor: "pointer",
-                }}
+                className={`signin-tab ${!isNewUser ? "active" : "inactive"}`}
+                onClick={() => { setIsNewUser(false); setStatus(null); }}
               >
-                Existing User
+                Sign In
               </button>
               <button
-                onClick={() => setIsNewUser(true)}
-                style={{
-                  flex: 1,
-                  padding: "12px",
-                  border: "none",
-                  backgroundColor: isNewUser ? "#6b4f3a" : "#f5efe6",
-                  color: isNewUser ? "white" : "#4b2e2e",
-                  cursor: "pointer",
-                }}
+                className={`signin-tab ${isNewUser ? "active" : "inactive"}`}
+                onClick={() => { setIsNewUser(true); setStatus(null); }}
               >
-                New User
+                Create Account
               </button>
             </div>
 
-            <form onSubmit={handleAuth}>
+            <form className="signin-form" onSubmit={handleAuth}>
               {isNewUser && (
                 <>
-                  <label style={{ display: "block", marginBottom: "8px" }}>
-                    Name
-                  </label>
+                  <label className="signin-label">Name</label>
                   <input
+                    className="signin-input"
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    placeholder="Enter your name"
-                    style={{
-                      width: "100%",
-                      padding: "12px",
-                      marginBottom: "16px",
-                      borderRadius: "8px",
-                      border: "1px solid #ccc",
-                    }}
+                    placeholder="Your name"
                     required
                   />
                 </>
               )}
 
-              <label style={{ display: "block", marginBottom: "8px" }}>
-                Email
-              </label>
+              <label className="signin-label">Email</label>
               <input
+                className="signin-input"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter your email"
-                style={{
-                  width: "100%",
-                  padding: "12px",
-                  marginBottom: "16px",
-                  borderRadius: "8px",
-                  border: "1px solid #ccc",
-                }}
+                placeholder="you@example.com"
                 required
               />
 
-              <label style={{ display: "block", marginBottom: "8px" }}>
-                Password
-              </label>
+              <label className="signin-label">Password</label>
               <input
+                className="signin-input"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="Enter your password"
-                style={{
-                  width: "100%",
-                  padding: "12px",
-                  marginBottom: "20px",
-                  borderRadius: "8px",
-                  border: "1px solid #ccc",
-                }}
+                placeholder="••••••••"
                 required
               />
 
-              <button
-                type="submit"
-                style={{
-                  width: "100%",
-                  padding: "12px",
-                  border: "none",
-                  borderRadius: "8px",
-                  backgroundColor: "#6b4f3a",
-                  color: "white",
-                  fontSize: "16px",
-                  cursor: "pointer",
-                }}
-              >
+              <button className="signin-submit" type="submit">
                 {isNewUser ? "Create Account" : "Sign In"}
               </button>
             </form>
