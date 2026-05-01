@@ -56,19 +56,29 @@
 .bookshelf-wrapper {
   flex: 1;
   min-height: 0;
-  overflow: hidden;
-  padding: 20px 40px 16px;
+
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  align-items: center;
+
+  gap: 12px;
+  padding: 12px 0;
+
+  overflow: hidden;
 }
 
 .shelf-row {
   flex: 1;
   min-height: 0;
+
+  width: 90%;
+  max-width: 1100px;
+  margin: 0 auto;
+
   background: #d8c7a8;
   border-radius: 8px;
-  padding: 12px 24px 10px;
+  padding: 10px 20px;
+
   box-shadow:
     0 6px 18px rgba(0, 0, 0, 0.22),
     inset 0 -4px 0 #af9775,
@@ -77,20 +87,17 @@
 
 .shelf-inner {
   height: 100%;
-  min-height: 0;
   display: flex;
   align-items: flex-end;
+  justify-content: center;
   gap: 10px;
 }
 
 .book {
-  width: 40px;
-  border-radius: 4px;
-  position: relative;
-  box-shadow:
-    0 6px 10px rgba(0, 0, 0, 0.18),
-    inset -4px 0 0 rgba(0, 0, 0, 0.12),
-    inset 1px 0 0 rgba(255, 255, 255, 0.08);
+  width: clamp(18px, 2vw, 40px);
+  height: auto;
+
+  max-height: 80%;
 }
 
 .book-shine {
@@ -414,9 +421,10 @@
 }
 
 .book-group-btn {
+  display: flex;
   flex-direction: row;
+  align-items: flex-end;
   gap: 10px;
-  height: 100%;
 }
 
 .decor-btn {
