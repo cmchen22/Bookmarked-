@@ -2,9 +2,10 @@ type BookProps = {
   height: number;
   color: string;
   width?: number;
+  tilt?: number;
 };
 
-const Book = ({ height, color, width = 40 }: BookProps) => {
+const Book = ({ height, color, width = 40, tilt = 0 }: BookProps) => {
   return (
     <div
       className="book"
@@ -12,6 +13,7 @@ const Book = ({ height, color, width = 40 }: BookProps) => {
         height: `${height}px`,
         width: `${width}px`,
         backgroundColor: color,
+        transform: `rotate(${tilt}deg)`,
       }}
     >
       <div className="book-line top"></div>

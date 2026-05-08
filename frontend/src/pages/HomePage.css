@@ -441,3 +441,21 @@
 .decor-item {
   transition: transform 0.18s ease;
 }
+
+.book-btn,
+.decor-btn {
+  border: none;
+  outline: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-end;
+}
+
+.book-btn:focus,
+.book-btn:focus-visible,
+.decor-btn:focus,
+.decor-btn:focus-visible {
+  outline: none;
+}

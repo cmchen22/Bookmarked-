@@ -1,5 +1,7 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
+const navigate = useNavigate();
 
 export default function SignInPage() {
   const [isNewUser, setIsNewUser] = useState(false);
@@ -19,6 +21,7 @@ export default function SignInPage() {
       localStorage.setItem("bookmarkedUser", JSON.stringify(newUser));
       setIsLoggedIn(true);
       alert("Account created and signed in.");
+      navigate("/home");
     } else {
       const savedUser = localStorage.getItem("bookmarkedUser");
 
@@ -32,6 +35,7 @@ export default function SignInPage() {
       if (parsedUser.email === email && parsedUser.password === password) {
         setIsLoggedIn(true);
         alert("Signed in successfully.");
+        navigate("/home");
       } else {
         alert("Invalid email or password.");
       }

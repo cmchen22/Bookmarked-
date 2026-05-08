@@ -1,62 +1,60 @@
 import Book from "./Book";
 import DecorItem from "./DecorItem";
 
-type BookData = {
+type BookItem = {
+  kind: "book";
   height: number;
   color: string;
+  width?: number;
+  tilt?: number;
 };
 
-type DecorData = {
+type DecorItemData = {
+  kind: "decor";
   type: string;
   label: string;
   path: string;
 };
 
+type ShelfItem = BookItem | DecorItemData;
+
 type BookshelfRowProps = {
-  books: BookData[];
-  decor: DecorData[];
-  bookLabel: string;
-  bookPath: string;
+  items: ShelfItem[];
 };
 
-const BookshelfRow = ({ books, decor, bookLabel, bookPath }: BookshelfRowProps) => {
-  const middleIndex = Math.ceil(books.length / 2);
-  const leftBooks = books.slice(0, middleIndex);
-  const rightBooks = books.slice(middleIndex);
-
+const BookshelfRow = ({ items }: BookshelfRowProps) => {
   return (
     <div className="shelf-row">
       <div className="shelf-inner">
-        <button
-          className="book-group-btn"
-          onClick={() => console.log(bookPath)}
-          aria-label={bookLabel}
-        >
-          {leftBooks.map((book, index) => (
-            <Book key={`left-${index}`} height={book.height} color={book.color} />
-          ))}
-        </button>
+        {items.map((item, index) => {
+          if (item.kind === "book") {
+            return (
+              <button
+                key={index}
+                className="book-btn"
+                onClick={() => console.log("book group clicked")}
+              >
+                <Book
+                  height={item.height}
+                  color={item.color}
+                  width={item.width}
+                  tilt={item.tilt}
+                />
+              </button>
+            );
+          }
 
-        {decor.map((item, index) => (
-          <button
-            key={index}
-            className="decor-btn"
-            onClick={() => console.log(item.path)}
-            aria-label={item.label}
-          >
-            <DecorItem type={item.type} />
-          </button>
-        ))}
-
-        <button
-          className="book-group-btn"
-          onClick={() => console.log(bookPath)}
-          aria-label={bookLabel}
-        >
-          {rightBooks.map((book, index) => (
-            <Book key={`right-${index}`} height={book.height} color={book.color} />
-          ))}
-        </button>
+          return (
+            <button
+              key={index}
+              className="decor-btn"
+              onClick={() => console.log(item.path)}
+              aria-label={item.label}
+            >
+              <DecorItem type={item.type} />
+            </button>
+          );
+        })}
       </div>
     </div>
   );
