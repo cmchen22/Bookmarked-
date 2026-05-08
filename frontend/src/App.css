@@ -1340,27 +1340,85 @@
   color: #4f5f44;
 }
 
+.discovery-market-random-button {
+  border: 1px solid rgba(63, 81, 53, 0.2);
+  border-radius: 999px;
+  min-height: 38px;
+  padding: 0 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  background: rgba(246, 242, 232, 0.9);
+  color: #4f5f44;
+  font-size: 0.86rem;
+  transition: background 0.14s, color 0.14s;
+}
+
+.discovery-market-random-button:hover {
+  background: rgba(236, 230, 215, 1);
+  color: #3b5035;
+}
+
 .discovery-market-controls-row {
   display: flex;
-  align-items: end;
+  align-items: flex-start;
   flex-wrap: wrap;
-  gap: 0.75rem;
-  margin-top: 0.7rem;
+  gap: 1rem;
+  margin-top: 0.85rem;
 }
 
-.discovery-market-control {
-  display: grid;
-  gap: 0.3rem;
+.discovery-market-control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
 }
 
-.discovery-market-control span {
-  font-size: 0.72rem;
-  color: rgba(64, 76, 55, 0.86);
-  font-weight: 700;
+.discovery-market-control-label {
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: rgba(54, 66, 44, 0.8);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
 }
 
-.discovery-market-select {
-  padding: 0 0.8rem;
+.discovery-market-segmented {
+  display: inline-flex;
+  border-radius: 999px;
+  background: rgba(232, 227, 212, 0.7);
+  border: 1px solid rgba(63, 81, 53, 0.22);
+  padding: 3px;
+  gap: 2px;
+}
+
+.discovery-market-seg-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.28rem;
+  border: none;
+  border-radius: 999px;
+  padding: 0.32rem 0.82rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: transparent;
+  color: rgba(55, 68, 44, 0.72);
+  transition: background 0.14s, color 0.14s, box-shadow 0.14s;
+  white-space: nowrap;
+}
+
+.discovery-market-seg-btn:hover:not(.is-active) {
+  background: rgba(246, 242, 232, 0.9);
+  color: #3b5035;
+}
+
+.discovery-market-seg-btn.is-active {
+  background: linear-gradient(160deg, #55704c 0%, #3d5637 100%);
+  color: #f8f4ea;
+  box-shadow: 0 2px 8px rgba(40, 60, 35, 0.28);
+}
+
+.discovery-market-seg-icon {
+  font-size: 0.88em;
+  line-height: 1;
 }
 
 .discovery-market-chip-row {

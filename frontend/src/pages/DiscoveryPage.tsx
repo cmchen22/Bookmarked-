@@ -356,32 +356,47 @@ export function DiscoveryPage() {
 								</button>
 							</form>
 							<div className="discovery-market-controls-row">
-								<label className="discovery-market-control">
-									<span>Sort</span>
-									<select
-										className="discovery-market-select"
-										value={sortBy}
-										onChange={(event) => setSortBy(event.target.value as 'popularity' | 'rating' | 'reviews' | 'newest')}
-									>
-										<option value="popularity">Most popular</option>
-										<option value="rating">Highest rating</option>
-										<option value="reviews">Most rated</option>
-										<option value="newest">Newest first</option>
-									</select>
-								</label>
-								<label className="discovery-market-control">
-									<span>Minimum rating</span>
-									<select
-										className="discovery-market-select"
-										value={minRating}
-										onChange={(event) => setMinRating(Number(event.target.value))}
-									>
-										<option value={0}>Any</option>
-										<option value={3.5}>3.5+</option>
-										<option value={4}>4.0+</option>
-										<option value={4.3}>4.3+</option>
-									</select>
-								</label>
+								<div className="discovery-market-control-group">
+									<span className="discovery-market-control-label">Sort by</span>
+									<div className="discovery-market-segmented">
+										{([
+											{ value: 'popularity', icon: '🔥', label: 'Popular' },
+											{ value: 'rating', icon: '⭐', label: 'Rating' },
+											{ value: 'reviews', icon: '💬', label: 'Most Rated' },
+											{ value: 'newest', icon: '📅', label: 'Newest' },
+										] as const).map(({ value, icon, label }) => (
+											<button
+												key={value}
+												type="button"
+												className={`discovery-market-seg-btn${sortBy === value ? ' is-active' : ''}`}
+												onClick={() => { setSortBy(value); setPage(1); setAllBooks([]); }}
+											>
+												<span className="discovery-market-seg-icon">{icon}</span>
+												{label}
+											</button>
+										))}
+									</div>
+								</div>
+								<div className="discovery-market-control-group">
+									<span className="discovery-market-control-label">Min rating</span>
+									<div className="discovery-market-segmented">
+										{([
+											{ value: 0, label: 'Any' },
+											{ value: 3.5, label: '3.5 ★' },
+											{ value: 4, label: '4.0 ★' },
+											{ value: 4.3, label: '4.3 ★' },
+										] as const).map(({ value, label }) => (
+											<button
+												key={value}
+												type="button"
+												className={`discovery-market-seg-btn${minRating === value ? ' is-active' : ''}`}
+												onClick={() => { setMinRating(value); setPage(1); setAllBooks([]); }}
+											>
+												{label}
+											</button>
+										))}
+									</div>
+								</div>
 							</div>
 							<div className="discovery-market-chip-row">
 								{genres.map((genre) => (
