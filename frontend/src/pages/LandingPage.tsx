@@ -2,18 +2,18 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 const landingCarouselImages = [
-  'https://covers.openlibrary.org/b/id/8231856-L.jpg',
-  'https://covers.openlibrary.org/b/id/8231996-L.jpg',
-  'https://covers.openlibrary.org/b/id/8128695-L.jpg',
-  'https://covers.openlibrary.org/b/id/8231992-L.jpg',
-  'https://covers.openlibrary.org/b/id/8282221-L.jpg',
+  'https://covers.openlibrary.org/b/id/6476166-L.jpg', 
+  'https://covers.openlibrary.org/b/id/7905691-L.jpg', 
+  'https://covers.openlibrary.org/b/id/8416123-L.jpg', 
+  'https://covers.openlibrary.org/b/id/8389403-L.jpg', 
+  'https://covers.openlibrary.org/b/id/10318515-L.jpg'
 ]
 
 export function LandingPage() {
   const [activeCover, setActiveCover] = useState(0)
   const slideWidth = 200
   const slideGap = 14
-  const trackOffset = (300 - slideWidth) / 2 - activeCover * (slideWidth + slideGap)
+  const trackOffset = -activeCover * (slideWidth + slideGap)
 
   useEffect(() => {
     const intervalId = window.setInterval(() => {
@@ -27,7 +27,12 @@ export function LandingPage() {
     <div className="landing-shell">
       <header className="landing-topbar">
         <div className="brandmark brandmark-landing">
-          <img src="/Logo.png" alt="Bookmarked logo" className="brandmark-icon" style={{ width: '32px', height: '32px' }} />
+          <img
+            src="/Logo.png"
+            alt="Bookmarked logo"
+            className="brandmark-icon"
+            style={{ width: '32px', height: '32px' }}
+          />
           <span>Bookmarked</span>
         </div>
 
@@ -59,12 +64,19 @@ export function LandingPage() {
               <Link className="secondary-cta" to="/discovery">
                 Browse Books
               </Link>
+
+              <Link className="secondary-cta" to="/social">
+                Social Feed
+              </Link>
             </div>
           </div>
 
           <aside className="landing-showcase">
             <div className="landing-carousel" aria-label="Featured books carousel">
-              <div className="landing-carousel-track" style={{ transform: `translateX(${trackOffset}px)` }}>
+              <div
+                className="landing-carousel-track"
+                style={{ transform: `translateX(${trackOffset}px)` }}
+              >
                 {landingCarouselImages.map((cover, index) => (
                   <img
                     key={cover}
