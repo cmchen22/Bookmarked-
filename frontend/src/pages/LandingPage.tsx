@@ -2,18 +2,18 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 const landingCarouselImages = [
-  'https://covers.openlibrary.org/b/id/8231856-L.jpg',
-  'https://covers.openlibrary.org/b/id/8231996-L.jpg',
-  'https://covers.openlibrary.org/b/id/8128695-L.jpg',
-  'https://covers.openlibrary.org/b/id/8231992-L.jpg',
-  'https://covers.openlibrary.org/b/id/8282221-L.jpg',
+  'https://covers.openlibrary.org/b/id/6476166-L.jpg', 
+  'https://covers.openlibrary.org/b/id/7905691-L.jpg', 
+  'https://covers.openlibrary.org/b/id/8416123-L.jpg', 
+  'https://covers.openlibrary.org/b/id/8389403-L.jpg', 
+  'https://covers.openlibrary.org/b/id/10318515-L.jpg'
 ]
 
 export function LandingPage() {
   const [activeCover, setActiveCover] = useState(0)
   const slideWidth = 200
   const slideGap = 14
-  const trackOffset = (300 - slideWidth) / 2 - activeCover * (slideWidth + slideGap)
+  const trackOffset = -activeCover * (slideWidth + slideGap)
 
   useEffect(() => {
     const intervalId = window.setInterval(() => {
