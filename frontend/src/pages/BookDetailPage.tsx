@@ -385,7 +385,17 @@ export function BookDetailPage() {
   if (loading) {
     return (
       <main className="book-record-shell">
-        <div className="book-record-loading">Loading book page...</div>
+        <div className="book-detail-skeleton">
+          <div className="book-detail-skeleton-cover" />
+          <div className="book-detail-skeleton-info">
+            <div className="skeleton-line skeleton-line-title" style={{ height: '1.6rem', width: '70%' }} />
+            <div className="skeleton-line skeleton-line-sub" style={{ marginTop: '0.6rem' }} />
+            <div className="skeleton-line skeleton-line-short" style={{ marginTop: '0.5rem' }} />
+            <div className="skeleton-line" style={{ marginTop: '1.2rem', width: '90%' }} />
+            <div className="skeleton-line" style={{ marginTop: '0.4rem', width: '80%' }} />
+            <div className="skeleton-line" style={{ marginTop: '0.4rem', width: '60%' }} />
+          </div>
+        </div>
       </main>
     )
   }
