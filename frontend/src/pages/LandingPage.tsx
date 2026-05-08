@@ -2,11 +2,31 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 const landingCarouselImages = [
-  { id: "1", cover: "https://covers.openlibrary.org/b/id/10523338-L.jpg" },
-  { id: "2", cover: "https://covers.openlibrary.org/b/id/11153245-L.jpg" },
-  { id: "3", cover: "https://covers.openlibrary.org/b/id/8231856-L.jpg" },
-  { id: "4", cover: "https://covers.openlibrary.org/b/id/8231996-L.jpg" },
-  { id: "5", cover: "https://covers.openlibrary.org/b/id/8282221-L.jpg" },
+  {
+    id: '1',
+    title: 'Fourth Wing',
+    cover: 'https://covers.openlibrary.org/b/isbn/9781649374042-L.jpg',
+  },
+  {
+    id: '2',
+    title: 'Iron Flame',
+    cover: 'https://covers.openlibrary.org/b/isbn/9781649374172-L.jpg',
+  },
+  {
+    id: '3',
+    title: 'The Women',
+    cover: 'https://covers.openlibrary.org/b/isbn/9781250178633-L.jpg',
+  },
+  {
+    id: '4',
+    title: 'Tomorrow, and Tomorrow, and Tomorrow',
+    cover: 'https://covers.openlibrary.org/b/isbn/9780593321201-L.jpg',
+  },
+  {
+    id: '5',
+    title: 'Happy Place',
+    cover: 'https://covers.openlibrary.org/b/isbn/9780593441275-L.jpg',
+  },
 ]
 
 export function LandingPage() {
@@ -72,21 +92,37 @@ export function LandingPage() {
           </div>
 
           <aside className="landing-showcase">
-            <div className="landing-carousel" aria-label="Trending books carousel">
-              <div
-                className="landing-carousel-track"
-                style={{ transform: `translateX(${trackOffset}px)` }}
+            <div style={{ textAlign: 'center', width: '100%' }}>
+              <h2 style={{ marginBottom: '1rem', color: '#2b241e' }}>
+                Top Trending Books Right Now
+              </h2>
+
+              <Link
+                to="/discovery"
+                style={{
+                  textDecoration: 'none',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  width: '100%',
+                }}
               >
-                {landingCarouselImages.map((book, index) => (
-                  <Link to="/discovery" key={book.id}>
-                    <img
-                      src={book.cover}
-                      alt={`Trending book ${index + 1}`}
-                      className={`landing-cover ${activeCover === index ? 'active' : ''}`}
-                    />
-                  </Link>
-                ))}
-              </div>
+                <div className="landing-carousel" aria-label="Top trending books carousel">
+                  <div
+                    className="landing-carousel-track"
+                    style={{ transform: `translateX(${trackOffset}px)` }}
+                  >
+                    {landingCarouselImages.map((book, index) => (
+                      <img
+                        key={book.id}
+                        src={book.cover}
+                        alt={book.title}
+                        title={book.title}
+                        className={`landing-cover ${activeCover === index ? 'active' : ''}`}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </Link>
             </div>
           </aside>
         </section>
