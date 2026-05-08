@@ -1,5 +1,7 @@
+import { use } from "react";
 import Book from "./Book";
 import DecorItem from "./DecorItem";
+import { useNavigate } from "react-router-dom";
 
 type BookItem = {
   kind: "book";
@@ -23,6 +25,7 @@ type BookshelfRowProps = {
 };
 
 const BookshelfRow = ({ items }: BookshelfRowProps) => {
+  const navigate = useNavigate()
   return (
     <div className="shelf-row">
       <div className="shelf-inner">
@@ -48,7 +51,7 @@ const BookshelfRow = ({ items }: BookshelfRowProps) => {
             <button
               key={index}
               className="decor-btn"
-              onClick={() => console.log(item.path)}
+              onClick={() => navigate(item.path)}
               aria-label={item.label}
             >
               <DecorItem type={item.type} />

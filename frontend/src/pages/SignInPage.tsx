@@ -4,9 +4,9 @@ import "./SignInPage.css";
 
 type StatusMsg = { type: "success" | "error"; text: string } | null;
 
-const navigate = useNavigate();
-
 export default function SignInPage() {
+  const navigate = useNavigate();
+
   const [isNewUser, setIsNewUser] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(
     !!localStorage.getItem("bookmarkedUser")

@@ -121,15 +121,42 @@ const HomePage = () => {
             </div>
             </header>
 
-            <main className="bookshelf-wrapper">
-            {rows.map((row, index) => (
-                <BookshelfRow key={index} items={row.items} />
-            ))}
-            </main>
+            <div className="home-content">
+                <main className="bookshelf-wrapper">
+                    {rows.map((row, index) => (
+                    <BookshelfRow key={index} items={row.items} />
+                    ))}
+                </main>
 
-            <footer className="home-footer">
-            Discover your next favorite book • Driven by community reviews
-            </footer>
+                <aside className="community-panel">
+                    <section className="panel-card">
+                    <h3>Friend Activity</h3>
+                    <p><strong>Maya</strong> reviewed <em>Yellowface</em></p>
+                    <p><strong>Chris</strong> added <em>Dune</em> to their shelf</p>
+                    <p><strong>Alison</strong> started <em>Tomorrow, and Tomorrow, and Tomorrow</em></p>
+                    </section>
+
+                    <section className="panel-card">
+                    <h3>Trending Discussions</h3>
+                    <p>“Books with morally gray characters?”</p>
+                    <p>“Best cozy fantasy recs?”</p>
+                    <p>“Was the ending worth it?”</p>
+                    </section>
+
+                    <section className="panel-card">
+                    <h3>Popular Genres</h3>
+                    <div className="genre-tags">
+                        <span>Fantasy</span>
+                        <span>Romance</span>
+                        <span>Mystery</span>
+                        <span>Memoir</span>
+                    </div>
+                </section>
+            </aside>
+        </div>
+        <footer className="home-footer">
+            <p>© 2023 Bookmarked. All rights reserved.</p>
+        </footer>
         </div>
     );
 };

@@ -25,7 +25,7 @@ function NotFoundPage() {
       <span style={{ fontSize: '3.5rem' }}>📖</span>
       <h1 style={{ fontFamily: 'var(--heading)', fontSize: '3rem', margin: 0, color: 'var(--heading-color)' }}>404</h1>
       <p style={{ color: 'var(--muted)', margin: 0 }}>That page doesn't exist.</p>
-      <a href="/" style={{ marginTop: '0.5rem', color: 'var(--accent)', fontWeight: 700, textDecoration: 'none' }}>← Back to home</a>
+      <a href="/home" style={{ marginTop: '0.5rem', color: 'var(--accent)', fontWeight: 700, textDecoration: 'none' }}>← Back to home</a>
     </div>
   )
 }
