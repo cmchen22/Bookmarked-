@@ -2,18 +2,18 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 const landingCarouselImages = [
-  'https://covers.openlibrary.org/b/id/6476166-L.jpg', 
-  'https://covers.openlibrary.org/b/id/7905691-L.jpg', 
-  'https://covers.openlibrary.org/b/id/8416123-L.jpg', 
-  'https://covers.openlibrary.org/b/id/8389403-L.jpg', 
-  'https://covers.openlibrary.org/b/id/10318515-L.jpg'
+  { id: "1", cover: "https://covers.openlibrary.org/b/id/10523338-L.jpg" },
+  { id: "2", cover: "https://covers.openlibrary.org/b/id/11153245-L.jpg" },
+  { id: "3", cover: "https://covers.openlibrary.org/b/id/8231856-L.jpg" },
+  { id: "4", cover: "https://covers.openlibrary.org/b/id/8231996-L.jpg" },
+  { id: "5", cover: "https://covers.openlibrary.org/b/id/8282221-L.jpg" },
 ]
 
 export function LandingPage() {
   const [activeCover, setActiveCover] = useState(0)
   const slideWidth = 200
   const slideGap = 14
-  const trackOffset = -activeCover * (slideWidth + slideGap)
+  const trackOffset = (300 - slideWidth) / 2 - activeCover * (slideWidth + slideGap)
 
   useEffect(() => {
     const intervalId = window.setInterval(() => {
@@ -72,18 +72,19 @@ export function LandingPage() {
           </div>
 
           <aside className="landing-showcase">
-            <div className="landing-carousel" aria-label="Featured books carousel">
+            <div className="landing-carousel" aria-label="Trending books carousel">
               <div
                 className="landing-carousel-track"
                 style={{ transform: `translateX(${trackOffset}px)` }}
               >
-                {landingCarouselImages.map((cover, index) => (
-                  <img
-                    key={cover}
-                    src={cover}
-                    alt={`Featured book cover ${index + 1}`}
-                    className={`landing-cover ${activeCover === index ? 'active' : ''}`}
-                  />
+                {landingCarouselImages.map((book, index) => (
+                  <Link to="/discovery" key={book.id}>
+                    <img
+                      src={book.cover}
+                      alt={`Trending book ${index + 1}`}
+                      className={`landing-cover ${activeCover === index ? 'active' : ''}`}
+                    />
+                  </Link>
                 ))}
               </div>
             </div>
