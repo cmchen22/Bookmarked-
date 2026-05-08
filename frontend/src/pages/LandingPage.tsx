@@ -32,8 +32,8 @@ const landingCarouselImages = [
 export function LandingPage() {
   const [activeCover, setActiveCover] = useState(0)
   const slideWidth = 200
-  const slideGap = 14
-  const trackOffset = (300 - slideWidth) / 2 - activeCover * (slideWidth + slideGap)
+  const slideGap = 0
+  const trackOffset = -activeCover * slideWidth
 
   useEffect(() => {
     const intervalId = window.setInterval(() => {
@@ -93,9 +93,6 @@ export function LandingPage() {
 
           <aside className="landing-showcase">
             <div style={{ textAlign: 'center', width: '100%' }}>
-              <h2 style={{ marginBottom: '1rem', color: '#2b241e' }}>
-                Top Trending Books Right Now
-              </h2>
 
               <Link
                 to="/discovery"
