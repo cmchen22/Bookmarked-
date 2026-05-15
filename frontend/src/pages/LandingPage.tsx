@@ -121,7 +121,6 @@ const features = [
 export function LandingPage() {
   const [activeCover, setActiveCover] = useState(0)
   const slideWidth = 200
-  const slideGap = 0
   const trackOffset = -activeCover * slideWidth
 
   useEffect(() => {

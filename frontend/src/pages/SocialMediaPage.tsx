@@ -8,6 +8,7 @@ const trendingBooks = [
     author: 'Herman Melville',
     rating: '4.32',
     reviews: '18,759',
+    isbn: '9780142437247',
   },
   {
     rank: 2,
@@ -15,6 +16,7 @@ const trendingBooks = [
     author: 'Matt Haig',
     rating: '4.5',
     reviews: '12,427',
+    isbn: '9780525559474',
   },
   {
     rank: 3,
@@ -22,6 +24,7 @@ const trendingBooks = [
     author: 'Gillian Flynn',
     rating: '4.8',
     reviews: '21,003',
+    isbn: '9780307588371',
   },
   {
     rank: 4,
@@ -29,6 +32,7 @@ const trendingBooks = [
     author: 'Andy Weir',
     rating: '4.9',
     reviews: '18,586',
+    isbn: '9780593135204',
   },
   {
     rank: 5,
@@ -36,6 +40,7 @@ const trendingBooks = [
     author: 'Jessica Cluess',
     rating: '4.6',
     reviews: '12,234',
+    isbn: '9780062940933',
   },
   {
     rank: 6,
@@ -43,6 +48,7 @@ const trendingBooks = [
     author: 'Tara Westover',
     rating: '4.8',
     reviews: '28,901',
+    isbn: '9780399590504',
   },
 ]
 
@@ -76,6 +82,7 @@ const feedPosts = [
     bookAuthor: 'Matt Haig',
     rating: 5,
     genre: 'Fiction',
+    isbn: '9780525559474',
     excerpt:
       'This book completely changed my perspective on life. The concept of infinite possibilities and parallel lives is explored so beautifully. Matt Haig’s writing is both philosophical and deeply emotional.',
     likes: 234,
@@ -89,6 +96,7 @@ const feedPosts = [
     bookAuthor: 'Andy Weir',
     rating: 5,
     genre: 'Science Fiction',
+    isbn: '9780593135204',
     excerpt:
       "Andy Weir does it again! Project Hail Mary is an absolute masterpiece of science fiction. The scientific accuracy combined with humor and heart makes this one of the best sci-fi novels I've ever read.",
     likes: 567,
@@ -102,6 +110,7 @@ const feedPosts = [
     bookAuthor: 'Madeline Miller',
     rating: 4,
     genre: 'Fantasy',
+    isbn: '9780316556347',
     excerpt:
       'A stunning reimagining of myth and the female experience. Circe feels both powerful and fragile, and every scene is lush with mythic detail. Highly recommended for fans of literary fantasy.',
     likes: 178,
@@ -115,6 +124,7 @@ const feedPosts = [
     bookAuthor: 'Alex Michaelides',
     rating: 4,
     genre: 'Mystery',
+    isbn: '9781250301697',
     excerpt:
       'What a psychological rollercoaster! The twists kept me guessing until the very end. Alex Michaelides masterfully builds tension and explores the complexities of the human mind. A modern classic in psychological suspense.',
     likes: 312,
@@ -128,6 +138,7 @@ const feedPosts = [
     bookAuthor: 'Casey McQuiston',
     rating: 5,
     genre: 'Romance',
+    isbn: '9781250316776',
     excerpt:
       'This book made me laugh, cry, and fall in love with these characters. The chemistry between Alex and Henry is electric! Casey McQuiston\'s writing is witty, heartfelt, and absolutely perfect. A must-read for romance fans.',
     likes: 445,
@@ -211,6 +222,7 @@ export function SocialMediaPage() {
       bookAuthor: newPost.bookAuthor,
       rating: newPost.rating,
       genre: newPost.genre,
+      isbn: '',
       excerpt: newPost.excerpt,
       likes: 0,
       comments: 0,
@@ -226,11 +238,12 @@ export function SocialMediaPage() {
 
   return (
     <main className="social-shell">
-      <section className="social-topbar card-surface">
+      <section className="social-topbar">
         <div className="social-brand">
           <Link to="/">
             <img src="/Logo.png" alt="Bookmarked" />
           </Link>
+          <span>Bookmarked</span>
         </div>
         <div className="social-search">
           <span>🔎</span>
@@ -246,7 +259,7 @@ export function SocialMediaPage() {
 
       <div className="social-grid">
         <section className="social-main">
-          <div className="social-meta card-surface">
+          <div className="social-meta">
             <div>
               <h1>Social feed</h1>
               <span>{filteredPosts.length} reviews · Latest posts</span>
@@ -311,12 +324,21 @@ export function SocialMediaPage() {
                 </div>
 
                 <div className="social-post-book-card">
-                  <h4>{post.title}</h4>
-                  <p>by {post.bookAuthor}</p>
-                  <div className="review-rating">
-                    <span>⭐ {post.rating.toFixed(1)}</span>
-                    <span>·</span>
-                    <span>{post.genre}</span>
+                  {post.isbn && (
+                    <img
+                      className="social-post-book-cover"
+                      src={`https://covers.openlibrary.org/b/isbn/${post.isbn}-M.jpg`}
+                      alt={post.title}
+                    />
+                  )}
+                  <div className="social-post-book-info">
+                    <h4>{post.title}</h4>
+                    <p>by {post.bookAuthor}</p>
+                    <div className="review-rating">
+                      <span>{'★'.repeat(post.rating)}</span>
+                      <span>·</span>
+                      <span>{post.genre}</span>
+                    </div>
                   </div>
                 </div>
 
@@ -328,10 +350,10 @@ export function SocialMediaPage() {
                     className={likedPosts.has(`${post.handle}-${post.title}`) ? 'liked' : ''}
                     onClick={() => handleLike(`${post.handle}-${post.title}`)}
                   >
-                    ❤️ {postLikes[`${post.handle}-${post.title}`]}
+                    ♥ {postLikes[`${post.handle}-${post.title}`]}
                   </button>
-                  <button type="button">💬 {post.comments}</button>
-                  <button type="button">🔖 Save</button>
+                  <button type="button">✦ {post.comments}</button>
+                  <button type="button">⊹ Save</button>
                 </div>
               </article>
             ))}
@@ -353,6 +375,11 @@ export function SocialMediaPage() {
               {trendingBooks.map((book) => (
                 <div key={book.rank} className="trending-book">
                   <div className="trending-rank">{book.rank}</div>
+                  <img
+                    className="trending-cover"
+                    src={`https://covers.openlibrary.org/b/isbn/${book.isbn}-S.jpg`}
+                    alt={book.title}
+                  />
                   <div className="trending-info">
                     <h3>{book.title}</h3>
                     <span>
