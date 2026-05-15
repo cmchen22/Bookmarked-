@@ -1343,7 +1343,10 @@
 }
 
 .discovery-market-brand .brandmark-icon {
-  color: #f8f3e7;
+  width: 30px;
+  height: 30px;
+  display: block;
+  filter: brightness(1.1);
 }
 
 .discovery-market-brand strong {

@@ -302,10 +302,10 @@ export function DiscoveryPage() {
 
 	return (
 		<main className="discovery-market-shell">
-			<section className="discovery-market-topbar card-surface">
+			<section className="discovery-market-topbar">
 				<div className="discovery-market-brand-row">
 					<Link className="discovery-market-brand" to="/">
-						<span className="brandmark-icon">◫</span>
+						<img src="/Logo.png" alt="Bookmarked logo" className="brandmark-icon" style={{ width: '30px', height: '30px' }} />
 						<div>
 							<strong>BookMarked</strong>
 							<span>Explore trending books curated by our community</span>
