@@ -107,12 +107,38 @@ const feedPosts = [
     likes: 178,
     comments: 32,
   },
+  {
+    author: 'Marcus Thompson',
+    handle: '@mystery_marcus',
+    time: '12h ago',
+    title: 'The Silent Patient',
+    bookAuthor: 'Alex Michaelides',
+    rating: 4,
+    genre: 'Mystery',
+    excerpt:
+      'What a psychological rollercoaster! The twists kept me guessing until the very end. Alex Michaelides masterfully builds tension and explores the complexities of the human mind. A modern classic in psychological suspense.',
+    likes: 312,
+    comments: 67,
+  },
+  {
+    author: 'Lily Zhang',
+    handle: '@lily_loves_romance',
+    time: '16h ago',
+    title: 'Red, White & Royal Blue',
+    bookAuthor: 'Casey McQuiston',
+    rating: 5,
+    genre: 'Romance',
+    excerpt:
+      'This book made me laugh, cry, and fall in love with these characters. The chemistry between Alex and Henry is electric! Casey McQuiston\'s writing is witty, heartfelt, and absolutely perfect. A must-read for romance fans.',
+    likes: 445,
+    comments: 98,
+  },
 ]
 
 export function SocialMediaPage() {
   const [selectedFilter, setSelectedFilter] = useState('All')
-  const [postLikes, setPostLikes] = useState(() => {
-    const initial = {}
+  const [postLikes, setPostLikes] = useState<Record<string, number>>(() => {
+    const initial: Record<string, number> = {}
     feedPosts.forEach((post) => {
       const key = `${post.handle}-${post.title}`
       initial[key] = post.likes
@@ -134,11 +160,30 @@ export function SocialMediaPage() {
       ? allPosts
       : allPosts.filter((post) => post.genre === selectedFilter)
 
-  const handleLike = (postKey) => {
-    setPostLikes((prev) => ({
-      ...prev,
-      [postKey]: prev[postKey] + 1,
-    }))
+  const [likedPosts, setLikedPosts] = useState<Set<string>>(new Set())
+
+  const handleLike = (postKey: string) => {
+    const isLiked = likedPosts.has(postKey)
+
+    if (isLiked) {
+      // Unlike the post
+      setLikedPosts((prev) => {
+        const newSet = new Set(prev)
+        newSet.delete(postKey)
+        return newSet
+      })
+      setPostLikes((prev) => ({
+        ...prev,
+        [postKey]: prev[postKey] - 1,
+      }))
+    } else {
+      // Like the post
+      setLikedPosts((prev) => new Set([...prev, postKey]))
+      setPostLikes((prev) => ({
+        ...prev,
+        [postKey]: prev[postKey] + 1,
+      }))
+    }
   }
 
   const handlePostClick = () => {
@@ -156,7 +201,7 @@ export function SocialMediaPage() {
     })
   }
 
-  const handleSubmitPost = (e) => {
+  const handleSubmitPost = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const post = {
       author: 'Your Name',
@@ -280,6 +325,7 @@ export function SocialMediaPage() {
                 <div className="social-card-footer">
                   <button 
                     type="button"
+                    className={likedPosts.has(`${post.handle}-${post.title}`) ? 'liked' : ''}
                     onClick={() => handleLike(`${post.handle}-${post.title}`)}
                   >
                     ❤️ {postLikes[`${post.handle}-${post.title}`]}
@@ -435,7 +481,7 @@ export function SocialMediaPage() {
                     setNewPost({ ...newPost, excerpt: e.target.value })
                   }
                   placeholder="Share your thoughts about this book..."
-                  rows="4"
+                  rows={4}
                   required
                 />
               </div>

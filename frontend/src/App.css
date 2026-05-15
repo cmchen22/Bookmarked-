@@ -852,6 +852,7 @@
   flex-direction: column;
   gap: 1rem;
   padding: 1.4rem 1.6rem 2rem;
+  background: linear-gradient(180deg, rgba(125, 140, 96, 0.08), rgba(71, 88, 58, 0.04));
 }
 
 .social-topbar {
@@ -916,20 +917,53 @@
 }
 
 .social-pill {
-  border: 1px solid rgba(255, 255, 255, 0.22);
+  border: 2px solid rgba(125, 140, 96, 0.3);
   cursor: pointer;
-  border-radius: 999px;
-  padding: 0.55rem 0.9rem;
-  background: rgba(255, 255, 255, 0.14);
-  color: #050300;
+  border-radius: 25px;
+  padding: 0.7rem 1.2rem;
+  background: rgba(255, 255, 255, 0.9);
+  color: #4a5d40;
   font-weight: 700;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 8px rgba(73, 52, 35, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.social-pill::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(125, 140, 96, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.social-pill:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(73, 52, 35, 0.15);
+  border-color: rgba(125, 140, 96, 0.5);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.social-pill:hover::before {
+  left: 100%;
 }
 
 .social-pill.active {
-  background: #f4f0e4;
-  color: #3f4f37;
-  border-color: rgba(63, 79, 55, 0.25);
+  background: linear-gradient(135deg, #7d8c60, #4a5d40);
+  color: #f7f1e3;
+  border-color: #4a5d40;
+  box-shadow: 0 4px 16px rgba(125, 140, 96, 0.3);
+  transform: translateY(-1px);
+  font-weight: 800;
+}
+
+.social-pill.active::before {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
 }
 
 .social-grid {
@@ -941,7 +975,7 @@
 .social-main {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
 .social-meta {
@@ -950,20 +984,23 @@
   align-items: flex-start;
   flex-wrap: wrap;
   gap: 1rem;
-  padding: 1.2rem 1rem;
+  padding: 1.5rem 1.25rem;
 }
 
 .social-meta h1 {
   margin: 0;
   font-family: var(--heading);
-  font-size: clamp(1.85rem, 2.6vw, 2.35rem);
+  font-size: clamp(2.2rem, 3vw, 2.8rem);
   line-height: 1;
+  font-weight: 900;
+  color: #2d2418;
 }
 
 .social-meta span {
   color: #6b5d4d;
   display: block;
-  margin-top: 0.45rem;
+  margin-top: 0.6rem;
+  font-size: 0.9rem;
 }
 
 .social-filter-row {
@@ -974,15 +1011,28 @@
 
 .social-feed {
   display: grid;
-  gap: 1rem;
+  gap: 1.25rem;
 }
 
 .social-card {
-  padding: 1.15rem 1rem;
+  padding: 1.25rem 1.1rem;
   background: linear-gradient(180deg, #fbf4e8 0%, #f2e7d6 100%);
-  border-radius: 18px;
-  border: 1px solid rgba(112, 86, 62, 0.14);
-  box-shadow: 0 16px 30px rgba(73, 52, 35, 0.08);
+  border-radius: 20px;
+  border: 1px solid rgba(112, 86, 62, 0.16);
+  box-shadow: 0 12px 32px rgba(73, 52, 35, 0.1), 0 4px 12px rgba(125, 140, 96, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.social-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #7d8c60, #4a5d40, #7d8c60);
+  opacity: 0.7;
 }
 
 .social-card-header {
@@ -1010,7 +1060,9 @@
 
 .social-author h3 {
   margin: 0;
-  font-size: 1rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #2d2418;
 }
 
 .social-author span {
@@ -1019,33 +1071,49 @@
 }
 
 .social-post-book-card {
-  margin-top: 0.5rem;
-  padding: 0.95rem 1rem;
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.92);
-  border: 1px solid rgba(145, 120, 100, 0.16);
+  margin-top: 0.75rem;
+  padding: 1.1rem 1.2rem;
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(250, 245, 235, 0.9));
+  border: 2px solid rgba(125, 140, 96, 0.2);
+  box-shadow: 0 8px 20px rgba(125, 140, 96, 0.15);
+  position: relative;
 }
 
 .social-post-book-card h4 {
   margin: 0;
-  font-size: 1rem;
-  font-family: var(--sans);
+  font-size: 1.25rem;
+  font-family: var(--heading);
+  font-weight: 800;
+  color: #1a1814;
+  line-height: 1.2;
 }
 
 .social-post-book-card p {
-  margin: 0.5rem 0 0;
-  color: #6b5d4f;
-  font-size: 0.9rem;
+  margin: 0.4rem 0 0;
+  color: #5a4f42;
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-style: italic;
 }
 
 .review-rating {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.55rem;
-  margin-top: 0.75rem;
-  color: #5c4d3f;
-  font-size: 0.86rem;
+  gap: 0.6rem;
+  margin-top: 0.8rem;
+  color: #3a5f45;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.review-rating span:first-child {
+  background: linear-gradient(135deg, #7d8c60, #4a5d40);
+  color: #f7f1e3;
+  padding: 0.3rem 0.6rem;
+  border-radius: 12px;
+  font-weight: 800;
 }
 
 .social-card-text {
@@ -1058,25 +1126,50 @@
 .social-card-footer {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.85rem;
+  gap: 0.9rem;
   align-items: center;
-  margin-top: 1rem;
+  margin-top: 1.2rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(112, 86, 62, 0.1);
 }
 
 .social-card-footer button {
   border: 0;
   cursor: pointer;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.72);
+  background: rgba(255, 255, 255, 0.8);
   color: #5f533f;
-  padding: 0.55rem 0.95rem;
-  font-size: 0.86rem;
-  transition: transform 0.18s ease, background 0.18s ease;
+  padding: 0.6rem 1rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  border: 1px solid rgba(112, 86, 62, 0.08);
 }
 
 .social-card-footer button:hover {
-  transform: translateY(-1px);
-  background: rgba(255, 255, 255, 0.92);
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 4px 12px rgba(73, 52, 35, 0.15);
+}
+
+.social-card-footer button:first-child {
+  background: rgba(255, 255, 255, 0.8);
+  color: #5f533f;
+  font-weight: 600;
+  border: 1px solid rgba(112, 86, 62, 0.08);
+}
+
+.social-card-footer button.liked {
+  background: linear-gradient(135deg, #7d8c60, #4a5d40) !important;
+  color: #f7f1e3 !important;
+  font-weight: 700 !important;
+  border: none !important;
+  box-shadow: 0 6px 16px rgba(125, 140, 96, 0.3) !important;
+}
+
+.social-card-footer button.liked:hover {
+  background: linear-gradient(135deg, #6b7a52, #3d4e35) !important;
+  box-shadow: 0 8px 20px rgba(125, 140, 96, 0.4) !important;
 }
 
 .social-sidebar {
@@ -1086,10 +1179,23 @@
 }
 
 .social-aside-card {
-  padding: 1.05rem 1rem;
+  padding: 1.2rem 1.1rem;
   background: linear-gradient(180deg, #f9f3ea 0%, #efe3d3 100%);
-  border-radius: 18px;
-  border: 1px solid rgba(112, 86, 62, 0.12);
+  border-radius: 20px;
+  border: 1px solid rgba(112, 86, 62, 0.14);
+  box-shadow: 0 8px 24px rgba(73, 52, 35, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.social-aside-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #ddc4a5, #c4a484);
 }
 
 .social-aside-header {
@@ -1102,7 +1208,9 @@
 
 .social-aside-header h2 {
   margin: 0;
-  font-size: 1.05rem;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #2d2418;
 }
 
 .social-aside-header span {
@@ -1133,14 +1241,16 @@
 .trending-rank {
   width: 38px;
   height: 38px;
-  background: #ddc4a5;
-  color: #4d3f2e;
+  background: #4a5d40;
+  color: #f7f1e3;
   font-weight: 700;
 }
 
 .trending-info h3 {
   margin: 0;
-  font-size: 0.95rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #2d2418;
 }
 
 .trending-info span {
@@ -1162,7 +1272,9 @@
 
 .suggested-copy h3 {
   margin: 0;
-  font-size: 0.95rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #2d2418;
 }
 
 .suggested-copy span {
@@ -2108,8 +2220,9 @@
 
 .modal-header h2 {
   margin: 0;
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   font-family: var(--heading);
+  font-weight: 800;
   color: #2b241e;
 }
 
