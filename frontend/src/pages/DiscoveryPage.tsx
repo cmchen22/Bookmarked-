@@ -352,7 +352,7 @@ export function DiscoveryPage() {
 										const book = pool[idx];
 										window.location.href = `/discovery/${encodeURIComponent(book.id)}`;
 									}}>
-									🎲 Random Book
+									Surprise me
 								</button>
 							</form>
 							<div className="discovery-market-controls-row">
@@ -360,18 +360,17 @@ export function DiscoveryPage() {
 									<span className="discovery-market-control-label">Sort by</span>
 									<div className="discovery-market-segmented">
 										{([
-											{ value: 'popularity', icon: '🔥', label: 'Popular' },
-											{ value: 'rating', icon: '⭐', label: 'Rating' },
-											{ value: 'reviews', icon: '💬', label: 'Most Rated' },
-											{ value: 'newest', icon: '📅', label: 'Newest' },
-										] as const).map(({ value, icon, label }) => (
-											<button
-												key={value}
-												type="button"
-												className={`discovery-market-seg-btn${sortBy === value ? ' is-active' : ''}`}
-												onClick={() => { setSortBy(value); setPage(1); setAllBooks([]); }}
-											>
-												<span className="discovery-market-seg-icon">{icon}</span>
+										{ value: 'popularity', label: 'Popular' },
+											{ value: 'rating', label: 'Rating' },
+											{ value: 'reviews', label: 'Most Rated' },
+											{ value: 'newest', label: 'Newest' },
+									] as const).map(({ value, label }) => (
+										<button
+											key={value}
+											type="button"
+											className={`discovery-market-seg-btn${sortBy === value ? ' is-active' : ''}`}
+											onClick={() => { setSortBy(value); setPage(1); setAllBooks([]); }}
+										>
 												{label}
 											</button>
 										))}

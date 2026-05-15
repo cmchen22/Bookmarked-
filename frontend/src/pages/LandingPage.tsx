@@ -29,6 +29,95 @@ const landingCarouselImages = [
   },
 ]
 
+const heroBgBooks = [
+  { title: 'Fourth Wing', isbn: '9781649374042' },
+  { title: 'Iron Flame', isbn: '9781649374172' },
+  { title: 'The Women', isbn: '9781250178633' },
+  { title: 'Tomorrow, and Tomorrow, and Tomorrow', isbn: '9780593321201' },
+  { title: 'Happy Place', isbn: '9780593441275' },
+  { title: 'Lessons in Chemistry', isbn: '9780385547345' },
+  { title: 'Project Hail Mary', isbn: '9780593135204' },
+  { title: 'The Midnight Library', isbn: '9780525559474' },
+  { title: 'Atomic Habits', isbn: '9780735211292' },
+  { title: 'Where the Crawdads Sing', isbn: '9780735224292' },
+]
+
+const recentBooks = [
+  { title: 'The Covenant of Water', isbn: '9780802162175' },
+  { title: 'Hello Beautiful', isbn: '9780593597538' },
+  { title: 'Demon Copperhead', isbn: '9780063251984' },
+  { title: 'Trust', isbn: '9780593420317' },
+  { title: 'Birnam Wood', isbn: '9780385549394' },
+  { title: 'Fourth Wing', isbn: '9781649374042' },
+  { title: 'Iron Flame', isbn: '9781649374172' },
+  { title: 'Happy Place', isbn: '9780593441275' },
+  { title: 'The Women', isbn: '9781250178633' },
+  { title: 'Tomorrow, and Tomorrow, and Tomorrow', isbn: '9780593321201' },
+  { title: 'Lessons in Chemistry', isbn: '9780385547345' },
+  { title: 'Project Hail Mary', isbn: '9780593135204' },
+  { title: 'The Midnight Library', isbn: '9780525559474' },
+  { title: 'Atomic Habits', isbn: '9780735211292' },
+]
+
+const features = [
+  {
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="28" height="28">
+        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+        <circle cx="12" cy="12" r="3" />
+      </svg>
+    ),
+    text: "Keep track of every book you've ever read (or just start from the day you join)",
+  },
+  {
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="28" height="28">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+      </svg>
+    ),
+    text: 'Show some love for your favorite books, lists and reviews with a "like"',
+  },
+  {
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="28" height="28">
+        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+      </svg>
+    ),
+    text: 'Write and share reviews, and follow friends and other members to read theirs',
+  },
+  {
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="28" height="28">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+      </svg>
+    ),
+    text: 'Rate each book on a five-star scale to record and share your reaction',
+  },
+  {
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="28" height="28">
+        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+      </svg>
+    ),
+    text: "Keep a reading diary to track what you've read and when you read it",
+  },
+  {
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="28" height="28">
+        <line x1="8" y1="6" x2="21" y2="6" />
+        <line x1="8" y1="12" x2="21" y2="12" />
+        <line x1="8" y1="18" x2="21" y2="18" />
+        <line x1="3" y1="6" x2="3.01" y2="6" />
+        <line x1="3" y1="12" x2="3.01" y2="12" />
+        <line x1="3" y1="18" x2="3.01" y2="18" />
+      </svg>
+    ),
+    text: 'Compile and share lists of books on any topic and keep a reading list to tackle',
+  },
+]
+
 export function LandingPage() {
   const [activeCover, setActiveCover] = useState(0)
   const slideWidth = 200
@@ -44,51 +133,76 @@ export function LandingPage() {
   }, [])
 
   return (
-    <div className="landing-shell">
-      <header className="landing-topbar">
-        <div className="brandmark brandmark-landing">
-          <img
-            src="/Logo.png"
-            alt="Bookmarked logo"
-            className="brandmark-icon"
-            style={{ width: '32px', height: '32px' }}
-          />
+    <div className="lbx-shell">
+      {/* ── Topbar ── */}
+      <header className="lbx-topbar">
+        <div className="brandmark lbx-brand">
+          <img src="/Logo.png" alt="Bookmarked logo" className="brandmark-icon" style={{ width: '30px', height: '30px' }} />
           <span>Bookmarked</span>
         </div>
-
-        <nav className="landing-nav">
-          <Link to="/dashboard">Dashboard</Link>
-          <Link to="/signin" className="sign-in-btn">
-            Sign In
-          </Link>
+        <nav className="lbx-nav">
+          <Link to="/signin">Sign In</Link>
+          <Link to="/signin" className="lbx-create-btn">Create Account</Link>
+          <Link to="/discovery">Browse</Link>
+          <Link to="/social">Members</Link>
         </nav>
       </header>
 
-      <main className="landing-main simple-landing">
-        <section className="landing-hero simple-hero">
-          <div className="landing-copy">
-            <p className="landing-kicker">A social app for book lovers</p>
+      {/* ── Hero ── */}
+      <section className="lbx-hero">
+        <div className="lbx-hero-bg" aria-hidden="true">
+          {heroBgBooks.map((b) => (
+            <img
+              key={b.isbn}
+              src={`https://covers.openlibrary.org/b/isbn/${b.isbn}-L.jpg`}
+              alt=""
+            />
+          ))}
+        </div>
+        <div className="lbx-hero-vignette" aria-hidden="true" />
+        <div className="lbx-hero-content">
+          <h1 className="lbx-headline">
+            Track books you've read.<br />
+            Save those you want to read.<br />
+            Tell your friends what's good.
+          </h1>
+          <Link className="lbx-get-started" to="/signin">
+            Get started — it's free!
+          </Link>
+          <p className="lbx-hero-sub">The social network for book lovers.</p>
+        </div>
+      </section>
 
-            <h1>Track your books. Share your taste.</h1>
+      {/* ── Recently read strip ── */}
+      <section className="lbx-covers-section">
+        <div className="lbx-covers-meta">
+          <span>JUST READ…</span>
+          <span>1,200,000+ books tracked</span>
+        </div>
+        <div className="lbx-covers-row">
+          {recentBooks.map((b) => (
+            <Link key={b.isbn} to="/discovery" title={b.title}>
+              <img
+                src={`https://covers.openlibrary.org/b/isbn/${b.isbn}-M.jpg`}
+                alt={b.title}
+                className="lbx-cover-thumb"
+              />
+            </Link>
+          ))}
+        </div>
+      </section>
 
-            <p className="landing-lede">
-              Bookmarked helps you save books, rate what you read, and discover new favorites
-              through other readers.
-            </p>
-
-            <div className="landing-cta-row">
-              <Link className="primary-cta" to="/signin">
-                Get Started
-              </Link>
-
-              <Link className="secondary-cta" to="/discovery">
-                Browse Books
-              </Link>
-
-              <Link className="secondary-cta" to="/social">
-                Social Feed
-              </Link>
-            </div>
+      {/* ── Feature tiles ── */}
+      <div className="lbx-features-wrapper">
+        <section className="lbx-features">
+          <p className="lbx-features-header">BOOKMARKED LETS YOU…</p>
+          <div className="lbx-features-grid">
+            {features.map((f, i) => (
+              <div key={i} className="lbx-feature-tile">
+                <span className="lbx-feature-icon">{f.icon}</span>
+                <p>{f.text}</p>
+              </div>
+            ))}
           </div>
 
           <aside className="landing-showcase">
@@ -123,7 +237,27 @@ export function LandingPage() {
             </div>
           </aside>
         </section>
-      </main>
+      </div>
+
+      {/* ── Promo / Discovery ── */}
+      <section className="lbx-promo">
+        <div className="lbx-promo-inner">
+          <div className="lbx-promo-text">
+            <span className="lbx-promo-badge">BOOK CLUB</span>
+            <p>A curated space built for reading discovery. Browse shelves by genre, mood, or theme.</p>
+            <Link to="/discovery" className="lbx-promo-browse">Browse shelves</Link>
+          </div>
+          <div className="lbx-promo-covers">
+            {recentBooks.slice(0, 6).map((b) => (
+              <img
+                key={b.isbn}
+                src={`https://covers.openlibrary.org/b/isbn/${b.isbn}-M.jpg`}
+                alt={b.title}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
     </div>
   )
 }
