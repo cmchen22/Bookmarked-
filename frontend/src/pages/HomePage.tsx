@@ -1,163 +1,307 @@
+import { useState, type FormEvent } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import BookshelfRow from "../components/BookshelfRow";
 import "./HomePage.css";
 
-type BookItem = {
-  kind: "book";
-  height: number;
+type BookStatus = "currently-reading" | "want-to-read" | "finished";
+
+export type UserBook = {
+  id: string;
+  title: string;
+  author: string;
+  status: BookStatus;
+  shelfId: string;
   color: string;
-  width?: number;
-  tilt?: number;
+  height: number;
+  width: number;
+  tilt: number;
 };
 
-type DecorItem = {
-  kind: "decor";
-  type: string;
-  label: string;
-  path: string;
+export type Shelf = {
+  id: string;
+  name: string;
 };
 
-type ShelfItem = BookItem | DecorItem;
+const defaultShelves: Shelf[] = [
+  { id: "currently-reading", name: "Currently Reading" },
+  { id: "want-to-read", name: "Want to Read" },
+  { id: "finished", name: "Finished" },
+];
 
-type Row = {
-  items: ShelfItem[];
-};
+const bookColors = [
+  "#6b4f3a",
+  "#2f6b43",
+  "#9a3940",
+  "#3f6f8f",
+  "#5c2f6e",
+  "#9a5a32",
+  "#1f6d63",
+];
 
-const HomePage = () => {
-    const rows: Row[] = [
-    {
-        items: [
-        { kind: "book", height: 150, width: 38, color: "#6b4f3a", tilt: -1 },
-        { kind: "book", height: 165, width: 40, color: "#2f6b43", tilt: 1 },
-        { kind: "book", height: 145, width: 38, color: "#477a4f", tilt: -1 },
-        { kind: "book", height: 160, width: 38, color: "#5a4632", tilt: 1 },
+export default function HomePage() {
+  const navigate = useNavigate();
 
-        { kind: "decor", type: "candle", label: "Reviews", path: "/reviews" },
+  const [books, setBooks] = useState<UserBook[]>([]);
+  const [shelves, setShelves] = useState<Shelf[]>(defaultShelves);
 
-        { kind: "book", height: 170, width: 40, color: "#5c2f6e", tilt: -1 },
-        { kind: "book", height: 180, width: 42, color: "#9a3940", tilt: 1 },
-        { kind: "book", height: 160, width: 40, color: "#3f6f8f", tilt: -2 },
+  const [showAddBook, setShowAddBook] = useState(false);
+  const [showSearch, setShowSearch] = useState(false);
 
-        { kind: "decor", type: "plant", label: "Community", path: "/social" },
+  const [title, setTitle] = useState("");
+  const [author, setAuthor] = useState("");
+  const [status, setStatus] = useState<BookStatus>("want-to-read");
+  const [searchQuery, setSearchQuery] = useState("");
 
-        { kind: "book", height: 155, width: 40, color: "#2f6b43", tilt: 1 },
-        { kind: "book", height: 168, width: 42, color: "#9a5a32", tilt: -1 },
-        { kind: "book", height: 160, width: 40, color: "#1f6d63", tilt: 1 },
-        { kind: "book", height: 150, width: 36, color: "#9c7a53", tilt: -1 },
-        ],
-    },
-    {
-        items: [
-        { kind: "book", height: 150, width: 42, color: "#5d4b7c" },
-        { kind: "book", height: 140, width: 38, color: "#5a4632" },
+  const addBook = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
-        { kind: "decor", type: "clock", label: "Progress", path: "/progress" },
+    const newBook: UserBook = {
+      id: crypto.randomUUID(),
+      title,
+      author,
+      status,
+      shelfId: status,
+      color: bookColors[Math.floor(Math.random() * bookColors.length)],
+      height: 145 + Math.floor(Math.random() * 35),
+      width: 36 + Math.floor(Math.random() * 8),
+      tilt: Math.random() > 0.5 ? 1 : -1,
+    };
 
-        { kind: "book", height: 160, width: 40, color: "#204d7a", tilt: -2 },
-        { kind: "book", height: 170, width: 42, color: "#3d2a72" },
-        { kind: "book", height: 162, width: 40, color: "#2f5177", tilt: 1 },
-        { kind: "book", height: 158, width: 40, color: "#9a3940", tilt: -1 },
-        { kind: "book", height: 150, width: 38, color: "#6b4f3a" },
-        { kind: "book", height: 170, width: 40, color: "#5c7693", tilt: 1 },
+    setBooks([...books, newBook]);
+    setTitle("");
+    setAuthor("");
+    setStatus("want-to-read");
+    setShowAddBook(false);
+  };
 
-        { kind: "decor", type: "stack", label: "Lists", path: "/lists" },
+  const addShelf = () => {
+    const shelfName = prompt("Name your new shelf:");
+    if (!shelfName) return;
 
-        { kind: "book", height: 168, width: 42, color: "#2f6483", tilt: -1 },
-        ],
-    },
-    {
-        items: [
-        { kind: "decor", type: "bookStackLeft", label: "Lists", path: "/lists" },
+    const id = shelfName.toLowerCase().replace(/\s+/g, "-");
 
-        { kind: "book", height: 145, width: 40, color: "#9a4d58" },
-        { kind: "book", height: 170, width: 42, color: "#8a8c91", tilt: 1 },
-        { kind: "book", height: 145, width: 40, color: "#3f6b43" },
-        { kind: "book", height: 156, width: 40, color: "#437568", tilt: -1 },
+    setShelves([...shelves, { id, name: shelfName }]);
+  };
 
-        { kind: "decor", type: "candleSmall", label: "Favorites", path: "/favorites" },
+  const handleSearch = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!searchQuery.trim()) return;
 
-        { kind: "book", height: 172, width: 40, color: "#466534" },
-        { kind: "book", height: 164, width: 40, color: "#5b7088" },
-        { kind: "book", height: 168, width: 40, color: "#1f7a42" },
-        { kind: "book", height: 180, width: 42, color: "#c48ea2" },
+    navigate(`/discovery?search=${encodeURIComponent(searchQuery)}`);
+  };
 
-        { kind: "decor", type: "globe", label: "Discover", path: "/discovery" },
+  const booksRead = books.filter((book) => book.status === "finished").length;
+  const currentlyReading = books.filter(
+    (book) => book.status === "currently-reading"
+  ).length;
+  const wantToRead = books.filter((book) => book.status === "want-to-read").length;
 
-        { kind: "book", height: 172, width: 40, color: "#7b6f67" },
-        { kind: "book", height: 180, width: 42, color: "#5c4b88", tilt: 1 },
-        ],
-    },
-    {
-        items: [
-        { kind: "book", height: 152, width: 40, color: "#9a4b37" },
-        { kind: "book", height: 148, width: 40, color: "#6d84a0" },
-        { kind: "book", height: 158, width: 40, color: "#5c6488" },
+  return (
+    <div className="home-page">
+      <header className="home-topbar">
+        <Link to="/home" className="brand-link">
+          <div className="brand">
+            <img src="/Logo.svg" alt="Bookmarked logo" className="logo" />
+            <span>Bookmarked</span>
+          </div>
+        </Link>
 
-        { kind: "decor", type: "magnifier", label: "Search", path: "/search" },
+        <div className="topbar-actions">
+          <button className="topbar-btn" onClick={() => setShowAddBook(true)}>
+            ⊕ Add Book
+          </button>
 
-        { kind: "book", height: 170, width: 40, color: "#2b6b5d", tilt: -1 },
-        { kind: "book", height: 174, width: 40, color: "#d8a3be" },
-        { kind: "book", height: 150, width: 40, color: "#4f3279" },
+          <button className="topbar-btn" onClick={() => navigate("/lists")}>
+            My Lists
+          </button>
 
-        { kind: "decor", type: "bear", label: "Profile", path: "/profile" },
+          <button className="profile-btn" onClick={() => navigate("/profile")}>
+            ◯
+          </button>
+        </div>
+      </header>
 
-        { kind: "book", height: 160, width: 40, color: "#7a6930" },
-        { kind: "book", height: 172, width: 40, color: "#3f7a53", tilt: 2 },
-        ],
-    },
-    ];
+      <div className="home-dashboard">
+        <aside className="left-panel">
+          <section className="continue-card">
+            <h3>Continue Reading</h3>
 
-    return (
-        <div className="home-page">
-            <header className="home-topbar">
-            <div className="brand">
-                <img src="/Logo.svg" alt="Bookmarked logo" className="logo" />
-                <span>Bookmarked</span>
+            <div className="cover-placeholder">
+              {currentlyReading === 0 ? (
+                <p>No current book yet</p>
+              ) : (
+                <p>{currentlyReading} book{currentlyReading > 1 ? "s" : ""} in progress</p>
+              )}
+            </div>
+          </section>
+
+          <section className="stats-panel">
+            <h3>Your Stats</h3>
+
+            <div className="stats-grid">
+              <div className="stat-box">
+                <strong>{booksRead}</strong>
+                <span>Books Read</span>
+              </div>
+
+              <div className="stat-box">
+                <strong>{books.length}</strong>
+                <span>Total Books</span>
+              </div>
+
+              <div className="stat-box">
+                <strong>{currentlyReading}</strong>
+                <span>Reading Now</span>
+              </div>
+
+              <div className="stat-box">
+                <strong>{wantToRead}</strong>
+                <span>Want to Read</span>
+              </div>
             </div>
 
-            <div className="topbar-actions">
-                <button className="topbar-btn">↗ 7 Trending</button>
-                <button className="topbar-btn">⊕ Post</button>
-                <button className="profile-btn">◯</button>
+            <h4>My Library</h4>
+
+            <div className="library-list">
+              <button>📖 All Books</button>
+              <button>⭐ Favorites</button>
+              <button>🕘 Currently Reading</button>
+              <button>✅ Finished</button>
+              <button>📌 Want to Read</button>
+              <button>💬 Reviews</button>
             </div>
-            </header>
+          </section>
+        </aside>
 
-            <div className="home-content">
-                <main className="bookshelf-wrapper">
-                    {rows.map((row, index) => (
-                    <BookshelfRow key={index} items={row.items} />
-                    ))}
-                </main>
+        <main className="shelves-area">
+          <div className="shelves-header">
+            <h2>My Shelves</h2>
+            <p>Add books and build your personal reading space.</p>
+          </div>
 
-                <aside className="community-panel">
-                    <section className="panel-card">
-                    <h3>Friend Activity</h3>
-                    <p><strong>Maya</strong> reviewed <em>Yellowface</em></p>
-                    <p><strong>Chris</strong> added <em>Dune</em> to their shelf</p>
-                    <p><strong>Alison</strong> started <em>Tomorrow, and Tomorrow, and Tomorrow</em></p>
-                    </section>
+          {shelves.map((shelf) => {
+            const shelfBooks = books.filter((book) => book.shelfId === shelf.id);
 
-                    <section className="panel-card">
-                    <h3>Trending Discussions</h3>
-                    <p>“Books with morally gray characters?”</p>
-                    <p>“Best cozy fantasy recs?”</p>
-                    <p>“Was the ending worth it?”</p>
-                    </section>
+            return (
+              <BookshelfRow
+                key={shelf.id}
+                shelf={shelf}
+                books={shelfBooks}
+                onBookClick={(book) => console.log("Clicked book:", book)}
+                onSearchClick={() => setShowSearch(true)}
+              />
+            );
+          })}
 
-                    <section className="panel-card">
-                    <h3>Popular Genres</h3>
-                    <div className="genre-tags">
-                        <span>Fantasy</span>
-                        <span>Romance</span>
-                        <span>Mystery</span>
-                        <span>Memoir</span>
-                    </div>
-                </section>
-            </aside>
+          <button className="add-shelf-box" onClick={addShelf}>
+            + Add a New Shelf
+          </button>
+        </main>
+
+        <aside className="right-panel">
+          <section className="right-card">
+            <div className="card-title-row">
+              <h3>Friends Activity</h3>
+              <span>×</span>
+            </div>
+
+            <div className="activity-row">👤</div>
+            <div className="activity-row">👤</div>
+            <div className="activity-row">👤</div>
+            <div className="activity-row">👤</div>
+          </section>
+
+          <section className="right-card">
+            <div className="card-title-row">
+              <h3>Suggested Authors</h3>
+              <span>×</span>
+            </div>
+
+            <div className="activity-row">👤</div>
+            <div className="activity-row">👤</div>
+            <div className="activity-row">👤</div>
+            <div className="activity-row">👤</div>
+          </section>
+
+          <section className="right-card challenge-card">
+            <div className="card-title-row">
+              <h3>Reading Challenge</h3>
+              <span>×</span>
+            </div>
+
+            <div className="challenge-box">
+              <strong>2026 Goal: 20 Books</strong>
+              <div className="progress-bar">
+                <div
+                  className="progress-fill"
+                  style={{ width: `${Math.min((booksRead / 20) * 100, 100)}%` }}
+                ></div>
+              </div>
+              <p>{booksRead} of 20 complete</p>
+            </div>
+          </section>
+        </aside>
+      </div>
+
+      {showAddBook && (
+        <div className="modal-backdrop">
+          <form className="book-modal" onSubmit={addBook}>
+            <h2>Add a Book</h2>
+
+            <input
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              placeholder="Book title"
+              required
+            />
+
+            <input
+              value={author}
+              onChange={(e) => setAuthor(e.target.value)}
+              placeholder="Author"
+              required
+            />
+
+            <select
+              value={status}
+              onChange={(e) => setStatus(e.target.value as BookStatus)}
+            >
+              <option value="currently-reading">Currently Reading</option>
+              <option value="want-to-read">Want to Read</option>
+              <option value="finished">Finished</option>
+            </select>
+
+            <div className="modal-actions">
+              <button type="button" onClick={() => setShowAddBook(false)}>
+                Cancel
+              </button>
+              <button type="submit">Add Book</button>
+            </div>
+          </form>
         </div>
-        <footer className="home-footer">
-            <p>© 2023 Bookmarked. All rights reserved.</p>
-        </footer>
+      )}
+
+      {showSearch && (
+        <div className="modal-backdrop">
+          <form className="book-modal" onSubmit={handleSearch}>
+            <h2>Search Books</h2>
+
+            <input
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search title, author, or genre"
+              required
+            />
+
+            <div className="modal-actions">
+              <button type="button" onClick={() => setShowSearch(false)}>
+                Cancel
+              </button>
+              <button type="submit">Search</button>
+            </div>
+          </form>
         </div>
-    );
-};
-export default HomePage;
+      )}
+    </div>
+  );
+}

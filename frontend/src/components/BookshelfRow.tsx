@@ -1,65 +1,104 @@
-import { use } from "react";
 import Book from "./Book";
 import DecorItem from "./DecorItem";
 import { useNavigate } from "react-router-dom";
 
-type BookItem = {
-  kind: "book";
-  height: number;
+type UserBook = {
+  id: string;
+  title: string;
+  author: string;
+  status: "currently-reading" | "want-to-read" | "finished";
+  shelfId: string;
   color: string;
-  width?: number;
-  tilt?: number;
+  height: number;
+  width: number;
+  tilt: number;
 };
 
-type DecorItemData = {
-  kind: "decor";
-  type: string;
-  label: string;
-  path: string;
+type Shelf = {
+  id: string;
+  name: string;
 };
-
-type ShelfItem = BookItem | DecorItemData;
 
 type BookshelfRowProps = {
-  items: ShelfItem[];
+  shelf: Shelf;
+  books: UserBook[];
+  onBookClick: (book: UserBook) => void;
+  onSearchClick: () => void;
 };
 
-const BookshelfRow = ({ items }: BookshelfRowProps) => {
-  const navigate = useNavigate()
-  return (
-    <div className="shelf-row">
-      <div className="shelf-inner">
-        {items.map((item, index) => {
-          if (item.kind === "book") {
-            return (
-              <button
-                key={index}
-                className="book-btn"
-                onClick={() => console.log("book group clicked")}
-              >
-                <Book
-                  height={item.height}
-                  color={item.color}
-                  width={item.width}
-                  tilt={item.tilt}
-                />
-              </button>
-            );
-          }
+const BookshelfRow = ({
+  shelf,
+  books,
+  onBookClick,
+  onSearchClick,
+}: BookshelfRowProps) => {
+  const navigate = useNavigate();
 
-          return (
-            <button
-              key={index}
-              className="decor-btn"
-              onClick={() => navigate(item.path)}
-              aria-label={item.label}
-            >
-              <DecorItem type={item.type} />
+  return (
+    <section className="shelf-row">
+      <div className="shelf-inner">
+
+        {books.map((book) => (
+          <Book
+            key={book.id}
+            title={book.title}
+            author={book.author}
+            height={book.height}
+            width={book.width}
+            color={book.color}
+            tilt={book.tilt}
+            onClick={() => onBookClick(book)}
+          />
+        ))}
+
+        {shelf.id === "currently-reading" && (
+          <>
+            <button className="decor-btn" onClick={onSearchClick} aria-label="Search">
+              <DecorItem type="magnifier" label="Search" />
             </button>
-          );
-        })}
+
+            <button
+              className="decor-btn"
+              onClick={() => navigate("/discovery")}
+              aria-label="Discovery"
+            >
+              <DecorItem type="globe" label="Discover" />
+            </button>
+          </>
+        )}
+
+        {shelf.id === "want-to-read" && (
+          <button
+            className="decor-btn"
+            onClick={() => navigate("/profile")}
+            aria-label="Profile"
+          >
+            <DecorItem type="bear" label="Profile" />
+          </button>
+        )}
+
+        {shelf.id === "finished" && (
+          <>
+            <button
+              className="decor-btn"
+              onClick={() => navigate("/social")}
+              aria-label="Social Feed"
+            >
+              <DecorItem type="plant" label="Social" />
+            </button>
+
+            <button
+              className="decor-btn"
+              onClick={() => navigate("/reviews")}
+              aria-label="Reviews"
+            >
+              <DecorItem type="candleSmall" label="Reviews" />
+            </button>
+          </>
+        )}
       </div>
-    </div>
+    </section>
   );
 };
+
 export default BookshelfRow;
