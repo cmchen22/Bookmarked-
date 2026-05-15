@@ -1312,8 +1312,8 @@
   display: flex;
   flex-direction: column;
   gap: 0;
-  background: #171310;
-  color: #e4d9ce;
+  background: #f5f0e8;
+  color: #2d2418;
 }
 
 .discovery-market-topbar {
@@ -1322,9 +1322,9 @@
   align-items: center;
   gap: 1rem;
   padding: 0.85rem 1.45rem;
-  background: #1a1210;
-  color: #f0e6da;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  background: linear-gradient(180deg, #4d5f45 0%, #3f4a3a 100%);
+  color: #f8f3e7;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 }
 
 .discovery-market-brand-row,
@@ -1343,7 +1343,7 @@
 }
 
 .discovery-market-brand .brandmark-icon {
-  color: #f6efe5;
+  color: #f8f3e7;
 }
 
 .discovery-market-brand strong {
@@ -1354,7 +1354,7 @@
 .discovery-market-brand span:last-child {
   display: block;
   margin-top: 0.15rem;
-  color: rgba(246, 239, 229, 0.72);
+  color: rgba(248, 243, 231, 0.72);
   font-size: 0.82rem;
 }
 
@@ -1369,9 +1369,9 @@
 .discovery-market-post-button,
 .discovery-market-avatar {
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(120, 151, 95, 0.18);
-  color: #f7f2e8;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.15);
+  color: #f8f3e7;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
@@ -1384,8 +1384,8 @@
 .discovery-market-action-pill-active,
 .discovery-market-post-button,
 .discovery-market-avatar {
-  background: linear-gradient(180deg, #466743 0%, #375236 100%);
-  box-shadow: 0 8px 20px rgba(23, 34, 22, 0.18);
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .discovery-market-action-pill {
@@ -1400,8 +1400,8 @@
 
 .discovery-market-filter-bar {
   padding: 0.85rem 1.45rem 1rem;
-  background: #1f1b17;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  background: #ece6d8;
+  border-bottom: 1px solid rgba(120, 90, 65, 0.16);
 }
 
 .discovery-market-search-form {
@@ -1413,11 +1413,11 @@
 
 .discovery-market-search-input,
 .discovery-market-select {
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(120, 90, 65, 0.25);
   border-radius: 7px;
   min-height: 38px;
-  background: rgba(255, 255, 255, 0.07);
-  color: #e4d9ce;
+  background: #fff;
+  color: #2d2418;
   font-size: 0.86rem;
 }
 
@@ -1428,7 +1428,7 @@
 }
 
 .discovery-market-search-input::placeholder {
-  color: rgba(228, 217, 206, 0.4);
+  color: rgba(45, 36, 24, 0.35);
 }
 
 .discovery-market-search-submit,
@@ -1454,33 +1454,33 @@
 }
 
 .discovery-market-reset-button {
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(255, 255, 255, 0.07);
-  color: rgba(228, 217, 206, 0.75);
+  border: 1px solid rgba(120, 90, 65, 0.25);
+  background: rgba(120, 90, 65, 0.07);
+  color: rgba(45, 36, 24, 0.7);
   transition: background 0.15s;
 }
 
 .discovery-market-reset-button:hover {
-  background: rgba(255, 255, 255, 0.12);
-  color: #e4d9ce;
+  background: rgba(120, 90, 65, 0.14);
+  color: #2d2418;
 }
 
 .discovery-market-random-button {
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(120, 90, 65, 0.25);
   border-radius: 7px;
   min-height: 38px;
   padding: 0 1rem;
   font-weight: 700;
   cursor: pointer;
-  background: rgba(255, 255, 255, 0.07);
-  color: rgba(228, 217, 206, 0.75);
+  background: rgba(120, 90, 65, 0.07);
+  color: rgba(45, 36, 24, 0.7);
   font-size: 0.86rem;
   transition: background 0.15s, color 0.15s;
 }
 
 .discovery-market-random-button:hover {
-  background: rgba(255, 255, 255, 0.12);
-  color: #e4d9ce;
+  background: rgba(120, 90, 65, 0.14);
+  color: #2d2418;
 }
 
 .discovery-market-controls-row {
@@ -1500,7 +1500,7 @@
 .discovery-market-control-label {
   font-size: 0.68rem;
   font-weight: 800;
-  color: rgba(228, 217, 206, 0.45);
+  color: rgba(45, 36, 24, 0.5);
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
@@ -1508,8 +1508,8 @@
 .discovery-market-segmented {
   display: inline-flex;
   border-radius: 7px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(120, 90, 65, 0.08);
+  border: 1px solid rgba(120, 90, 65, 0.2);
   padding: 3px;
   gap: 2px;
 }
@@ -1525,19 +1525,19 @@
   font-weight: 600;
   cursor: pointer;
   background: transparent;
-  color: rgba(228, 217, 206, 0.55);
+  color: rgba(45, 36, 24, 0.5);
   transition: background 0.14s, color 0.14s;
   white-space: nowrap;
 }
 
 .discovery-market-seg-btn:hover:not(.is-active) {
-  background: rgba(255, 255, 255, 0.08);
-  color: #e4d9ce;
+  background: rgba(120, 90, 65, 0.1);
+  color: #2d2418;
 }
 
 .discovery-market-seg-btn.is-active {
-  background: rgba(255, 255, 255, 0.13);
-  color: #f0ebe3;
+  background: #4d5f45;
+  color: #f8f3e7;
   font-weight: 700;
 }
 
@@ -1555,10 +1555,10 @@
 }
 
 .discovery-market-chip {
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(120, 90, 65, 0.2);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.06);
-  color: rgba(228, 217, 206, 0.65);
+  background: rgba(120, 90, 65, 0.06);
+  color: rgba(45, 36, 24, 0.65);
   padding: 0.35rem 0.85rem;
   cursor: pointer;
   font-size: 0.81rem;
@@ -1567,13 +1567,13 @@
 }
 
 .discovery-market-chip:hover:not(.is-active) {
-  background: rgba(255, 255, 255, 0.1);
-  color: #e4d9ce;
+  background: rgba(120, 90, 65, 0.12);
+  color: #2d2418;
 }
 
 .discovery-market-chip.is-active {
-  background: #e4d9ce;
-  color: #1a1210;
+  background: #4d5f45;
+  color: #f8f3e7;
   border-color: transparent;
   font-weight: 700;
 }
@@ -1589,16 +1589,16 @@
   gap: 1rem;
   align-items: center;
   padding: 0.7rem 1rem;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(120, 90, 65, 0.06);
+  border: 1px solid rgba(120, 90, 65, 0.16);
   border-radius: 8px;
-  color: rgba(228, 217, 206, 0.5);
+  color: rgba(45, 36, 24, 0.5);
   font-size: 0.82rem;
 }
 
 .discovery-market-summary span:first-child {
   font-weight: 700;
-  color: rgba(228, 217, 206, 0.75);
+  color: rgba(45, 36, 24, 0.8);
 }
 
 .discovery-market-grid {
@@ -1617,20 +1617,20 @@
 .discovery-market-card {
   overflow: hidden;
   border-radius: 8px;
-  background: #231f1b;
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: #fdf8ef;
+  border: 1px solid rgba(120, 90, 65, 0.16);
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .discovery-market-card-link:hover .discovery-market-card {
   transform: translateY(-4px);
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 16px 36px rgba(80, 55, 35, 0.14);
 }
 
 .discovery-market-cover-wrap {
   position: relative;
   aspect-ratio: 2 / 3;
-  background: #2c2620;
+  background: #e8ddd0;
 }
 
 .discovery-market-cover {
@@ -1657,7 +1657,7 @@
 
 .discovery-market-card-body {
   padding: 0.75rem 0.7rem 0.65rem;
-  color: #e4d9ce;
+  color: #2d2418;
 }
 
 .discovery-market-card-body h2 {
@@ -1670,7 +1670,7 @@
 
 .discovery-market-card-body p {
   margin: 0.2rem 0 0;
-  color: rgba(228, 217, 206, 0.55);
+  color: rgba(45, 36, 24, 0.55);
   font-size: 0.75rem;
 }
 
@@ -1680,7 +1680,7 @@
   flex-wrap: wrap;
   gap: 0.3rem;
   font-size: 0.72rem;
-  color: rgba(228, 217, 206, 0.45);
+  color: rgba(45, 36, 24, 0.45);
 }
 
 .discovery-market-stats {
@@ -1688,7 +1688,7 @@
   justify-content: space-between;
   gap: 0.5rem;
   margin-top: 0.6rem;
-  color: rgba(228, 217, 206, 0.65);
+  color: rgba(45, 36, 24, 0.65);
   font-size: 0.74rem;
 }
 
@@ -1709,8 +1709,8 @@
 }
 
 .discovery-market-rating-source-starter {
-  background: rgba(255, 255, 255, 0.08);
-  color: rgba(228, 217, 206, 0.55);
+  background: rgba(45, 36, 24, 0.08);
+  color: rgba(45, 36, 24, 0.55);
 }
 
 .discovery-market-genre-tag {
@@ -1719,8 +1719,8 @@
   margin-top: 0.55rem;
   padding: 0.22rem 0.48rem;
   border-radius: 4px;
-  background: rgba(255, 255, 255, 0.08);
-  color: rgba(228, 217, 206, 0.55);
+  background: rgba(120, 90, 65, 0.1);
+  color: rgba(45, 36, 24, 0.6);
   font-size: 0.65rem;
   font-weight: 700;
 }
@@ -1730,7 +1730,7 @@
   grid-column: 1 / -1;
   text-align: center;
   padding: 2rem 1rem;
-  color: rgba(228, 217, 206, 0.5);
+  color: rgba(45, 36, 24, 0.5);
 }
 
 .discovery-market-error-state {
@@ -1747,8 +1747,8 @@
 .skeleton-card {
   border-radius: 8px;
   overflow: hidden;
-  background: #231f1b;
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: #fdf8ef;
+  border: 1px solid rgba(120, 90, 65, 0.16);
   display: flex;
   flex-direction: column;
   gap: 0;
@@ -1757,7 +1757,7 @@
 .skeleton-cover {
   width: 100%;
   aspect-ratio: 2 / 3;
-  background: linear-gradient(90deg, #2a2320 25%, #332e2a 50%, #2a2320 75%);
+  background: linear-gradient(90deg, #e8ddd0 25%, #f0e8da 50%, #e8ddd0 75%);
   background-size: 600px 100%;
   animation: shimmer 1.4s ease-in-out infinite;
 }
@@ -1771,7 +1771,7 @@
 
 .skeleton-line {
   border-radius: 4px;
-  background: linear-gradient(90deg, #2a2320 25%, #332e2a 50%, #2a2320 75%);
+  background: linear-gradient(90deg, #e8ddd0 25%, #f0e8da 50%, #e8ddd0 75%);
   background-size: 600px 100%;
   animation: shimmer 1.4s ease-in-out infinite;
   height: 0.7rem;
@@ -1799,9 +1799,9 @@
 }
 
 .discovery-market-page-button {
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.07);
-  color: rgba(228, 217, 206, 0.75);
+  border: 1px solid rgba(120, 90, 65, 0.25);
+  background: rgba(120, 90, 65, 0.08);
+  color: rgba(45, 36, 24, 0.75);
 }
 
 .discovery-market-page-button:disabled {
@@ -1810,7 +1810,7 @@
 }
 
 .discovery-market-page-label {
-  color: rgba(228, 217, 206, 0.55);
+  color: rgba(45, 36, 24, 0.55);
   font-weight: 700;
   font-size: 0.85rem;
 }
@@ -1824,10 +1824,10 @@
 .discovery-market-footer {
   padding: 1rem 1.45rem 1.2rem;
   text-align: center;
-  color: rgba(228, 217, 206, 0.35);
+  color: rgba(45, 36, 24, 0.45);
   font-size: 0.8rem;
-  background: #171310;
-  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  background: #ece6d8;
+  border-top: 1px solid rgba(120, 90, 65, 0.16);
 }
 
 .book-record-shell {
@@ -2058,7 +2058,7 @@
 
 /* ── Topbar ── */
 .lbx-topbar {
-  background: #1a1210;
+  background: linear-gradient(180deg, #4d5f45 0%, #3f4a3a 100%);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -2068,7 +2068,7 @@
 }
 
 .lbx-brand {
-  color: #f5c89a;
+  color: #f8f3e7;
   font-size: 1.15rem;
 }
 
@@ -2083,7 +2083,7 @@
 }
 
 .lbx-nav a {
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(255, 255, 255, 0.8);
   font-size: 0.82rem;
   font-weight: 700;
   letter-spacing: 0.05em;
@@ -2097,7 +2097,7 @@
 }
 
 .lbx-create-btn {
-  border: 1px solid rgba(255, 255, 255, 0.28) !important;
+  border: 1px solid rgba(255, 255, 255, 0.35) !important;
   border-radius: 5px;
   padding: 0.3rem 0.75rem;
 }
@@ -2110,7 +2110,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #1a1210;
+  background: #1a2415;
   flex-shrink: 0;
 }
 
@@ -2127,7 +2127,7 @@
   min-width: 130px;
   height: 100%;
   object-fit: cover;
-  filter: brightness(0.28) saturate(0.42);
+  filter: brightness(0.38) saturate(0.55);
 }
 
 .lbx-hero-vignette {
@@ -2153,6 +2153,7 @@
   font-size: clamp(1.75rem, 4.2vw, 3rem);
   font-weight: 800;
   font-style: italic;
+  font-family: var(--heading);
   line-height: 1.2;
   text-shadow: 0 2px 32px rgba(0, 0, 0, 0.7);
 }
@@ -2182,10 +2183,11 @@
 
 /* ── Covers strip ── */
 .lbx-covers-section {
-  background: #1c1612;
+  background: #f0e8d8;
   padding: 1.1rem 0 1.4rem;
   flex-shrink: 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid rgba(120, 90, 65, 0.12);
+  border-bottom: 1px solid rgba(120, 90, 65, 0.12);
 }
 
 .lbx-covers-meta {
@@ -2193,7 +2195,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 0 1.5rem 0.65rem;
-  color: rgba(255, 255, 255, 0.38);
+  color: rgba(90, 65, 45, 0.55);
   font-size: 0.7rem;
   font-weight: 800;
   letter-spacing: 0.1em;
@@ -2223,7 +2225,7 @@
   width: auto;
   border-radius: 4px;
   object-fit: cover;
-  opacity: 0.8;
+  opacity: 0.88;
   transition: opacity 0.2s, transform 0.2s;
 }
 
@@ -2251,6 +2253,7 @@
   font-size: 0.75rem;
   font-weight: 800;
   color: #7a5a3e;
+  font-family: var(--sans);
 }
 
 .lbx-features-grid {
@@ -2289,7 +2292,7 @@
 
 /* ── Promo / Discovery ── */
 .lbx-promo {
-  background: #1c1612;
+  background: linear-gradient(180deg, #4d5f45 0%, #3a4b35 100%);
   padding: 2.4rem 1.5rem 2.8rem;
   flex-shrink: 0;
   margin-top: auto;
