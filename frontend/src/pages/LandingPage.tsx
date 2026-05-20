@@ -30,11 +30,46 @@ const landingCarouselImages = [
 ]
 
 const communityActivity = [
-  { name: 'Bennett', action: 'just rated', book: 'Fourth Wing', rating: '★★★★★', avatar: 'B' },
-  { name: 'James', action: 'just rated', book: 'Iron Flame', rating: '★★★★☆', avatar: 'J' },
-  { name: 'Sophia', action: 'just reviewed', book: 'The Women', rating: '★★★★★', avatar: 'S' },
-  { name: 'Emily', action: 'added to favorites', book: 'Happy Place', rating: '♥', avatar: 'E' },
-  { name: 'Lucas', action: 'just rated', book: 'Tomorrow, and Tomorrow, and Tomorrow', rating: '★★★★★', avatar: 'L' },
+  {
+    name: 'Bennett',
+    action: 'just rated',
+    book: 'Fourth Wing',
+    rating: '★★★★★',
+    avatar: 'B',
+    review: 'A fast and exciting read. I could not put it down.',
+  },
+  {
+    name: 'James',
+    action: 'just rated',
+    book: 'Iron Flame',
+    rating: '★★★★☆',
+    avatar: 'J',
+    review: 'Really fun story with strong characters and good pacing.',
+  },
+  {
+    name: 'Sophia',
+    action: 'just reviewed',
+    book: 'The Women',
+    rating: '★★★★★',
+    avatar: 'S',
+    review: 'Emotional, powerful, and beautifully written.',
+  },
+  {
+    name: 'Emily',
+    action: 'added to favorites',
+    book: 'Happy Place',
+    rating: '★★★★★',
+    avatar: 'E',
+    review: 'Sweet, funny, and perfect for a weekend read.',
+  },
+  {
+    name: 'Lucas',
+    action: 'just rated',
+    book: 'Tomorrow, and Tomorrow, and Tomorrow',
+    rating: '★★★★★',
+    avatar: 'L',
+    review: 'One of the best books I have read this year.',
+  },
 ]
 
 const heroBgBooks = [
@@ -139,7 +174,36 @@ export function LandingPage() {
     return () => window.clearInterval(intervalId)
   }, [])
 
-  const activeReview = communityActivity[activeCover % communityActivity.length]
+  const leftReview = communityActivity[(activeCover + 2) % communityActivity.length]
+  const rightReview = communityActivity[activeCover % communityActivity.length]
+
+  const reviewCardStyle = {
+    width: '260px',
+    minHeight: '190px',
+    borderRadius: '22px',
+    background: 'rgba(255, 255, 255, 0.72)',
+    border: '1px solid rgba(123, 87, 61, 0.14)',
+    boxShadow: '0 14px 30px rgba(58, 39, 24, 0.12)',
+    padding: '1.2rem',
+    display: 'flex',
+    flexDirection: 'column' as const,
+    justifyContent: 'center',
+    transition: 'all 0.4s ease',
+  }
+
+  const avatarStyle = {
+    width: '48px',
+    height: '48px',
+    borderRadius: '999px',
+    background: 'linear-gradient(135deg, #8b5e3c, #3a2a20)',
+    color: '#fff',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontWeight: 800,
+    fontSize: '1.05rem',
+    flexShrink: 0,
+  }
 
   return (
     <div className="lbx-shell">
@@ -161,11 +225,7 @@ export function LandingPage() {
       <section className="lbx-hero">
         <div className="lbx-hero-bg" aria-hidden="true">
           {heroBgBooks.map((b) => (
-            <img
-              key={b.isbn}
-              src={`https://covers.openlibrary.org/b/isbn/${b.isbn}-L.jpg`}
-              alt=""
-            />
+            <img key={b.isbn} src={`https://covers.openlibrary.org/b/isbn/${b.isbn}-L.jpg`} alt="" />
           ))}
         </div>
         <div className="lbx-hero-vignette" aria-hidden="true" />
@@ -191,11 +251,7 @@ export function LandingPage() {
         <div className="lbx-covers-row">
           {recentBooks.map((b) => (
             <Link key={b.isbn} to="/discovery" title={b.title}>
-              <img
-                src={`https://covers.openlibrary.org/b/isbn/${b.isbn}-M.jpg`}
-                alt={b.title}
-                className="lbx-cover-thumb"
-              />
+              <img src={`https://covers.openlibrary.org/b/isbn/${b.isbn}-M.jpg`} alt={b.title} className="lbx-cover-thumb" />
             </Link>
           ))}
         </div>
@@ -225,6 +281,32 @@ export function LandingPage() {
                 flexWrap: 'wrap',
               }}
             >
+              <Link to="/social" style={{ textDecoration: 'none', color: 'inherit' }}>
+                <div style={reviewCardStyle}>
+                  <p style={{ margin: '0 0 0.9rem', fontSize: '0.72rem', letterSpacing: '0.12em', fontWeight: 800, color: '#8b5e3c' }}>
+                    COMMUNITY REVIEW
+                  </p>
+
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
+                    <div style={avatarStyle}>{leftReview.avatar}</div>
+                    <div>
+                      <strong style={{ color: '#3f2d22' }}>{leftReview.name}</strong>
+                      <p style={{ margin: '0.15rem 0 0', fontSize: '0.8rem', color: '#7a6a58' }}>
+                        shared a review
+                      </p>
+                    </div>
+                  </div>
+
+                  <p style={{ margin: 0, color: '#4a3728', fontSize: '0.95rem', lineHeight: 1.5 }}>
+                    “{leftReview.review}”
+                  </p>
+
+                  <span style={{ marginTop: '0.8rem', color: '#8b5e3c', fontSize: '0.9rem', fontWeight: 700 }}>
+                    {leftReview.rating}
+                  </span>
+                </div>
+              </Link>
+
               <Link
                 to="/discovery"
                 style={{
@@ -234,10 +316,7 @@ export function LandingPage() {
                 }}
               >
                 <div className="landing-carousel" aria-label="Top trending books carousel">
-                  <div
-                    className="landing-carousel-track"
-                    style={{ transform: `translateX(${trackOffset}px)` }}
-                  >
+                  <div className="landing-carousel-track" style={{ transform: `translateX(${trackOffset}px)` }}>
                     {landingCarouselImages.map((book, index) => (
                       <img
                         key={book.id}
@@ -251,87 +330,28 @@ export function LandingPage() {
                 </div>
               </Link>
 
-              <Link
-                to="/social"
-                style={{
-                  textDecoration: 'none',
-                  color: 'inherit',
-                }}
-              >
-                <div
-                  style={{
-                    width: '260px',
-                    minHeight: '190px',
-                    borderRadius: '22px',
-                    background: 'rgba(255, 255, 255, 0.72)',
-                    border: '1px solid rgba(123, 87, 61, 0.14)',
-                    boxShadow: '0 14px 30px rgba(58, 39, 24, 0.12)',
-                    padding: '1.2rem',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    transition: 'all 0.4s ease',
-                  }}
-                >
-                  <p
-                    style={{
-                      margin: '0 0 0.9rem',
-                      fontSize: '0.72rem',
-                      letterSpacing: '0.12em',
-                      fontWeight: 800,
-                      color: '#8b5e3c',
-                    }}
-                  >
+              <Link to="/social" style={{ textDecoration: 'none', color: 'inherit' }}>
+                <div style={reviewCardStyle}>
+                  <p style={{ margin: '0 0 0.9rem', fontSize: '0.72rem', letterSpacing: '0.12em', fontWeight: 800, color: '#8b5e3c' }}>
                     LIVE REVIEW
                   </p>
 
-                  <div
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '0.75rem',
-                      marginBottom: '1rem',
-                    }}
-                  >
-                    <div
-                      style={{
-                        width: '48px',
-                        height: '48px',
-                        borderRadius: '999px',
-                        background: 'linear-gradient(135deg, #8b5e3c, #3a2a20)',
-                        color: '#fff',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        fontWeight: 800,
-                        fontSize: '1.05rem',
-                        flexShrink: 0,
-                      }}
-                    >
-                      {activeReview.avatar}
-                    </div>
-
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
+                    <div style={avatarStyle}>{rightReview.avatar}</div>
                     <div>
-                      <strong style={{ color: '#3f2d22' }}>{activeReview.name}</strong>
+                      <strong style={{ color: '#3f2d22' }}>{rightReview.name}</strong>
                       <p style={{ margin: '0.15rem 0 0', fontSize: '0.8rem', color: '#7a6a58' }}>
-                        {activeReview.action}
+                        {rightReview.action}
                       </p>
                     </div>
                   </div>
 
                   <p style={{ margin: 0, color: '#4a3728', fontSize: '0.95rem', lineHeight: 1.4 }}>
-                    <em>{activeReview.book}</em>
+                    <em>{rightReview.book}</em>
                   </p>
 
-                  <span
-                    style={{
-                      marginTop: '0.8rem',
-                      color: '#8b5e3c',
-                      fontSize: '1rem',
-                      letterSpacing: '0.06em',
-                    }}
-                  >
-                    {activeReview.rating}
+                  <span style={{ marginTop: '0.8rem', color: '#8b5e3c', fontSize: '1rem', letterSpacing: '0.06em' }}>
+                    {rightReview.rating}
                   </span>
                 </div>
               </Link>
@@ -350,11 +370,7 @@ export function LandingPage() {
           </div>
           <div className="lbx-promo-covers">
             {recentBooks.slice(0, 6).map((b) => (
-              <img
-                key={b.isbn}
-                src={`https://covers.openlibrary.org/b/isbn/${b.isbn}-M.jpg`}
-                alt={b.title}
-              />
+              <img key={b.isbn} src={`https://covers.openlibrary.org/b/isbn/${b.isbn}-M.jpg`} alt={b.title} />
             ))}
           </div>
         </div>
