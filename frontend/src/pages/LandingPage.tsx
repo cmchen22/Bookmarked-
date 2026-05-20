@@ -29,6 +29,14 @@ const landingCarouselImages = [
   },
 ]
 
+const communityActivity = [
+  { name: 'Bennett', action: 'just rated', book: 'Fourth Wing', rating: '★★★★★', avatar: 'B' },
+  { name: 'James', action: 'just rated', book: 'Iron Flame', rating: '★★★★☆', avatar: 'J' },
+  { name: 'Sophia', action: 'just reviewed', book: 'The Women', rating: '★★★★★', avatar: 'S' },
+  { name: 'Emily', action: 'added to favorites', book: 'Happy Place', rating: '♥', avatar: 'E' },
+  { name: 'Lucas', action: 'just rated', book: 'Tomorrow, and Tomorrow, and Tomorrow', rating: '★★★★★', avatar: 'L' },
+]
+
 const heroBgBooks = [
   { title: 'Fourth Wing', isbn: '9781649374042' },
   { title: 'Iron Flame', isbn: '9781649374172' },
@@ -115,44 +123,6 @@ const features = [
       </svg>
     ),
     text: 'Compile and share lists of books on any topic and keep a reading list to tackle',
-  },
-]
-
-const communityActivity = [
-  {
-    name: 'Bennett',
-    action: 'just rated',
-    book: 'Fourth Wing',
-    rating: '⭐⭐⭐⭐⭐',
-    avatar: 'https://randomuser.me/api/portraits/men/32.jpg',
-  },
-  {
-    name: 'James',
-    action: 'just rated',
-    book: 'Iron Flame',
-    rating: '⭐⭐⭐⭐',
-    avatar: 'https://randomuser.me/api/portraits/men/44.jpg',
-  },
-  {
-    name: 'Sophia',
-    action: 'added to favorites',
-    book: 'The Women',
-    rating: '❤️',
-    avatar: 'https://randomuser.me/api/portraits/women/65.jpg',
-  },
-  {
-    name: 'Emily',
-    action: 'just reviewed',
-    book: 'Happy Place',
-    rating: '⭐⭐⭐⭐⭐',
-    avatar: 'https://randomuser.me/api/portraits/women/12.jpg',
-  },
-  {
-    name: 'Lucas',
-    action: 'just rated',
-    book: 'Tomorrow, and Tomorrow, and Tomorrow',
-    rating: '⭐⭐⭐⭐⭐',
-    avatar: 'https://randomuser.me/api/portraits/men/18.jpg',
   },
 ]
 
@@ -244,6 +214,7 @@ export function LandingPage() {
 
           <aside className="landing-showcase">
             <div style={{ textAlign: 'center', width: '100%' }}>
+
               <Link
                 to="/discovery"
                 style={{
@@ -270,34 +241,70 @@ export function LandingPage() {
                   </div>
                 </div>
               </Link>
+
+              <div
+                style={{
+                  marginTop: '2rem',
+                  overflow: 'hidden',
+                  width: '100%',
+                }}
+              >
+                <div
+                  style={{
+                    display: 'flex',
+                    gap: '1rem',
+                    width: 'max-content',
+                    animation: 'lbxReviewScroll 22s linear infinite',
+                  }}
+                >
+                  {[...communityActivity, ...communityActivity].map((item, index) => (
+                    <div
+                      key={`${item.name}-${index}`}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '0.85rem',
+                        minWidth: '320px',
+                        padding: '1rem',
+                        borderRadius: '18px',
+                        background: 'rgba(255, 255, 255, 0.65)',
+                        border: '1px solid rgba(123, 87, 61, 0.14)',
+                        color: '#4a3728',
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: '48px',
+                          height: '48px',
+                          borderRadius: '999px',
+                          background: '#8b5e3c',
+                          color: '#fff',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          fontWeight: 800,
+                          fontSize: '1.05rem',
+                          flexShrink: 0,
+                        }}
+                      >
+                        {item.avatar}
+                      </div>
+
+                      <div style={{ textAlign: 'left' }}>
+                        <p style={{ margin: '0 0 0.25rem', fontSize: '0.92rem' }}>
+                          <strong>{item.name}</strong> {item.action}{' '}
+                          <em>{item.book}</em>
+                        </p>
+                        <span style={{ fontSize: '0.9rem', color: '#8b5e3c' }}>
+                          {item.rating}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </aside>
-
-          {/* ── Live community reviews ── */}
-          <section className="lbx-review-feed">
-            <div className="lbx-review-header">
-              <span>LIVE COMMUNITY ACTIVITY</span>
-            </div>
-
-            <div className="lbx-review-track">
-              {[...communityActivity, ...communityActivity].map((item, index) => (
-                <div key={`${item.name}-${index}`} className="lbx-review-card">
-                  <img
-                    src={item.avatar}
-                    alt={item.name}
-                    className="lbx-review-avatar"
-                  />
-                  <div>
-                    <p>
-                      <strong>{item.name}</strong> {item.action}{' '}
-                      <em>{item.book}</em>
-                    </p>
-                    <span>{item.rating}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
         </section>
       </div>
 
@@ -322,4 +329,4 @@ export function LandingPage() {
       </section>
     </div>
   )
-} 
+}
