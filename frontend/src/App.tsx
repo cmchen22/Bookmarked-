@@ -36,6 +36,7 @@ function App() {
       <Route path="/" element={<LandingPage />} />
       <Route path="/home" element={<HomePage />} />
       <Route path="/dashboard" element={<DashboardPage />} />
+      <Route path="/profile" element={<DashboardPage />} />
       <Route path="/social" element={<SocialMediaPage />} />
       <Route path="/signin" element={<SignInPage />} />
       <Route path="/discovery" element={<DiscoveryPage />} />
