@@ -37,6 +37,7 @@ const communityActivity = [
     rating: '★★★★★',
     avatar: 'B',
     review: 'A fast and exciting read. I could not put it down.',
+    quote: 'A reader lives a thousand lives before they die.',
   },
   {
     name: 'James',
@@ -45,6 +46,7 @@ const communityActivity = [
     rating: '★★★★☆',
     avatar: 'J',
     review: 'Really fun story with strong characters and good pacing.',
+    quote: 'Books are a uniquely portable magic.',
   },
   {
     name: 'Sophia',
@@ -53,6 +55,7 @@ const communityActivity = [
     rating: '★★★★★',
     avatar: 'S',
     review: 'Emotional, powerful, and beautifully written.',
+    quote: 'There is no friend as loyal as a book.',
   },
   {
     name: 'Emily',
@@ -61,6 +64,7 @@ const communityActivity = [
     rating: '★★★★★',
     avatar: 'E',
     review: 'Sweet, funny, and perfect for a weekend read.',
+    quote: 'So many books, so little time.',
   },
   {
     name: 'Lucas',
@@ -69,6 +73,7 @@ const communityActivity = [
     rating: '★★★★★',
     avatar: 'L',
     review: 'One of the best books I have read this year.',
+    quote: 'Reading gives us someplace to go when we have to stay where we are.',
   },
 ]
 
@@ -178,13 +183,13 @@ export function LandingPage() {
   const rightReview = communityActivity[activeCover % communityActivity.length]
 
   const reviewCardStyle = {
-    width: '260px',
-    minHeight: '190px',
+    width: '200px',
+    height: '280px',
     borderRadius: '22px',
     background: 'rgba(255, 255, 255, 0.72)',
     border: '1px solid rgba(123, 87, 61, 0.14)',
     boxShadow: '0 14px 30px rgba(58, 39, 24, 0.12)',
-    padding: '1.2rem',
+    padding: '1rem',
     display: 'flex',
     flexDirection: 'column' as const,
     justifyContent: 'center',
@@ -192,8 +197,8 @@ export function LandingPage() {
   }
 
   const avatarStyle = {
-    width: '48px',
-    height: '48px',
+    width: '42px',
+    height: '42px',
     borderRadius: '999px',
     background: 'linear-gradient(135deg, #8b5e3c, #3a2a20)',
     color: '#fff',
@@ -201,13 +206,12 @@ export function LandingPage() {
     alignItems: 'center',
     justifyContent: 'center',
     fontWeight: 800,
-    fontSize: '1.05rem',
+    fontSize: '0.95rem',
     flexShrink: 0,
   }
 
   return (
     <div className="lbx-shell">
-      {/* ── Topbar ── */}
       <header className="lbx-topbar">
         <div className="brandmark lbx-brand">
           <img src="/Logo.png" alt="Bookmarked logo" className="brandmark-icon" style={{ width: '30px', height: '30px' }} />
@@ -221,7 +225,6 @@ export function LandingPage() {
         </nav>
       </header>
 
-      {/* ── Hero ── */}
       <section className="lbx-hero">
         <div className="lbx-hero-bg" aria-hidden="true">
           {heroBgBooks.map((b) => (
@@ -242,7 +245,6 @@ export function LandingPage() {
         </div>
       </section>
 
-      {/* ── Recently read strip ── */}
       <section className="lbx-covers-section">
         <div className="lbx-covers-meta">
           <span>JUST READ…</span>
@@ -257,7 +259,6 @@ export function LandingPage() {
         </div>
       </section>
 
-      {/* ── Feature tiles ── */}
       <div className="lbx-features-wrapper">
         <section className="lbx-features">
           <p className="lbx-features-header">BOOKMARKED LETS YOU…</p>
@@ -276,33 +277,23 @@ export function LandingPage() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                gap: '1.5rem',
+                gap: '1.2rem',
                 width: '100%',
                 flexWrap: 'wrap',
               }}
             >
               <Link to="/social" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <div style={reviewCardStyle}>
-                  <p style={{ margin: '0 0 0.9rem', fontSize: '0.72rem', letterSpacing: '0.12em', fontWeight: 800, color: '#8b5e3c' }}>
-                    COMMUNITY REVIEW
+                  <p style={{ margin: '0 0 1rem', fontSize: '0.68rem', letterSpacing: '0.12em', fontWeight: 800, color: '#8b5e3c' }}>
+                    BOOK QUOTE
                   </p>
 
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
-                    <div style={avatarStyle}>{leftReview.avatar}</div>
-                    <div>
-                      <strong style={{ color: '#3f2d22' }}>{leftReview.name}</strong>
-                      <p style={{ margin: '0.15rem 0 0', fontSize: '0.8rem', color: '#7a6a58' }}>
-                        shared a review
-                      </p>
-                    </div>
-                  </div>
-
-                  <p style={{ margin: 0, color: '#4a3728', fontSize: '0.95rem', lineHeight: 1.5 }}>
-                    “{leftReview.review}”
+                  <p style={{ margin: 0, color: '#4a3728', fontSize: '1rem', lineHeight: 1.45 }}>
+                    “{leftReview.quote}”
                   </p>
 
-                  <span style={{ marginTop: '0.8rem', color: '#8b5e3c', fontSize: '0.9rem', fontWeight: 700 }}>
-                    {leftReview.rating}
+                  <span style={{ marginTop: '1rem', color: '#8b5e3c', fontSize: '0.82rem', fontWeight: 700 }}>
+                    Shared by {leftReview.name}
                   </span>
                 </div>
               </Link>
@@ -332,25 +323,25 @@ export function LandingPage() {
 
               <Link to="/social" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <div style={reviewCardStyle}>
-                  <p style={{ margin: '0 0 0.9rem', fontSize: '0.72rem', letterSpacing: '0.12em', fontWeight: 800, color: '#8b5e3c' }}>
+                  <p style={{ margin: '0 0 0.9rem', fontSize: '0.68rem', letterSpacing: '0.12em', fontWeight: 800, color: '#8b5e3c' }}>
                     LIVE REVIEW
                   </p>
 
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', marginBottom: '1rem' }}>
                     <div style={avatarStyle}>{rightReview.avatar}</div>
                     <div>
-                      <strong style={{ color: '#3f2d22' }}>{rightReview.name}</strong>
-                      <p style={{ margin: '0.15rem 0 0', fontSize: '0.8rem', color: '#7a6a58' }}>
+                      <strong style={{ color: '#3f2d22', fontSize: '0.95rem' }}>{rightReview.name}</strong>
+                      <p style={{ margin: '0.15rem 0 0', fontSize: '0.75rem', color: '#7a6a58' }}>
                         {rightReview.action}
                       </p>
                     </div>
                   </div>
 
-                  <p style={{ margin: 0, color: '#4a3728', fontSize: '0.95rem', lineHeight: 1.4 }}>
+                  <p style={{ margin: 0, color: '#4a3728', fontSize: '0.9rem', lineHeight: 1.35 }}>
                     <em>{rightReview.book}</em>
                   </p>
 
-                  <span style={{ marginTop: '0.8rem', color: '#8b5e3c', fontSize: '1rem', letterSpacing: '0.06em' }}>
+                  <span style={{ marginTop: '0.8rem', color: '#8b5e3c', fontSize: '0.9rem', letterSpacing: '0.06em' }}>
                     {rightReview.rating}
                   </span>
                 </div>
@@ -360,7 +351,6 @@ export function LandingPage() {
         </section>
       </div>
 
-      {/* ── Promo / Discovery ── */}
       <section className="lbx-promo">
         <div className="lbx-promo-inner">
           <div className="lbx-promo-text">
@@ -377,4 +367,4 @@ export function LandingPage() {
       </section>
     </div>
   )
-}
+} 
