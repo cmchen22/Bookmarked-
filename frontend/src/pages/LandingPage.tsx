@@ -139,6 +139,8 @@ export function LandingPage() {
     return () => window.clearInterval(intervalId)
   }, [])
 
+  const activeReview = communityActivity[activeCover % communityActivity.length]
+
   return (
     <div className="lbx-shell">
       {/* ── Topbar ── */}
@@ -213,15 +215,22 @@ export function LandingPage() {
           </div>
 
           <aside className="landing-showcase">
-            <div style={{ textAlign: 'center', width: '100%' }}>
-
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '1.5rem',
+                width: '100%',
+                flexWrap: 'wrap',
+              }}
+            >
               <Link
                 to="/discovery"
                 style={{
                   textDecoration: 'none',
                   display: 'flex',
                   justifyContent: 'center',
-                  width: '100%',
                 }}
               >
                 <div className="landing-carousel" aria-label="Top trending books carousel">
@@ -242,67 +251,90 @@ export function LandingPage() {
                 </div>
               </Link>
 
-              <div
+              <Link
+                to="/social"
                 style={{
-                  marginTop: '2rem',
-                  overflow: 'hidden',
-                  width: '100%',
+                  textDecoration: 'none',
+                  color: 'inherit',
                 }}
               >
                 <div
                   style={{
+                    width: '260px',
+                    minHeight: '190px',
+                    borderRadius: '22px',
+                    background: 'rgba(255, 255, 255, 0.72)',
+                    border: '1px solid rgba(123, 87, 61, 0.14)',
+                    boxShadow: '0 14px 30px rgba(58, 39, 24, 0.12)',
+                    padding: '1.2rem',
                     display: 'flex',
-                    gap: '1rem',
-                    width: 'max-content',
-                    animation: 'lbxReviewScroll 22s linear infinite',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    transition: 'all 0.4s ease',
                   }}
                 >
-                  {[...communityActivity, ...communityActivity].map((item, index) => (
+                  <p
+                    style={{
+                      margin: '0 0 0.9rem',
+                      fontSize: '0.72rem',
+                      letterSpacing: '0.12em',
+                      fontWeight: 800,
+                      color: '#8b5e3c',
+                    }}
+                  >
+                    LIVE REVIEW
+                  </p>
+
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.75rem',
+                      marginBottom: '1rem',
+                    }}
+                  >
                     <div
-                      key={`${item.name}-${index}`}
                       style={{
+                        width: '48px',
+                        height: '48px',
+                        borderRadius: '999px',
+                        background: 'linear-gradient(135deg, #8b5e3c, #3a2a20)',
+                        color: '#fff',
                         display: 'flex',
                         alignItems: 'center',
-                        gap: '0.85rem',
-                        minWidth: '320px',
-                        padding: '1rem',
-                        borderRadius: '18px',
-                        background: 'rgba(255, 255, 255, 0.65)',
-                        border: '1px solid rgba(123, 87, 61, 0.14)',
-                        color: '#4a3728',
+                        justifyContent: 'center',
+                        fontWeight: 800,
+                        fontSize: '1.05rem',
+                        flexShrink: 0,
                       }}
                     >
-                      <div
-                        style={{
-                          width: '48px',
-                          height: '48px',
-                          borderRadius: '999px',
-                          background: '#8b5e3c',
-                          color: '#fff',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          fontWeight: 800,
-                          fontSize: '1.05rem',
-                          flexShrink: 0,
-                        }}
-                      >
-                        {item.avatar}
-                      </div>
-
-                      <div style={{ textAlign: 'left' }}>
-                        <p style={{ margin: '0 0 0.25rem', fontSize: '0.92rem' }}>
-                          <strong>{item.name}</strong> {item.action}{' '}
-                          <em>{item.book}</em>
-                        </p>
-                        <span style={{ fontSize: '0.9rem', color: '#8b5e3c' }}>
-                          {item.rating}
-                        </span>
-                      </div>
+                      {activeReview.avatar}
                     </div>
-                  ))}
+
+                    <div>
+                      <strong style={{ color: '#3f2d22' }}>{activeReview.name}</strong>
+                      <p style={{ margin: '0.15rem 0 0', fontSize: '0.8rem', color: '#7a6a58' }}>
+                        {activeReview.action}
+                      </p>
+                    </div>
+                  </div>
+
+                  <p style={{ margin: 0, color: '#4a3728', fontSize: '0.95rem', lineHeight: 1.4 }}>
+                    <em>{activeReview.book}</em>
+                  </p>
+
+                  <span
+                    style={{
+                      marginTop: '0.8rem',
+                      color: '#8b5e3c',
+                      fontSize: '1rem',
+                      letterSpacing: '0.06em',
+                    }}
+                  >
+                    {activeReview.rating}
+                  </span>
                 </div>
-              </div>
+              </Link>
             </div>
           </aside>
         </section>
