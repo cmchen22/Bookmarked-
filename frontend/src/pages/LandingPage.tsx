@@ -118,6 +118,44 @@ const features = [
   },
 ]
 
+const communityActivity = [
+  {
+    name: 'Bennett',
+    action: 'just rated',
+    book: 'Fourth Wing',
+    rating: '⭐⭐⭐⭐⭐',
+    avatar: 'https://randomuser.me/api/portraits/men/32.jpg',
+  },
+  {
+    name: 'James',
+    action: 'just rated',
+    book: 'Iron Flame',
+    rating: '⭐⭐⭐⭐',
+    avatar: 'https://randomuser.me/api/portraits/men/44.jpg',
+  },
+  {
+    name: 'Sophia',
+    action: 'added to favorites',
+    book: 'The Women',
+    rating: '❤️',
+    avatar: 'https://randomuser.me/api/portraits/women/65.jpg',
+  },
+  {
+    name: 'Emily',
+    action: 'just reviewed',
+    book: 'Happy Place',
+    rating: '⭐⭐⭐⭐⭐',
+    avatar: 'https://randomuser.me/api/portraits/women/12.jpg',
+  },
+  {
+    name: 'Lucas',
+    action: 'just rated',
+    book: 'Tomorrow, and Tomorrow, and Tomorrow',
+    rating: '⭐⭐⭐⭐⭐',
+    avatar: 'https://randomuser.me/api/portraits/men/18.jpg',
+  },
+]
+
 export function LandingPage() {
   const [activeCover, setActiveCover] = useState(0)
   const slideWidth = 200
@@ -206,7 +244,6 @@ export function LandingPage() {
 
           <aside className="landing-showcase">
             <div style={{ textAlign: 'center', width: '100%' }}>
-
               <Link
                 to="/discovery"
                 style={{
@@ -235,6 +272,32 @@ export function LandingPage() {
               </Link>
             </div>
           </aside>
+
+          {/* ── Live community reviews ── */}
+          <section className="lbx-review-feed">
+            <div className="lbx-review-header">
+              <span>LIVE COMMUNITY ACTIVITY</span>
+            </div>
+
+            <div className="lbx-review-track">
+              {[...communityActivity, ...communityActivity].map((item, index) => (
+                <div key={`${item.name}-${index}`} className="lbx-review-card">
+                  <img
+                    src={item.avatar}
+                    alt={item.name}
+                    className="lbx-review-avatar"
+                  />
+                  <div>
+                    <p>
+                      <strong>{item.name}</strong> {item.action}{' '}
+                      <em>{item.book}</em>
+                    </p>
+                    <span>{item.rating}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
         </section>
       </div>
 
