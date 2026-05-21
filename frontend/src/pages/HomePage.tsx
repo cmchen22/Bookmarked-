@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import BookshelfRow from "../components/BookshelfRow";
 import "./HomePage.css";
@@ -41,7 +41,11 @@ const bookColors = [
 export default function HomePage() {
   const navigate = useNavigate();
 
-  const [books, setBooks] = useState<UserBook[]>([]);
+  const [books, setBooks] = useState<UserBook[]>(() => {
+    const savedBooks = localStorage.getItem("bookmarked-books");
+    return savedBooks ? JSON.parse(savedBooks) : [];
+  });
+
   const [shelves, setShelves] = useState<Shelf[]>(defaultShelves);
 
   const [showAddBook, setShowAddBook] = useState(false);
@@ -52,6 +56,10 @@ export default function HomePage() {
   const [status, setStatus] = useState<BookStatus>("want-to-read");
   const [searchQuery, setSearchQuery] = useState("");
 
+  useEffect(() => {
+    localStorage.setItem("bookmarked-books", JSON.stringify(books));
+  }, [books]);
+  
   const addBook = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -72,6 +80,10 @@ export default function HomePage() {
     setAuthor("");
     setStatus("want-to-read");
     setShowAddBook(false);
+  };
+
+  const deleteBook = (bookId: string) => {
+    setBooks((prevBooks) => prevBooks.filter((book) => book.id !== bookId));
   };
 
   const addShelf = () => {
@@ -188,6 +200,7 @@ export default function HomePage() {
                 shelf={shelf}
                 books={shelfBooks}
                 onBookClick={(book) => console.log("Clicked book:", book)}
+                onDeleteBook={deleteBook}
                 onSearchClick={() => setShowSearch(true)}
               />
             );

@@ -1,6 +1,7 @@
 import Book from "./Book";
 import DecorItem from "./DecorItem";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 type UserBook = {
   id: string;
@@ -23,35 +24,59 @@ type BookshelfRowProps = {
   shelf: Shelf;
   books: UserBook[];
   onBookClick: (book: UserBook) => void;
+  onDeleteBook: (bookId: string) => void;
   onSearchClick: () => void;
 };
 
 const BookshelfRow = ({
   shelf,
   books,
-  onBookClick,
+  onDeleteBook,
   onSearchClick,
 }: BookshelfRowProps) => {
   const navigate = useNavigate();
+  const [activeBookId, setActiveBookId] = useState<string | null>(null);
+  const decorUnlocked = books.length >= 3;
 
   return (
     <section className="shelf-row">
       <div className="shelf-inner">
 
         {books.map((book) => (
+          <div className="book-with-actions" key={book.id}>
           <Book
-            key={book.id}
             title={book.title}
             author={book.author}
             height={book.height}
             width={book.width}
             color={book.color}
             tilt={book.tilt}
-            onClick={() => onBookClick(book)}
+            onClick={() => 
+              setActiveBookId(activeBookId === book.id ? null : book.id)
+            }
           />
+          {activeBookId === book.id && (
+            <div className="book-action-menu">
+              <button onClick={() => navigate(`/books/${book.id}`)}>
+                Details
+              </button>
+
+              <button onClick={() => alert("Rename feature coming soon!")}>
+                Rename
+              </button>
+
+              <button
+                className="danger"
+                onClick={() => onDeleteBook(book.id)}
+              >
+                Delete
+              </button>
+            </div>
+          )}
+        </div>
         ))}
 
-        {shelf.id === "currently-reading" && (
+        {decorUnlocked && shelf.id === "currently-reading" && (
           <>
             <button className="decor-btn" onClick={onSearchClick} aria-label="Search">
               <DecorItem type="magnifier" label="Search" />
@@ -67,7 +92,7 @@ const BookshelfRow = ({
           </>
         )}
 
-        {shelf.id === "want-to-read" && (
+        {decorUnlocked && shelf.id === "want-to-read" && (
           <button
             className="decor-btn"
             onClick={() => navigate("/profile")}
@@ -77,7 +102,7 @@ const BookshelfRow = ({
           </button>
         )}
 
-        {shelf.id === "finished" && (
+        {decorUnlocked && shelf.id === "finished" && (
           <>
             <button
               className="decor-btn"

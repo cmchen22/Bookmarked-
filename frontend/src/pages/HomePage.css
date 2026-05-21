@@ -564,30 +564,133 @@
 
 /* bear */
 .decor-item.bear {
-  width: 38px;
-  height: 30px;
-  background: #b88a5d;
-  border-radius: 8px;
+  width: 56px;
+  height: 74px;
   position: relative;
+}
+
+/* head */
+.decor-item.bear::before {
+  content: "";
+  position: absolute;
+
+  width: 42px;
+  height: 40px;
+
+  background: #b38357;
+  border-radius: 50%;
+
+  top: -8px;
+  left: 7px;
+
+  box-shadow:
+    0 6px 12px rgba(70, 45, 25, 0.16);
+}
+
+/* body */
+.decor-item.bear::after {
+  content: "";
+  position: absolute;
+
+  width: 48px;
+  height: 40px;
+
+  background: #b38357;
+  border-radius: 16px;
+
+  bottom: 0;
+  left: 4px;
+
+  box-shadow:
+   0 6px 12px rgba(70, 45, 25, 0.16);
+
+  z-index: 1;
+}
+
+/* ears */
+.decor-item.bear .ear-left,
+.decor-item.bear .ear-right {
+  position: absolute;
+  width: 15px;
+  height: 16px;
+  background: #9c6c46;
+  border-radius: 50%;
+  top: -6px;
+  z-index: 3;
+}
+
+.decor-item.bear .ear-left {
+  left: 0;
+}
+
+.decor-item.bear .ear-right {
+  right: 0;
+}
+
+/* eyes */
+.decor-item.bear .eye-left,
+.decor-item.bear .eye-right {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: #4b2c1b;
+  border-radius: 50%;
+  top: 10px;
+  z-index: 3;
+}
+
+.decor-item.bear .eye-left {
+  left: 19px;
+}
+
+.decor-item.bear .eye-right {
+  right: 19px;
+}
+
+/* nose */
+.decor-item.bear .nose {
+  position: absolute;
+  width: 10px;
+  height: 8px;
+  background: #7a5440;
+  border-radius: 999px;
+
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  z-index: 3;
+}
+
+/* tummy */
+.decor-item.bear .tummy {
+  position: absolute;
+
+  width: 24px;
+  height: 24px;
+
+  background: #d3b792;
+  border-radius: 50%;
+
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  z-index: 2;
 }
 
 .decor-item.bear::before,
 .decor-item.bear::after {
-  content: "";
-  position: absolute;
-  width: 12px;
-  height: 12px;
-  background: #b88a5d;
-  border-radius: 50%;
-  top: -8px;
+  z-index: 1;
 }
 
-.decor-item.bear::before {
-  left: -4px;
-}
-
-.decor-item.bear::after {
-  right: -4px;
+.decor-item.bear .ear-left,
+.decor-item.bear .ear-right,
+.decor-item.bear .eye-left,
+.decor-item.bear .eye-right,
+.decor-item.bear .nose,
+.decor-item.bear .tummy {
+  z-index: 3;
 }
 
 /* small candle */
@@ -684,4 +787,52 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   }
+}
+
+.book-with-actions {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+}
+
+.book-action-menu {
+  position: absolute;
+  bottom: 110%;
+  left: 50%;
+  transform: translateX(-50%);
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  min-width: 120px;
+  padding: 10px;
+
+  background: rgba(255, 248, 235, 0.96);
+  border: 2px solid #8a624b;
+  border-radius: 18px;
+  box-shadow: 0 10px 24px rgba(61, 43, 31, 0.22);
+
+  z-index: 20;
+}
+
+.book-action-menu button {
+  border: none;
+  border-radius: 999px;
+  padding: 7px 12px;
+
+  background: #fff7ec;
+  color: #4d4134;
+
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.book-action-menu button:hover {
+  background: #ead8bd;
+}
+
+.book-action-menu .danger {
+  color: #8f2f2f;
 }
