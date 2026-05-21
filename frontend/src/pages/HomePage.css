@@ -814,3 +814,148 @@
 .book-action-menu .danger {
   color: #8f2f2f;
 }
+
+.author-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 10px 0;
+}
+
+.author-avatar {
+  width: 42px;
+  height: 42px;
+
+  border-radius: 50%;
+
+  background: #8a624b;
+  color: #fff7ec;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: 700;
+}
+
+.author-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.author-info strong {
+  font-size: 0.9rem;
+  color: #3f3126;
+}
+
+.author-info span {
+  font-size: 0.75rem;
+  color: #7a6a58;
+}
+
+/* typography consistency */
+.home-page,
+.left-panel,
+.right-card,
+.stats-panel,
+.book-modal,
+.library-list button,
+.stat-box,
+.author-info,
+.challenge-box {
+  font-family: var(--sans);
+}
+
+.brand,
+.shelves-header h2,
+.continue-card h3,
+.stats-panel h3,
+.card-title-row h3 {
+  font-family: var(--heading);
+}
+
+/* signature green accents */
+.continue-card h3 {
+  background: linear-gradient(
+    to right,
+    #4d5f45,
+    #3f4a3a
+  );
+}
+
+.topbar-btn,
+.profile-btn,
+.modal-actions button[type="submit"] {
+  background: #4d7f57;
+}
+
+.topbar-btn:hover,
+.profile-btn:hover,
+.modal-actions button[type="submit"]:hover {
+  background: #3f6847;
+}
+
+/* library nav buttons */
+.library-list button:hover,
+.library-list button.active {
+  background: rgba(77, 127, 87, 0.18);
+  color: #2d2418;
+}
+
+/* author avatars */
+.author-avatar {
+  background: linear-gradient(
+    180deg,
+    #5c7f62,
+    #45624b
+  );
+}
+
+/* reading challenge */
+.challenge-box {
+  background: linear-gradient(
+    180deg,
+    #dce8d6,
+    #c8d8c0
+  );
+
+  color: #31402f;
+}
+
+.progress-fill {
+  background: #4d7f57;
+}
+
+/* stats boxes */
+.stat-box {
+  background:
+    linear-gradient(
+      180deg,
+      #dcc29d 0%,
+      #cfb189 100%
+    );
+
+  border: 1px solid rgba(77, 127, 87, 0.16);
+}
+
+/* side cards */
+.left-panel,
+.right-card {
+  border: 1px solid rgba(77, 127, 87, 0.12);
+}
+
+.edit-goal-btn {
+  margin-top: 10px;
+  border: none;
+  border-radius: 999px;
+  padding: 7px 12px;
+  background: #4d7f57;
+  color: #fff7ec;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.edit-goal-btn:hover {
+  background: #3f6847;
+}

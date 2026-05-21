@@ -46,6 +46,15 @@ export default function HomePage() {
     return savedBooks ? JSON.parse(savedBooks) : [];
   });
 
+  const [readingGoal, setReadingGoal] = useState<number>(() => {
+    const savedGoal = localStorage.getItem("bookmarked-reading-goal");
+    return savedGoal ? Number(savedGoal) : 20;
+  });
+
+  useEffect(() => {
+    localStorage.setItem("bookmarked-reading-goal", String(readingGoal));
+  }, [readingGoal]);
+
   const [shelves, setShelves] = useState<Shelf[]>(defaultShelves);
 
   const [showAddBook, setShowAddBook] = useState(false);
@@ -59,7 +68,7 @@ export default function HomePage() {
   useEffect(() => {
     localStorage.setItem("bookmarked-books", JSON.stringify(books));
   }, [books]);
-  
+
   const addBook = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -108,10 +117,41 @@ export default function HomePage() {
   ).length;
   const wantToRead = books.filter((book) => book.status === "want-to-read").length;
 
+  const suggestedAuthors = [
+    {
+      name: "Taylor Jenkins Reid",
+      genre: "Contemporary Fiction",
+    },
+    {
+      name: "R.F. Kuang",
+      genre: "Fantasy",
+    },
+    {
+      name: "Fredrik Backman",
+      genre: "Literary Fiction",
+    },
+    {
+      name: "Ali Hazelwood",
+      genre: "Romance",
+    },
+  ];
+
+  const updateReadingGoal = () => {
+  const newGoal = prompt("Set your reading goal:", String(readingGoal));
+
+  if (!newGoal) return;
+
+  const goalNumber = Number(newGoal);
+
+  if (!Number.isNaN(goalNumber) && goalNumber > 0) {
+    setReadingGoal(goalNumber);
+  }
+};
+
   return (
     <div className="home-page">
       <header className="home-topbar">
-        <Link to="/home" className="brand-link">
+        <Link to="/" className="brand-link">
           <div className="brand">
             <img src="/Logo.svg" alt="Bookmarked logo" className="logo" />
             <span>Bookmarked</span>
@@ -188,7 +228,7 @@ export default function HomePage() {
         <main className="shelves-area">
           <div className="shelves-header">
             <h2>My Shelves</h2>
-            <p>Add books and build your personal reading space.</p>
+            <p>Add books and build your digital library.</p>
           </div>
 
           {shelves.map((shelf) => {
@@ -230,10 +270,18 @@ export default function HomePage() {
               <span>×</span>
             </div>
 
-            <div className="activity-row">👤</div>
-            <div className="activity-row">👤</div>
-            <div className="activity-row">👤</div>
-            <div className="activity-row">👤</div>
+            {suggestedAuthors.map((author) => (
+              <div className="author-row" key={author.name}>
+                <div className="author-avatar">
+                  {author.name.charAt(0)}
+                </div>
+
+                <div className="author-info">
+                  <strong>{author.name}</strong>
+                  <span>{author.genre}</span>
+                </div>
+              </div>
+            ))}
           </section>
 
           <section className="right-card challenge-card">
@@ -243,14 +291,18 @@ export default function HomePage() {
             </div>
 
             <div className="challenge-box">
-              <strong>2026 Goal: 20 Books</strong>
+              <strong>2026 Goal: {readingGoal} Books</strong>
               <div className="progress-bar">
                 <div
                   className="progress-fill"
-                  style={{ width: `${Math.min((booksRead / 20) * 100, 100)}%` }}
+                  style={{ 
+                    width: `${Math.min((booksRead / readingGoal) * 100, 100)}%` }}
                 ></div>
               </div>
-              <p>{booksRead} of 20 complete</p>
+              <p>{booksRead} of {readingGoal} complete</p>
+              <button className="edit-goal-btn" onClick={updateReadingGoal}>
+                Edit Goal
+              </button>
             </div>
           </section>
         </aside>

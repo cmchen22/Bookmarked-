@@ -480,8 +480,16 @@
   padding: 1rem 1.6rem;
 }
 
+.lbx-brand span {
+  font-family: var(--heading);
+  letter-spacing: -0.03em;
+  color: #f8f3e7;
+
+}
+
 .brandmark-landing {
   color: #4b3224;
+  font-family: var(--heading);
 }
 
 .brandmark-landing img {
@@ -867,19 +875,21 @@
   color: #f8f3e7;
 }
 
+.social-brand span {
+  font-family: var(--heading);
+}
+
 .social-brand {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 0.75rem;
-  color: #f8f3e7;
-  font-size: 1.1rem;
-  font-weight: 800;
-  text-decoration: none;
+  gap: 10px;
+
+  font-size: 1.5rem;
+  font-weight: 700;
 }
 
 .social-brand img {
-  display: block;
-  height: 1.9rem;
+  height: 36px;
   width: auto;
 }
 
@@ -1359,7 +1369,7 @@
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
-  padding: 0.85rem 1.45rem;
+  padding: 1.1rem 1.2rem;
   background: linear-gradient(180deg, #4d5f45 0%, #3f4a3a 100%);
   color: #f8f3e7;
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
@@ -1375,21 +1385,24 @@
 .discovery-market-brand {
   display: inline-flex;
   align-items: center;
-  gap: 0.85rem;
-  color: inherit;
+  gap: 10px;
+
+  color: #f8f3e7;
   text-decoration: none;
 }
 
 .discovery-market-brand .brandmark-icon {
-  width: 30px;
-  height: 30px;
-  display: block;
-  filter: brightness(1.1);
+  height: 36px;
+  width: auto;
 }
 
 .discovery-market-brand strong {
   display: block;
-  font-size: 1.1rem;
+  font-family: var(--heading);
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: #f8f3e7;
 }
 
 .discovery-market-brand span:last-child {
@@ -2109,12 +2122,17 @@
 }
 
 .lbx-brand {
-  color: #f8f3e7;
-  font-size: 1.15rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  font-size: 1.5rem;
+  font-weight: 700;
 }
 
 .lbx-brand img {
-  filter: brightness(1.1);
+  height: 36px !important;
+  width: auto;
 }
 
 .lbx-nav {
