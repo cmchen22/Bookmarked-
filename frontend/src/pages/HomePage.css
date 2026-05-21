@@ -693,28 +693,6 @@
   z-index: 3;
 }
 
-/* small candle */
-.decor-item.candleSmall {
-  width: 36px;
-  height: 48px;
-  background: #f3ead9;
-  border-radius: 6px;
-  position: relative;
-}
-
-.decor-item.candleSmall::before {
-  content: "";
-  position: absolute;
-  top: -11px;
-  left: 12px;
-  width: 12px;
-  height: 18px;
-  border-radius: 50%;
-  background: #f1bb36;
-  box-shadow: 0 0 8px rgba(241, 187, 54, 0.65);
-}
-
-
 .modal-backdrop {
   position: fixed;
   inset: 0;

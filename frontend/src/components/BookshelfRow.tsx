@@ -111,14 +111,6 @@ const BookshelfRow = ({
             >
               <DecorItem type="plant" label="Social" />
             </button>
-
-            <button
-              className="decor-btn"
-              onClick={() => navigate("/reviews")}
-              aria-label="Reviews"
-            >
-              <DecorItem type="candleSmall" label="Reviews" />
-            </button>
           </>
         )}
       </div>
