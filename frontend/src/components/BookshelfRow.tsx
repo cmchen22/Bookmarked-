@@ -13,6 +13,7 @@ type UserBook = {
   height: number;
   width: number;
   tilt: number;
+  isFavorite: boolean;
 };
 
 type Shelf = {
@@ -25,6 +26,7 @@ type BookshelfRowProps = {
   books: UserBook[];
   onBookClick: (book: UserBook) => void;
   onDeleteBook: (bookId: string) => void;
+  onToggleFavorite: (bookId: string) => void;
   onSearchClick: () => void;
 };
 
@@ -32,6 +34,7 @@ const BookshelfRow = ({
   shelf,
   books,
   onDeleteBook,
+  onToggleFavorite,
   onSearchClick,
 }: BookshelfRowProps) => {
   const navigate = useNavigate();
@@ -63,6 +66,10 @@ const BookshelfRow = ({
 
               <button onClick={() => alert("Rename feature coming soon!")}>
                 Rename
+              </button>
+
+              <button onClick={() => onToggleFavorite(book.id)}>
+                {book.isFavorite ? "Unfavorite" : "Favorite"}
               </button>
 
               <button

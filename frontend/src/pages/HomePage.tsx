@@ -15,6 +15,7 @@ export type UserBook = {
   height: number;
   width: number;
   tilt: number;
+  isFavorite: boolean;
 };
 
 export type Shelf = {
@@ -65,6 +66,20 @@ export default function HomePage() {
   const [status, setStatus] = useState<BookStatus>("want-to-read");
   const [searchQuery, setSearchQuery] = useState("");
 
+  const [activeFilter, setActiveFilter] = useState<
+    "all" | BookStatus | "favorites"
+  >("all");
+
+  const toggleFavoriteBook = (bookId: string) => {
+    setBooks((prevBooks) =>
+      prevBooks.map((book) =>
+        book.id === bookId
+          ? { ...book, isFavorite: !book.isFavorite }
+          : book
+      )
+    );
+  };
+
   useEffect(() => {
     localStorage.setItem("bookmarked-books", JSON.stringify(books));
   }, [books]);
@@ -77,11 +92,12 @@ export default function HomePage() {
       title,
       author,
       status,
-      shelfId: status,
+      shelfId: shelves[Math.floor(Math.random() * shelves.length)].id,
       color: bookColors[Math.floor(Math.random() * bookColors.length)],
       height: 145 + Math.floor(Math.random() * 35),
       width: 36 + Math.floor(Math.random() * 8),
       tilt: Math.random() > 0.5 ? 1 : -1,
+      isFavorite: false,
     };
 
     setBooks([...books, newBook]);
@@ -147,6 +163,15 @@ export default function HomePage() {
     setReadingGoal(goalNumber);
   }
 };
+
+const MAX_BOOKS_PER_SHELF = 15;
+
+const visibleBooks =
+  activeFilter === "all"
+    ? books
+    : activeFilter === "favorites"
+    ? books.filter((book) => book.isFavorite)
+    : books.filter((book) => book.status === activeFilter);
 
   return (
     <div className="home-page">
@@ -215,12 +240,11 @@ export default function HomePage() {
             <h4>My Library</h4>
 
             <div className="library-list">
-              <button>📖 All Books</button>
-              <button>⭐ Favorites</button>
-              <button>🕘 Currently Reading</button>
-              <button>✅ Finished</button>
-              <button>📌 Want to Read</button>
-              <button>💬 Reviews</button>
+              <button onClick={() => setActiveFilter("all")}>📖 All Books</button>
+              <button onClick={() => setActiveFilter("currently-reading")}>🕘 Currently Reading</button>
+              <button onClick={() => setActiveFilter("finished")}>✅ Finished</button>
+              <button onClick={() => setActiveFilter("want-to-read")}>📌 Want to Read</button>
+              <button onClick={() => setActiveFilter("favorites")}>⭐ Favorites</button>
             </div>
           </section>
         </aside>
@@ -230,9 +254,20 @@ export default function HomePage() {
             <h2>My Shelves</h2>
             <p>Add books and build your digital library.</p>
           </div>
+          
+          {shelves.map((shelf, index) => {
+            let shelfBooks: UserBook[] = [];
 
-          {shelves.map((shelf) => {
-            const shelfBooks = books.filter((book) => book.shelfId === shelf.id);
+            if (activeFilter === "all") {
+              shelfBooks = books.filter(
+                (book) => book.shelfId === shelf.id
+              );
+            } else {
+              const start = index * MAX_BOOKS_PER_SHELF;
+              const end = start + MAX_BOOKS_PER_SHELF;
+
+              shelfBooks = visibleBooks.slice(start, end);
+            }
 
             return (
               <BookshelfRow
@@ -241,6 +276,7 @@ export default function HomePage() {
                 books={shelfBooks}
                 onBookClick={(book) => console.log("Clicked book:", book)}
                 onDeleteBook={deleteBook}
+                onToggleFavorite={toggleFavoriteBook}
                 onSearchClick={() => setShowSearch(true)}
               />
             );
