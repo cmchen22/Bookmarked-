@@ -218,8 +218,8 @@
 }
 
 .library-list button:hover,
-.library-list button:first-child {
-  background: rgba(107, 79, 58, 0.25);
+.library-list button.active {
+  background: rgba(77, 127, 87, 0.18);
 }
 
 .shelves-area {

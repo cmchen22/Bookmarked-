@@ -28,6 +28,7 @@ type BookshelfRowProps = {
   onDeleteBook: (bookId: string) => void;
   onToggleFavorite: (bookId: string) => void;
   onSearchClick: () => void;
+  showDecor: boolean;
 };
 
 const BookshelfRow = ({
@@ -36,6 +37,7 @@ const BookshelfRow = ({
   onDeleteBook,
   onToggleFavorite,
   onSearchClick,
+  showDecor,
 }: BookshelfRowProps) => {
   const navigate = useNavigate();
   const [activeBookId, setActiveBookId] = useState<string | null>(null);
@@ -83,7 +85,7 @@ const BookshelfRow = ({
         </div>
         ))}
 
-        {decorUnlocked && shelf.id === "currently-reading" && (
+        {showDecor && decorUnlocked && shelf.id === "currently-reading" && (
           <>
             <button className="decor-btn" onClick={onSearchClick} aria-label="Search">
               <DecorItem type="magnifier" label="Search" />
@@ -99,7 +101,7 @@ const BookshelfRow = ({
           </>
         )}
 
-        {decorUnlocked && shelf.id === "want-to-read" && (
+        {showDecor && decorUnlocked && shelf.id === "want-to-read" && (
           <button
             className="decor-btn"
             onClick={() => navigate("/profile")}
@@ -109,7 +111,7 @@ const BookshelfRow = ({
           </button>
         )}
 
-        {decorUnlocked && shelf.id === "finished" && (
+        {showDecor && decorUnlocked && shelf.id === "finished" && (
           <>
             <button
               className="decor-btn"

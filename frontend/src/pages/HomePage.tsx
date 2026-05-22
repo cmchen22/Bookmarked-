@@ -240,11 +240,40 @@ const visibleBooks =
             <h4>My Library</h4>
 
             <div className="library-list">
-              <button onClick={() => setActiveFilter("all")}>📖 All Books</button>
-              <button onClick={() => setActiveFilter("currently-reading")}>🕘 Currently Reading</button>
-              <button onClick={() => setActiveFilter("finished")}>✅ Finished</button>
-              <button onClick={() => setActiveFilter("want-to-read")}>📌 Want to Read</button>
-              <button onClick={() => setActiveFilter("favorites")}>⭐ Favorites</button>
+              <button
+                className={activeFilter === "all" ? "active" : ""}
+                onClick={() => setActiveFilter("all")}
+              >
+                📖 All Books
+              </button>
+
+              <button
+                className={activeFilter === "currently-reading" ? "active" : ""}
+                onClick={() => setActiveFilter("currently-reading")}
+              >
+                🕘 Currently Reading
+              </button>
+
+              <button
+                className={activeFilter === "finished" ? "active" : ""}
+                onClick={() => setActiveFilter("finished")}
+              >
+                ✅ Finished
+              </button>
+
+              <button
+                className={activeFilter === "want-to-read" ? "active" : ""}
+                onClick={() => setActiveFilter("want-to-read")}
+              >
+                📌 Want to Read
+              </button>
+
+              <button
+                className={activeFilter === "favorites" ? "active" : ""}
+                onClick={() => setActiveFilter("favorites")}
+              >
+                ⭐ Favorites
+              </button>
             </div>
           </section>
         </aside>
@@ -278,6 +307,7 @@ const visibleBooks =
                 onDeleteBook={deleteBook}
                 onToggleFavorite={toggleFavoriteBook}
                 onSearchClick={() => setShowSearch(true)}
+                showDecor={activeFilter === "all"}
               />
             );
           })}
