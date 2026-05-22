@@ -70,6 +70,8 @@ export default function HomePage() {
     "all" | BookStatus | "favorites"
   >("all");
 
+  const [isEditingShelf, setIsEditingShelf] = useState(false);
+
   const toggleFavoriteBook = (bookId: string) => {
     setBooks((prevBooks) =>
       prevBooks.map((book) =>
@@ -185,16 +187,16 @@ const visibleBooks =
 
         <div className="topbar-actions">
           <button className="topbar-btn" onClick={() => setShowAddBook(true)}>
-            ⊕ Add Book
+            Add Book
           </button>
 
-          <button className="topbar-btn" onClick={() => navigate("/lists")}>
-            My Lists
+          <button
+            className="topbar-btn"
+            onClick={() => setIsEditingShelf((prev) => !prev)}
+          >
+            {isEditingShelf ? "Done" : "Edit Shelf"}
           </button>
 
-          <button className="profile-btn" onClick={() => navigate("/profile")}>
-            ◯
-          </button>
         </div>
       </header>
 
@@ -308,6 +310,7 @@ const visibleBooks =
                 onToggleFavorite={toggleFavoriteBook}
                 onSearchClick={() => setShowSearch(true)}
                 showDecor={activeFilter === "all"}
+                isEditingShelf={isEditingShelf}
               />
             );
           })}

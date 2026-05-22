@@ -29,6 +29,7 @@ type BookshelfRowProps = {
   onToggleFavorite: (bookId: string) => void;
   onSearchClick: () => void;
   showDecor: boolean;
+  isEditingShelf: boolean;
 };
 
 const BookshelfRow = ({
@@ -38,6 +39,7 @@ const BookshelfRow = ({
   onToggleFavorite,
   onSearchClick,
   showDecor,
+  isEditingShelf
 }: BookshelfRowProps) => {
   const navigate = useNavigate();
   const [activeBookId, setActiveBookId] = useState<string | null>(null);
@@ -87,32 +89,63 @@ const BookshelfRow = ({
 
         {showDecor && decorUnlocked && shelf.id === "currently-reading" && (
           <>
-            <button className="decor-btn" onClick={onSearchClick} aria-label="Search">
-              <DecorItem type="magnifier" label="Search" />
-            </button>
+            <div className="decor-container">
+              <button
+                className="decor-btn"
+                onClick={onSearchClick}
+                aria-label="Search"
+              >
+                <DecorItem type="magnifier" label="Search" />
+              </button>
 
-            <button
-              className="decor-btn"
-              onClick={() => navigate("/discovery")}
-              aria-label="Discovery"
-            >
-              <DecorItem type="globe" label="Discover" />
-            </button>
+              {isEditingShelf && (
+                <div className="decor-controls">
+                  <button>←</button>
+                  <button>→</button>
+                </div>
+              )}
+            </div>
+
+            <div className="decor-container">
+              <button
+                className="decor-btn"
+                onClick={() => navigate("/discovery")}
+                aria-label="Discovery"
+              >
+                <DecorItem type="globe" label="Discover" />
+              </button>
+
+              {isEditingShelf && (
+                <div className="decor-controls">
+                  <button>←</button>
+                  <button>→</button>
+                </div>
+              )}
+            </div>
           </>
         )}
 
         {showDecor && decorUnlocked && shelf.id === "want-to-read" && (
-          <button
-            className="decor-btn"
-            onClick={() => navigate("/profile")}
-            aria-label="Profile"
-          >
-            <DecorItem type="bear" label="Profile" />
-          </button>
+          <div className="decor-container">
+            <button
+              className="decor-btn"
+              onClick={() => navigate("/profile")}
+              aria-label="Profile"
+            >
+              <DecorItem type="bear" label="Profile" />
+            </button>
+
+            {isEditingShelf && (
+              <div className="decor-controls">
+                <button>←</button>
+                <button>→</button>
+              </div>
+            )}
+          </div>
         )}
 
         {showDecor && decorUnlocked && shelf.id === "finished" && (
-          <>
+          <div className="decor-container">
             <button
               className="decor-btn"
               onClick={() => navigate("/social")}
@@ -120,7 +153,14 @@ const BookshelfRow = ({
             >
               <DecorItem type="plant" label="Social" />
             </button>
-          </>
+
+            {isEditingShelf && (
+              <div className="decor-controls">
+                <button>←</button>
+                <button>→</button>
+              </div>
+            )}
+          </div>
         )}
       </div>
     </section>
