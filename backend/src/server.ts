@@ -2,7 +2,11 @@ import 'dotenv/config'
 
 import cors from 'cors'
 import express from 'express'
+import path from 'path'
+import { fileURLToPath } from 'url'
 import { z } from 'zod'
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 import { books, reviews, type Review } from './data.js'
 
@@ -21,18 +25,20 @@ const reviewSchema = z.object({
   review: z.string().min(20).max(600)
 })
 
-app.get('/', (_req, res) => {
-  res.json({
-    name: 'Bookmarked API',
-    ok: true,
-    frontend: 'http://localhost:5173',
-    routes: ['/health', '/api/books', '/api/reviews']
-  })
-})
-
 app.get('/health', (_req, res) => {
   res.json({ ok: true })
 })
+
+if (process.env.NODE_ENV !== 'production') {
+  app.get('/', (_req, res) => {
+    res.json({
+      name: 'Bookmarked API',
+      ok: true,
+      frontend: 'http://localhost:5173',
+      routes: ['/health', '/api/books', '/api/reviews']
+    })
+  })
+}
 
 app.get('/api/books', (_req, res) => {
   const payload = books.map((book) => ({
@@ -90,3 +96,12 @@ app.post('/api/reviews', (req, res) => {
 app.listen(port, () => {
   console.log(`Bookmarked API listening on http://localhost:${port}`)
 })
+
+// Serve the frontend build in production
+if (process.env.NODE_ENV === 'production') {
+  const frontendDist = path.resolve(__dirname, '../../../frontend/dist')
+  app.use(express.static(frontendDist))
+  app.get('/{*path}', (_req, res) => {
+    res.sendFile(path.join(frontendDist, 'index.html'))
+  })
+}

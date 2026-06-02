@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: bookmarked
+    runtime: node
+    buildCommand: npm install && npm run build
+    startCommand: node backend/dist/src/server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
