@@ -2,7 +2,7 @@ services:
   - type: web
     name: bookmarked
     runtime: node
-    buildCommand: npm install && npm run build
+    buildCommand: npm install --omit=optional && npm run build
     startCommand: node backend/dist/src/server.js
     envVars:
       - key: NODE_ENV
